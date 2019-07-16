@@ -10,11 +10,56 @@
 
 //==============================================================================
 MainComponent::MainComponent()
+#if JUCE_PROJUCER_LIVE_BUILD
+#endif
 {
+
     // Make sure you set the size of the component after
     // you add any child components.
+    
     setSize (800, 600);
-
+    
+    File initialFile = File("/Users/danielstrubig 1/Desktop");
+    
+    // Specifications for files, that should only be displayed.
+    const   juce::String filePatterns = "*.wav; *.aiff";
+    const   juce::String dirPatterns = "*";
+    const   juce::String description = "File Filter";
+    wildCardFileFilter = new WildcardFileFilter(filePatterns,dirPatterns,description);
+    
+    // Handles the restrictions and permissions of the File Browser
+    int fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
+                            FileBrowserComponent::FileChooserFlags::canSelectFiles +
+                            FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
+    
+    
+    // Make the File Browser
+    fileBrowser = std::make_unique<FileBrowserComponent> (fileChooserFlag, initialFile, wildCardFileFilter, nullptr);
+    const juce::String fileBoxName = "File Box Name";
+    fileBrowser->setFilenameBoxLabel(fileBoxName);
+    
+    
+    
+    // Button for opening Audio Files
+    openButton.setButtonText("Open");
+    
+    
+    // Add the FileBrowser to the Canvas
+    fullBox.flexWrap = FlexBox::Wrap::wrap;
+    fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    fullBox.alignContent = FlexBox::AlignContent::flexStart;
+    itemArray.add(FlexItem(600,400, *fileBrowser));
+    itemArray.add(FlexItem(100,100, openButton));
+    
+    fullBox.items = itemArray;
+    
+    
+    
+    addAndMakeVisible(*fileBrowser);
+    addAndMakeVisible(openButton);
+    
+    
+    
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
         && ! RuntimePermissions::isGranted (RuntimePermissions::recordAudio))
@@ -27,6 +72,8 @@ MainComponent::MainComponent()
         // Specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }
+    
+
 }
 
 MainComponent::~MainComponent()
@@ -71,12 +118,21 @@ void MainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
+    
     // You can add your drawing code here!
+    
+    
+    
 }
 
 void MainComponent::resized()
 {
+    localBounds = getLocalBounds();
+    
+    fullBox.performLayout (localBounds);
+    
+    
+    
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.

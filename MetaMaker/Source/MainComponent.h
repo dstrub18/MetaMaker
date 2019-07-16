@@ -32,6 +32,37 @@ public:
     void resized() override;
 
 private:
+    
+    struct FileBrowser : public Component{ // Deemed unnecessary
+        
+        Colour m_backgroundColour;
+        
+        FileBrowserComponent m_fbc;
+        TextButton m_backButton;
+        void setBackGroundColour(Colour c){
+            this->m_backgroundColour = c;
+        }
+        
+        void paint(Graphics &g) override
+        {
+            g.fillAll(m_backgroundColour);
+            
+        };
+        
+        
+    };
+    
+    Rectangle<int> localBounds;
+    
+    Array<FlexItem> itemArray;
+    
+    FlexBox fullBox;
+    
+    std::unique_ptr<FileBrowserComponent> fileBrowser;
+    WildcardFileFilter* wildCardFileFilter; // Makes sure that only Wav files are displayed
+    
+    TextButton openButton;
+    
     //==============================================================================
     // Your private member variables go here...
 
