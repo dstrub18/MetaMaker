@@ -29,6 +29,10 @@
 			isa = PBXBuildFile;
 			fileRef = E44F7441D867D951851F1BA4;
 		};
+		A5ED2A9EA8E894043C4F98F0 = {
+			isa = PBXBuildFile;
+			fileRef = 3B9D4CB176B5B49663978EF3;
+		};
 		BE04B96DE4E05628AF353DBF = {
 			isa = PBXBuildFile;
 			fileRef = 3B04B8F94F69D55857DCB1BD;
@@ -171,6 +175,13 @@
 			lastKnownFileType = wrapper.framework;
 			name = CoreMIDI.framework;
 			path = System/Library/Frameworks/CoreMIDI.framework;
+			sourceTree = SDKROOT;
+		};
+		3B9D4CB176B5B49663978EF3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = CoreAudioKit.framework;
+			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
 		};
 		3EEA8E928ED891C9705631E3 = {
@@ -509,6 +520,7 @@
 				34E33F46F3AD94D0061D7F37,
 				5539A26BD08107D1AF4BFFE5,
 				E44F7441D867D951851F1BA4,
+				3B9D4CB176B5B49663978EF3,
 				3B04B8F94F69D55857DCB1BD,
 				FC8016B20D7586B8A2D58BD1,
 				291FA784C0759FFFADD9FF54,
@@ -777,6 +789,7 @@
 				C43D8DDE6102206E5C512965,
 				AA18EE22655D043DDDE583B0,
 				2A0F04F48C7513FD11609CD7,
+				A5ED2A9EA8E894043C4F98F0,
 				BE04B96DE4E05628AF353DBF,
 				992FD464603D2DD3E0988B6A,
 				1E192B8CFC52EFEA54EE236A,
@@ -804,7 +817,7 @@
 		EE711EB75D84CAB5708985FD = {
 			isa = PBXProject;
 			buildConfigurationList = 47C129CDD4D175712E2C1539;
-			attributes = { LastUpgradeCheck = 0930; ORGANIZATIONNAME = ""; TargetAttributes = { 52AF6A61DEF5D8A79DEBA66F = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; }; }; };
+			attributes = { LastUpgradeCheck = 1100; ORGANIZATIONNAME = ""; TargetAttributes = { 52AF6A61DEF5D8A79DEBA66F = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; }; }; };
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
 			mainGroup = DF07519A13EEA1A630A09AC7;
