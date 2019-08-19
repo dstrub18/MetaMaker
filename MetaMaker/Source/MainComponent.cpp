@@ -19,13 +19,19 @@ MainComponent::MainComponent()
     
     setSize (800, 600);
     
-    File initialFile = File("/Users/danielstrubig 1/Desktop");
+    // Make sure that formatManager can read all basic audio file types.
+    formatManager.registerBasicFormats();
+    
+    
+    metaDataInformation = StringPairArray();
+    
+    File initialFile = File("/Users/danielstrubig/Desktop");
     
     // Specifications for files, that should only be displayed.
-    const   juce::String filePatterns = "*.wav; *.aiff";
-    const   juce::String dirPatterns = "*";
-    const   juce::String description = "File Filter";
-    wildCardFileFilter = new WildcardFileFilter(filePatterns,dirPatterns,description);
+    const   juce::String fileFilterFilePatterns = "*.wav; *.aiff";
+    const   juce::String fileFilterDirPatterns = "*";
+    const   juce::String fileFilterDescription = "File Filter";
+    wildCardFileFilter = new WildcardFileFilter(fileFilterFilePatterns, fileFilterDirPatterns,fileFilterDescription);
     
     // Handles the restrictions and permissions of the File Browser
     int fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
@@ -35,28 +41,28 @@ MainComponent::MainComponent()
     
     // Make the File Browser
     fileBrowser = std::make_unique<FileBrowserComponent> (fileChooserFlag, initialFile, wildCardFileFilter, nullptr);
-    const juce::String fileBoxName = "File Box Name";
+    const juce::String fileBoxName = "";
     fileBrowser->setFilenameBoxLabel(fileBoxName);
     
     
     
-    // Button for opening Audio Files
-    openButton.setButtonText("Open");
-    
+    // Make the label
+    descriptionLabel = std::make_unique<Label>();
+    descriptionLabel->setText("Hello JUCE", juce::NotificationType::dontSendNotification);
     
     // Add the FileBrowser to the Canvas
     fullBox.flexWrap = FlexBox::Wrap::wrap;
     fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
     fullBox.alignContent = FlexBox::AlignContent::flexStart;
     itemArray.add(FlexItem(600,400, *fileBrowser));
-    itemArray.add(FlexItem(100,100, openButton));
+    itemArray.add(FlexItem(100,200,*descriptionLabel));
     
     fullBox.items = itemArray;
     
     
     
     addAndMakeVisible(*fileBrowser);
-    addAndMakeVisible(openButton);
+    addAndMakeVisible(*descriptionLabel);
     
     
     
@@ -120,7 +126,16 @@ void MainComponent::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
     // You can add your drawing code here!
+    currentFile = fileBrowser->getHighlightedFile();
     
+    reader = formatManager.createReaderFor(currentFile);
+    
+    if (reader != nullptr) {
+        
+        metaDataInformation = reader->metadataValues;
+        descriptionLabel->setText(metaDataInformation.getValue("bwav Description", ""), juce::NotificationType::dontSendNotification);
+        
+    }
     
     
 }

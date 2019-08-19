@@ -61,7 +61,18 @@ private:
     std::unique_ptr<FileBrowserComponent> fileBrowser;
     WildcardFileFilter* wildCardFileFilter; // Makes sure that only Wav files are displayed
     
-    TextButton openButton;
+    
+    std::unique_ptr<Label> descriptionLabel; // This is where our metadata description is displayed.
+    
+    
+    
+    // This handles the reading of the .wav files and the metadata.
+    AudioFormatManager formatManager;
+    std::unique_ptr<AudioFormatReaderSource> readerSource;
+    File currentFile;
+    AudioFormatReader* reader;
+    juce::StringPairArray metaDataInformation;
+    
     
     //==============================================================================
     // Your private member variables go here...
