@@ -22,49 +22,65 @@ MainComponent::MainComponent()
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
-    
     metaDataInformation = StringPairArray();
     
-    File initialFile = File("/Users/danielstrubig 1/Desktop");
-    
+    File initialFile = File("~");
+
     // Specifications for files, that should only be displayed.
     const   juce::String fileFilterFilePatterns = "*.wav; *.aiff";
     const   juce::String fileFilterDirPatterns = "*";
     const   juce::String fileFilterDescription = "File Filter";
-    wildCardFileFilter = new WildcardFileFilter(fileFilterFilePatterns, fileFilterDirPatterns,fileFilterDescription);
+    wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
     
     // Handles the file restrictions and permissions of the File Browser
     int fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
                             FileBrowserComponent::FileChooserFlags::canSelectFiles +
                             FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
     
-    
     // Make the File Browser
     fileBrowser = std::make_unique<FileBrowserComponent> (fileChooserFlag, initialFile, wildCardFileFilter, nullptr);
     const juce::String fileBoxName = "";
     fileBrowser->setFilenameBoxLabel(fileBoxName);
     
-    
-
-    
     // Make the FileInfoWindow
     fileInfoWindow = std::make_unique<FileInfoWindow>();
-    fileInfoWindow->descriptionLabel->setText("Hello JUCE", juce::NotificationType::dontSendNotification);
+    fileInfoWindow->setdescriptionLabel("Hello JUCE");
+    
+    
+    // Make the WavAudioFormat
+    wavAudioFormat = std::make_unique<WavAudioFormat>();
+    
+    // Set the writeMetadataButton text.
+    writeMetadataButton.setButtonText("Write Metadata");
+    
     // Customize thw flex box
     fullBox.flexWrap = FlexBox::Wrap::wrap;
     fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
     fullBox.alignContent = FlexBox::AlignContent::flexStart;
+    
     // Add the FileBrowser to the Canvas
     itemArray.add(FlexItem(600,400, *fileBrowser));
+    
     // Add the FileInfoWindow to the Canvas
     itemArray.add(FlexItem(300,200,*fileInfoWindow));
+    
+    // Add the writeMetadataButton.
+    itemArray.add(FlexItem(400,300,writeMetadataButton));
     
     fullBox.items = itemArray;
 
     
     addAndMakeVisible(*fileBrowser);
     addAndMakeVisible(*fileInfoWindow);
+    addAndMakeVisible(writeMetadataButton);
     
+    // Add the listening functionality for the button.
+    writeMetadataButton.addListener(this);
+    
+    // Set the new metadata. This will be explicit for debugging capabilities for now.
+    
+    newMetaData = StringPairArray();
+    newMetaData.set("bwav Description", "New metadata!");
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -134,11 +150,11 @@ void MainComponent::paint (Graphics& g)
     if (reader != nullptr) {
         
         metaDataInformation = reader->metadataValues;
-        fileInfoWindow->descriptionLabel->setText(metaDataInformation.getDescription(),juce::NotificationType::dontSendNotification);
         
-        fileInfoWindow->setFileNameLabel(   currentFile.getFileName());
-        fileInfoWindow->setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
-        fileInfoWindow->setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
+        fileInfoWindow-> setdescriptionLabel(metaDataInformation.getValue("bwav description", "error"));
+        fileInfoWindow-> setFileNameLabel(   currentFile.getFileName());
+        fileInfoWindow-> setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
+        fileInfoWindow-> setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
         
     }
 }
@@ -155,3 +171,23 @@ void MainComponent::resized()
     // If you add any child components, this is where you should
     // update their positions.
 }
+
+
+//==================== override methods from ButtonListener
+
+void MainComponent::buttonClicked(Button* button){
+
+    if (button == &writeMetadataButton) {
+        
+        currentFile = fileBrowser->getHighlightedFile();
+        
+        reader = formatManager.createReaderFor(currentFile);
+        
+        wavAudioFormat->replaceMetadataInFile(currentFile, newMetaData);
+        
+        
+    }
+    
+}
+
+

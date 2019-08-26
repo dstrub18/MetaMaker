@@ -15,7 +15,8 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent   : public AudioAppComponent
+class MainComponent   : public AudioAppComponent,
+                        public Button::Listener
 {
 public:
     //==============================================================================
@@ -31,7 +32,7 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     //==============================================================================
-    
+    void buttonClicked(Button* button) override;
     
     
     Rectangle<int> localBounds;
@@ -41,7 +42,7 @@ public:
     FlexBox fullBox;
     
     std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side.
-    WildcardFileFilter* wildCardFileFilter; // Makes sure that only Wav files are displayed
+    std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
     
     
     
@@ -50,11 +51,20 @@ public:
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     File currentFile;
     AudioFormatReader* reader;
-    juce::StringPairArray metaDataInformation;
+    StringPairArray metaDataInformation;
     
     
     // This displays the information of the file.
     std::unique_ptr<FileInfoWindow> fileInfoWindow;
+    
+    // Button for writing Metadata into a file.
+    TextButton writeMetadataButton;
+    
+    // New Metadata to replace the in the Wav file.
+    StringPairArray newMetaData;
+    
+    // helper object to replace the metadata.
+    std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
 private:
 

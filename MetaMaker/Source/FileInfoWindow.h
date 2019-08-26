@@ -51,13 +51,15 @@ public:
     std::unique_ptr<Label> bwavOriginatorLabel;
     std::unique_ptr<Label> fileCreationDateLabel;
     std::unique_ptr<Label> descriptionLabel;
+    std::unique_ptr<Label> debugLabel;
     
-    inline void setFileNameLabel (juce::String text)     { fileNameLabel->setText(text, juce::NotificationType::dontSendNotification); }
-    inline void setBwavOriginatorLabel (juce::String text)     { bwavOriginatorLabel->setText(text, juce::NotificationType::dontSendNotification); }
-    inline void setFileCreationDateLabel (juce::String text)     { fileCreationDateLabel->setText(text, juce::NotificationType::dontSendNotification); }
-    inline void setdescriptionLabel (juce::String text)     { descriptionLabel->setText(text, juce::NotificationType::dontSendNotification); }
-
-
+    
+    inline void setFileNameLabel (juce::String text)            { fileNameLabel->setText(text, juce::NotificationType::dontSendNotification); }
+    inline void setBwavOriginatorLabel (juce::String text)      { bwavOriginatorLabel->setText(text, juce::NotificationType::dontSendNotification); }
+    inline void setFileCreationDateLabel (juce::String text)    { fileCreationDateLabel->setText(text, juce::NotificationType::dontSendNotification); }
+    inline void setdescriptionLabel (juce::String text)         { descriptionLabel->setText(text, juce::NotificationType::dontSendNotification); }
+    inline void setDebugLabel (juce::String text)            { debugLabel->setText(text, juce::NotificationType::dontSendNotification); }
+    
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     //[/UserVariables]
