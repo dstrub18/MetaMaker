@@ -9,7 +9,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "FileInfoWindow.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -30,27 +30,9 @@ public:
     //==============================================================================
     void paint (Graphics& g) override;
     void resized() override;
-
-private:
+    //==============================================================================
     
-    struct FileBrowser : public Component{ // Deemed unnecessary
-        
-        Colour m_backgroundColour;
-        
-        FileBrowserComponent m_fbc;
-        TextButton m_backButton;
-        void setBackGroundColour(Colour c){
-            this->m_backgroundColour = c;
-        }
-        
-        void paint(Graphics &g) override
-        {
-            g.fillAll(m_backgroundColour);
-            
-        };
-        
-        
-    };
+    
     
     Rectangle<int> localBounds;
     
@@ -58,11 +40,8 @@ private:
     
     FlexBox fullBox;
     
-    std::unique_ptr<FileBrowserComponent> fileBrowser;
+    std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side.
     WildcardFileFilter* wildCardFileFilter; // Makes sure that only Wav files are displayed
-    
-    
-    std::unique_ptr<Label> descriptionLabel; // This is where our metadata description is displayed.
     
     
     
@@ -74,6 +53,11 @@ private:
     juce::StringPairArray metaDataInformation;
     
     
+    // This displays the information of the file.
+    std::unique_ptr<FileInfoWindow> fileInfoWindow;
+    
+private:
+
     //==============================================================================
     // Your private member variables go here...
 

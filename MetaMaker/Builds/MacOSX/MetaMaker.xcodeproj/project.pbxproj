@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 8DB3967A4F3BB024E6C2FD34;
 		};
+		74BA8C6AD4EE6FC6AB35F7C5 = {
+			isa = PBXBuildFile;
+			fileRef = EAB954E5C6ABDA07F08B981C;
+		};
 		24FE964556565D8499D9EEA7 = {
 			isa = PBXBuildFile;
 			fileRef = 9E5A61649A92ADDBC9678E90;
@@ -331,6 +335,13 @@
 			path = System/Library/Frameworks/OpenGL.framework;
 			sourceTree = SDKROOT;
 		};
+		AFB2AA26945FA3C4CB1CFBCE = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FileInfoWindow.h;
+			path = ../../Source/FileInfoWindow.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		BB59DA859E804BDBD713BD01 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -401,6 +412,13 @@
 			path = ../../Source/Main.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		EAB954E5C6ABDA07F08B981C = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FileInfoWindow.cpp;
+			path = ../../Source/FileInfoWindow.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		EDC646DF958D669939FEBC25 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -446,6 +464,8 @@
 		EEE42443086007FF536B08CD = {
 			isa = PBXGroup;
 			children = (
+				EAB954E5C6ABDA07F08B981C,
+				AFB2AA26945FA3C4CB1CFBCE,
 				843BB4D6D1C07ADAF33FC787,
 				9E5A61649A92ADDBC9678E90,
 				E6418E280832B35D3456A309,
@@ -762,6 +782,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74BA8C6AD4EE6FC6AB35F7C5,
 				24FE964556565D8499D9EEA7,
 				35A01818016A1C80B3E7A2A1,
 				99A1266BC32C28DD68A41185,

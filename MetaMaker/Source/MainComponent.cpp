@@ -25,7 +25,7 @@ MainComponent::MainComponent()
     
     metaDataInformation = StringPairArray();
     
-    File initialFile = File("/Users/danielstrubig/Desktop");
+    File initialFile = File("/Users/danielstrubig 1/Desktop");
     
     // Specifications for files, that should only be displayed.
     const   juce::String fileFilterFilePatterns = "*.wav; *.aiff";
@@ -33,7 +33,7 @@ MainComponent::MainComponent()
     const   juce::String fileFilterDescription = "File Filter";
     wildCardFileFilter = new WildcardFileFilter(fileFilterFilePatterns, fileFilterDirPatterns,fileFilterDescription);
     
-    // Handles the restrictions and permissions of the File Browser
+    // Handles the file restrictions and permissions of the File Browser
     int fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
                             FileBrowserComponent::FileChooserFlags::canSelectFiles +
                             FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
@@ -45,25 +45,25 @@ MainComponent::MainComponent()
     fileBrowser->setFilenameBoxLabel(fileBoxName);
     
     
+
     
-    // Make the label
-    descriptionLabel = std::make_unique<Label>();
-    descriptionLabel->setText("Hello JUCE", juce::NotificationType::dontSendNotification);
-    
-    // Add the FileBrowser to the Canvas
+    // Make the FileInfoWindow
+    fileInfoWindow = std::make_unique<FileInfoWindow>();
+    fileInfoWindow->descriptionLabel->setText("Hello JUCE", juce::NotificationType::dontSendNotification);
+    // Customize thw flex box
     fullBox.flexWrap = FlexBox::Wrap::wrap;
     fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
     fullBox.alignContent = FlexBox::AlignContent::flexStart;
+    // Add the FileBrowser to the Canvas
     itemArray.add(FlexItem(600,400, *fileBrowser));
-    itemArray.add(FlexItem(100,200,*descriptionLabel));
+    // Add the FileInfoWindow to the Canvas
+    itemArray.add(FlexItem(300,200,*fileInfoWindow));
     
     fullBox.items = itemArray;
-    
-    
+
     
     addAndMakeVisible(*fileBrowser);
-    addAndMakeVisible(*descriptionLabel);
-    
+    addAndMakeVisible(*fileInfoWindow);
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -126,6 +126,7 @@ void MainComponent::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
     // You can add your drawing code here!
+    
     currentFile = fileBrowser->getHighlightedFile();
     
     reader = formatManager.createReaderFor(currentFile);
@@ -133,11 +134,13 @@ void MainComponent::paint (Graphics& g)
     if (reader != nullptr) {
         
         metaDataInformation = reader->metadataValues;
-        descriptionLabel->setText(metaDataInformation.getValue("bwav Description", ""), juce::NotificationType::dontSendNotification);
+        fileInfoWindow->descriptionLabel->setText(metaDataInformation.getDescription(),juce::NotificationType::dontSendNotification);
+        
+        fileInfoWindow->setFileNameLabel(   currentFile.getFileName());
+        fileInfoWindow->setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
+        fileInfoWindow->setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
         
     }
-    
-    
 }
 
 void MainComponent::resized()
