@@ -24,7 +24,7 @@ MainComponent::MainComponent()
     
     metaDataInformation = StringPairArray();
     
-    File initialFile = File("~");
+    File initialDirectory = File("~");
 
     // Specifications for files, that should only be displayed.
     const   juce::String fileFilterFilePatterns = "*.wav; *.aiff";
@@ -38,14 +38,11 @@ MainComponent::MainComponent()
                             FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
     
     // Make the File Browser
-    fileBrowser = std::make_unique<FileBrowserComponent> (fileChooserFlag, initialFile, wildCardFileFilter, nullptr);
-    const juce::String fileBoxName = "";
-    fileBrowser->setFilenameBoxLabel(fileBoxName);
+    fileBrowser = std::make_unique<FileBrowserComponent>(fileChooserFlag, initialDirectory, &*wildCardFileFilter, nullptr);
     
     // Make the FileInfoWindow
     fileInfoWindow = std::make_unique<FileInfoWindow>();
     fileInfoWindow->setdescriptionLabel("Hello JUCE");
-    
     
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat>();
@@ -53,34 +50,61 @@ MainComponent::MainComponent()
     // Set the writeMetadataButton text.
     writeMetadataButton.setButtonText("Write Metadata");
     
-    // Customize thw flex box
-    fullBox.flexWrap = FlexBox::Wrap::wrap;
-    fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
-    fullBox.alignContent = FlexBox::AlignContent::flexStart;
-    
     // Add the FileBrowser to the Canvas
-    itemArray.add(FlexItem(600,400, *fileBrowser));
+    fullBoxItems.add(FlexItem(600,400, *fileBrowser));
     
     // Add the FileInfoWindow to the Canvas
-    itemArray.add(FlexItem(300,200,*fileInfoWindow));
+    fullBoxItems.add(FlexItem(300,200,*fileInfoWindow));
     
     // Add the writeMetadataButton.
-    itemArray.add(FlexItem(400,300,writeMetadataButton));
+    fullBoxItems.add(FlexItem(40,30,writeMetadataButton));
     
-    fullBox.items = itemArray;
-
+    fullBox.items = fullBoxItems;
+    
     
     addAndMakeVisible(*fileBrowser);
     addAndMakeVisible(*fileInfoWindow);
     addAndMakeVisible(writeMetadataButton);
     
+    localBounds = getLocalBounds();
+    
+    
+    
+    // Customize the filebrowser FlexBox
+    // fileBrowserBox.flexWrap = FlexBox::Wrap::wrap;
+    // fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    // fileBrowserBox.alignContent = FlexBox::AlignContent::stretch;
+    
+    
+    // Customize the editing FlexBox
+    // editingFlexBox.flexWrap = FlexBox::Wra
+    
+    
+    // Customize the fileInfo Flexbox
+    
+    
+    // Customize the full flex box
+    // fullBox.flexWrap = FlexBox::Wrap::wrap;
+    // fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    // fullBox.alignContent = FlexBox::AlignContent::stretch;
+    
+    
+    
+    fullBox.performLayout (localBounds);
+    
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
     
     // Set the new metadata. This will be explicit for debugging capabilities for now.
-    
     newMetaData = StringPairArray();
     newMetaData.set("bwav Description", "New metadata!");
+    
+    
+    
+    
+    
+    
+    
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -101,6 +125,12 @@ MainComponent::MainComponent()
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
+    
+    
+    //delete fileBrowser;
+    
+    
+    
     shutdownAudio();
 }
 

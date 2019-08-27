@@ -79,20 +79,6 @@ FileInfoWindow::FileInfoWindow ()
     descriptionLabel->setBounds (24, 160, 150, 24);
     
     
-    
-    debugLabel.reset (new Label ("debug",
-                                       TRANS("Debug")));
-    addAndMakeVisible (debugLabel.get());
-    debugLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-    debugLabel->setJustificationType (Justification::centredLeft);
-    debugLabel->setEditable (false, false, false);
-    debugLabel->setColour (Label::backgroundColourId, Colours::green);
-    debugLabel->setColour (TextEditor::textColourId, Colours::black);
-    debugLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-    
-    debugLabel->setBounds (24, 160, 150, 24);
-    
-    
     //[UserPreSize]
     //[/UserPreSize]
 

@@ -35,13 +35,27 @@ public:
     void buttonClicked(Button* button) override;
     
     
+    //============================ Flexboxes and the necessary information
+    
     Rectangle<int> localBounds;
-    
-    Array<FlexItem> itemArray;
-    
     FlexBox fullBox;
+    Array<FlexItem> fullBoxItems;
     
-    std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side.
+    FlexBox fileBrowserBox;
+    Array<FlexItem> fileBrowserBoxItems;
+    
+    FlexBox editingFlexBox;
+    Array<FlexItem> editFlexBoxItems;
+    
+    FlexBox descriptionBox;
+    Array<FlexItem> descriptionBoxItems;
+    
+    
+    
+    
+    std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side of the final window.
+    
+    
     std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
     
     

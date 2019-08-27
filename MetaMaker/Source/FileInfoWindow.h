@@ -58,7 +58,6 @@ public:
     inline void setBwavOriginatorLabel (juce::String text)      { bwavOriginatorLabel->setText(text, juce::NotificationType::dontSendNotification); }
     inline void setFileCreationDateLabel (juce::String text)    { fileCreationDateLabel->setText(text, juce::NotificationType::dontSendNotification); }
     inline void setdescriptionLabel (juce::String text)         { descriptionLabel->setText(text, juce::NotificationType::dontSendNotification); }
-    inline void setDebugLabel (juce::String text)            { debugLabel->setText(text, juce::NotificationType::dontSendNotification); }
     
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
