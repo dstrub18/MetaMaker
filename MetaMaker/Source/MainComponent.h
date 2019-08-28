@@ -37,7 +37,7 @@ public:
     
     //============================ Flexboxes and the necessary information
     
-    Rectangle<int> localBoundsRect;
+    Rectangle<int> fullBoxRect;
     FlexBox fullBox;
     Array<FlexItem> fullBoxItems;
     
