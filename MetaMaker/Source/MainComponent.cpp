@@ -27,13 +27,13 @@ MainComponent::MainComponent()
     File initialDirectory = File("~");
 
     // Specifications for files, that should only be displayed.
-    const   juce::String fileFilterFilePatterns = "*.wav; *.aiff";
-    const   juce::String fileFilterDirPatterns = "*";
-    const   juce::String fileFilterDescription = "File Filter";
+    const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
+    const juce::String fileFilterDirPatterns = "*";
+    const juce::String fileFilterDescription = "File Filter";
     wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
     
     // Handles the file restrictions and permissions of the File Browser
-    int fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
+    fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
                             FileBrowserComponent::FileChooserFlags::canSelectFiles +
                             FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
     
@@ -59,6 +59,8 @@ MainComponent::MainComponent()
     // Add the writeMetadataButton.
     fullBoxItems.add(FlexItem(40,30,writeMetadataButton));
     
+    
+    
     fullBox.items = fullBoxItems;
     
     
@@ -66,31 +68,31 @@ MainComponent::MainComponent()
     addAndMakeVisible(*fileInfoWindow);
     addAndMakeVisible(writeMetadataButton);
     
-    localBounds = getLocalBounds();
+    
+    // Customize the full flex box
+    fullBox.flexWrap = FlexBox::Wrap::wrap;
+    fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    fullBox.alignContent = FlexBox::AlignContent::stretch;
+    localBoundsRect = getLocalBounds();
+    fullBox.performLayout (localBoundsRect);
+    
     
     
     
     // Customize the filebrowser FlexBox
-    // fileBrowserBox.flexWrap = FlexBox::Wrap::wrap;
-    // fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
-    // fileBrowserBox.alignContent = FlexBox::AlignContent::stretch;
-    
+     fileBrowserBox.flexWrap = FlexBox::Wrap::wrap;
+     fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
+     fileBrowserBox.alignContent = FlexBox::AlignContent::stretch;
+     
     
     // Customize the editing FlexBox
-    // editingFlexBox.flexWrap = FlexBox::Wra
-    
+    editingBox.flexWrap = FlexBox::Wrap::wrap;
+    editingBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    editingBox.alignContent = FlexBox::AlignContent::stretch;
     
     // Customize the fileInfo Flexbox
-    
-    
-    // Customize the full flex box
-    // fullBox.flexWrap = FlexBox::Wrap::wrap;
-    // fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
-    // fullBox.alignContent = FlexBox::AlignContent::stretch;
-    
-    
-    
-    fullBox.performLayout (localBounds);
+    //======================
+    //
     
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
@@ -98,13 +100,6 @@ MainComponent::MainComponent()
     // Set the new metadata. This will be explicit for debugging capabilities for now.
     newMetaData = StringPairArray();
     newMetaData.set("bwav Description", "New metadata!");
-    
-    
-    
-    
-    
-    
-    
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -125,12 +120,6 @@ MainComponent::MainComponent()
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
-    
-    
-    //delete fileBrowser;
-    
-    
-    
     shutdownAudio();
 }
 
@@ -171,6 +160,7 @@ void MainComponent::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
+    
     // You can add your drawing code here!
     
     currentFile = fileBrowser->getHighlightedFile();
@@ -191,10 +181,9 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    localBounds = getLocalBounds();
+    localBoundsRect = getLocalBounds();
     
-    fullBox.performLayout (localBounds);
-    
+    fullBox.performLayout (localBoundsRect);
     
     
     // This is called when the MainContentComponent is resized.

@@ -37,22 +37,25 @@ public:
     
     //============================ Flexboxes and the necessary information
     
-    Rectangle<int> localBounds;
+    Rectangle<int> localBoundsRect;
     FlexBox fullBox;
     Array<FlexItem> fullBoxItems;
     
+    Rectangle<int> fileBrowserBoxRect;
     FlexBox fileBrowserBox;
     Array<FlexItem> fileBrowserBoxItems;
     
-    FlexBox editingFlexBox;
+    Rectangle<int> editingBoxRect;
+    FlexBox editingBox;
     Array<FlexItem> editFlexBoxItems;
     
+    Rectangle<int> descriptionBoxRect;
     FlexBox descriptionBox;
     Array<FlexItem> descriptionBoxItems;
     
     
-    
-    
+    // Variables for the FileBrowser; 
+    int fileChooserFlag;
     std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side of the final window.
     
     
@@ -79,6 +82,9 @@ public:
     
     // helper object to replace the metadata.
     std::unique_ptr<WavAudioFormat> wavAudioFormat;
+    
+    
+    
     
 private:
 
