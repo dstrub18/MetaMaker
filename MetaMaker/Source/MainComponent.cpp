@@ -50,8 +50,7 @@ MainComponent::MainComponent()
     // Set the writeMetadataButton text.
     writeMetadataButton.setButtonText("Write Metadata");
     
-    // Add the FileBrowser to the Canvas
-    //fullBoxItems.add(FlexItem(600,400, *fileBrowser));
+    
     
     // Add the FileInfoWindow to the Canvas
     //fullBoxItems.add(FlexItem(300,200,*fileInfoWindow));
@@ -59,34 +58,36 @@ MainComponent::MainComponent()
     // Add the writeMetadataButton.
     //fullBoxItems.add(FlexItem(40,30,writeMetadataButton));
     
+
     
-    
-    fullBox.items = fullBoxItems;
-    
-    
-    // addAndMakeVisible(*fileBrowser);
     //addAndMakeVisible(*fileInfoWindow);
     // addAndMakeVisible(writeMetadataButton);
     
     
     // Customize the full flex box
     fullBox.flexWrap = FlexBox::Wrap::wrap;
-    fullBox.justifyContent = FlexBox::JustifyContent::flexStart;
-    fullBox.alignContent = FlexBox::AlignContent::stretch;
+    fullBox.justifyContent = FlexBox::JustifyContent::center;
+    fullBox.alignContent = FlexBox::AlignContent::spaceAround;
     fullBoxRect = getLocalBounds();
     //fullBox.performLayout (fullBoxRect);
     
     // Customize the filebrowser FlexBox
      fileBrowserBoxRect = fullBoxRect.removeFromLeft(fullBoxRect.getWidth()/2);
      fileBrowserBox.flexWrap = FlexBox::Wrap::wrap;
-     fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
-     fileBrowserBox.alignContent = FlexBox::AlignContent::stretch;
+    fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
+    fileBrowserBox.alignContent = FlexBox::AlignContent::flexStart;
+    fileBrowserBox.flexDirection = FlexBox::Direction::row;
      fileBrowserBox.performLayout(fileBrowserBoxRect);
+    
+    
+    // Add the FileBrowser to the FlexBox
+    fileBrowserBox.items.add(FlexItem(fileBrowserBoxRect.getWidth(), fileBrowserBoxRect.getHeight(), *fileBrowser));
     
     
     
     // Customize the editing FlexBox
     editingBoxRect = fullBoxRect.removeFromRight(fullBoxRect.getWidth()/2);
+    
     editingBox.flexWrap = FlexBox::Wrap::wrap;
     editingBox.justifyContent = FlexBox::JustifyContent::flexStart;
     editingBox.alignContent = FlexBox::AlignContent::stretch;
@@ -98,10 +99,15 @@ MainComponent::MainComponent()
     //======================
     //
     
-    fullBoxItems.add(fileBrowserBox);
-    fullBoxItems.add(editingBox);
+    fullBoxItems.add(FlexItem(fullBoxRect.getWidth()/2,fullBoxRect.getHeight(),fileBrowserBox));
+    fullBoxItems.add(FlexItem(fullBoxRect.getWidth()/2,fullBoxRect.getHeight(),editingBox));
+    fullBox.items = fullBoxItems;
+    
     fullBox.performLayout (fullBoxRect);
     
+    
+    // AddAndMakeVisibles
+    addAndMakeVisible(*fileBrowser);
     
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
@@ -169,9 +175,9 @@ void MainComponent::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
-    g.setColour(Colours::azure);
+    g.setColour(Colours::blueviolet);
     g.fillRect(fileBrowserBoxRect);
-    //g.setColour(Colours::orangered);
+    g.setColour(Colours::orangered);
     g.fillRect(editingBoxRect);
     
     // You can add your drawing code here!
@@ -196,8 +202,12 @@ void MainComponent::resized()
 {
     fullBoxRect = getLocalBounds();
     
-    fullBox.performLayout (fullBoxRect);
+    fileBrowserBoxRect.setSize(fullBoxRect.getWidth()/2, fullBoxRect.getHeight());
+    editingBoxRect.setSize(fullBoxRect.getWidth()/2, fullBoxRect.getHeight());
     
+    fullBox.performLayout (fullBoxRect);
+    fileBrowserBox.performLayout(fileBrowserBoxRect);
+    editingBox.performLayout(editingBoxRect);
     
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
