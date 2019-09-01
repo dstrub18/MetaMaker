@@ -39,19 +39,15 @@ public:
     
     Rectangle<int> fullBoxRect;
     FlexBox fullBox;
-    Array<FlexItem> fullBoxItems;
     
     Rectangle<int> fileBrowserBoxRect;
     FlexBox fileBrowserBox;
-    Array<FlexItem> fileBrowserBoxItems;
     
     Rectangle<int> editingBoxRect;
     FlexBox editingBox;
-    Array<FlexItem> editFlexBoxItems;
     
-    Rectangle<int> descriptionBoxRect;
-    FlexBox descriptionBox;
-    Array<FlexItem> descriptionBoxItems;
+    Rectangle<int> fileInfoBoxRect;
+    FlexBox fileInfoBox;
     
     
     // Variables for the FileBrowser; 
