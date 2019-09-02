@@ -223,6 +223,13 @@
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		4A14B1511454497F94DD865E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = GUIDefines.h;
+			path = ../../Source/GUIDefines.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		5099558801E45075B15008DD = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -464,6 +471,7 @@
 		EEE42443086007FF536B08CD = {
 			isa = PBXGroup;
 			children = (
+				4A14B1511454497F94DD865E,
 				EAB954E5C6ABDA07F08B981C,
 				AFB2AA26945FA3C4CB1CFBCE,
 				843BB4D6D1C07ADAF33FC787,
