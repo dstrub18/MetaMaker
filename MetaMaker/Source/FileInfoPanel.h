@@ -34,12 +34,12 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class FileInfoPanel  : public Component
+class FileInfoWindow  : public Component
 {
 public:
     //==============================================================================
-    FileInfoPanel ();
-    ~FileInfoPanel();
+    FileInfoWindow ();
+    ~FileInfoWindow();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
@@ -76,7 +76,7 @@ private:
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoPanel)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoWindow)
 };
 
 //[EndFile] You can add extra defines here...

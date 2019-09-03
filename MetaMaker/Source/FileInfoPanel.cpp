@@ -27,7 +27,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileInfoPanel::FileInfoPanel ()
+FileInfoWindow::FileInfoWindow ()
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -89,7 +89,7 @@ FileInfoPanel::FileInfoPanel ()
     //[/Constructor]
 }
 
-FileInfoPanel::~FileInfoPanel()
+FileInfoWindow::~FileInfoWindow()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
@@ -105,7 +105,7 @@ FileInfoPanel::~FileInfoPanel()
 }
 
 //==============================================================================
-void FileInfoPanel::paint (Graphics& g)
+void FileInfoWindow::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
@@ -114,7 +114,7 @@ void FileInfoPanel::paint (Graphics& g)
     //[/UserPaint]
 }
 
-void FileInfoPanel::resized()
+void FileInfoWindow::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
