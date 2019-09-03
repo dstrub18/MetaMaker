@@ -9,7 +9,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "FileInfoWindow.h"
+#include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
 //==============================================================================
 /*
@@ -41,22 +41,7 @@ public:
     String initialPath = "~";
     //============================ Flexboxes and the necessary information
     
-    
-    
-    
-    Rectangle<int> fullBoxRect;
-    FlexBox fullBox;
-    
-    Rectangle<int> fileBrowserBoxRect;
-    FlexBox fileBrowserBox;
-    
-    Rectangle<int> editingBoxRect;
-    FlexBox editingBox;
-    
-    Rectangle<int> fileInfoBoxRect;
-    FlexBox fileInfoBox;
-    
-    
+
     // Variables for the FileBrowser; 
     int fileChooserFlag;
 
@@ -70,7 +55,7 @@ public:
     
     
     // This displays the information of the file.
-    std::unique_ptr<FileInfoWindow> fileInfoWindow;
+    std::unique_ptr<FileInfoPanel> fileInfoPanel;
     
     // Button for writing Metadata into a file.
     TextButton writeMetadataButton;
@@ -82,9 +67,7 @@ public:
     std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
     std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
-    
-    std::unique_ptr<FileBrowserComponent> temp;
-    
+    Rectangle<int> fileBrowserBoxRect;
 private:
 
     //==============================================================================

@@ -7,11 +7,10 @@
             file="Source/FileBrowserPanel.cpp"/>
       <FILE id="qHwMlm" name="FileBrowserPanel.h" compile="0" resource="0"
             file="Source/FileBrowserPanel.h"/>
-      <FILE id="daMbnw" name="GUIDefines.h" compile="0" resource="0" file="Source/GUIDefines.h"/>
-      <FILE id="NFQhnd" name="FileInfoWindow.cpp" compile="1" resource="0"
-            file="Source/FileInfoWindow.cpp"/>
-      <FILE id="pbN06N" name="FileInfoWindow.h" compile="0" resource="0"
-            file="Source/FileInfoWindow.h"/>
+      <FILE id="daMbnw" name="Defines.h" compile="0" resource="0" file="Source/Defines.h"/>
+      <FILE id="NFQhnd" name="FileInfoPanel.cpp" compile="1" resource="0"
+            file="Source/FileInfoPanel.cpp"/>
+      <FILE id="pbN06N" name="FileInfoPanel.h" compile="0" resource="0" file="Source/FileInfoPanel.h"/>
       <FILE id="XLYYPb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="aBJGe1" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>

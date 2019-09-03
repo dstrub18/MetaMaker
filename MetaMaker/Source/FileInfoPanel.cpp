@@ -20,14 +20,14 @@
 //[Headers] You can add your own extra header files here...
 //[/Headers]
 
-#include "FileInfoWindow.h"
+#include "FileInfoPanel.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 //[/MiscUserDefs]
 
 //==============================================================================
-FileInfoWindow::FileInfoWindow ()
+FileInfoPanel::FileInfoPanel ()
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -77,7 +77,7 @@ FileInfoWindow::FileInfoWindow ()
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     descriptionLabel->setBounds (24, 160, 150, 24);
-    
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -89,7 +89,7 @@ FileInfoWindow::FileInfoWindow ()
     //[/Constructor]
 }
 
-FileInfoWindow::~FileInfoWindow()
+FileInfoPanel::~FileInfoPanel()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
@@ -105,7 +105,7 @@ FileInfoWindow::~FileInfoWindow()
 }
 
 //==============================================================================
-void FileInfoWindow::paint (Graphics& g)
+void FileInfoPanel::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
@@ -114,7 +114,7 @@ void FileInfoWindow::paint (Graphics& g)
     //[/UserPaint]
 }
 
-void FileInfoWindow::resized()
+void FileInfoPanel::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]

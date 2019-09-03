@@ -27,7 +27,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String& initialPath)
+FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String initialPath)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -49,12 +49,12 @@ FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String& ini
     // Make the File Browser
     fileBrowser = std::make_unique<FileBrowserComponent>(fileBrowserTypeFlags, initialFilePath, &*wildCardFileFilter, nullptr);
     
-    
+    fileBrowser->setSize(panelWidth, panelHeight);
     
     addAndMakeVisible(*fileBrowser);
     //[/UserPreSize]
 
-    setSize (800, 600);
+    setSize (panelWidth, panelHeight);
     
 
     //[Constructor] You can add your own custom stuff here..
@@ -81,7 +81,7 @@ void FileBrowserPanel::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff323e44));
+    g.fillAll (Colours::blanchedalmond);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]

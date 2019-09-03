@@ -37,14 +37,14 @@ class FileBrowserPanel  : public Component
 {
 public:
     //==============================================================================
-    FileBrowserPanel (int panelWidth, int panelHeight, String& initialPath);
+    FileBrowserPanel (int panelWidth, int panelHeight, String initialPath);
     
     ~FileBrowserPanel();
     
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    inline File getCurrentFile(){  return this->fileBrowser->getHighlightedFile();   };
+    inline File getCurrentFile(){  return this -> fileBrowser -> getHighlightedFile();   };
     
     
     //[/UserMethods]

@@ -65,9 +65,9 @@
 			isa = PBXBuildFile;
 			fileRef = 37577BA9E8937188D45C3906;
 		};
-		74BA8C6AD4EE6FC6AB35F7C5 = {
+		259F4FE2F6B51BB69A9A6582 = {
 			isa = PBXBuildFile;
-			fileRef = EAB954E5C6ABDA07F08B981C;
+			fileRef = 0D74E0760E36D4827E85FFC8;
 		};
 		24FE964556565D8499D9EEA7 = {
 			isa = PBXBuildFile;
@@ -129,12 +129,26 @@
 			isa = PBXBuildFile;
 			fileRef = 606BE3E8F9D4D891C6821258;
 		};
+		0149A5C68C283D8C913EF77B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FileInfoPanel.h;
+			path = ../../Source/FileInfoPanel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		070D11311AEBE4FA16F41CA9 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
 			name = "juce_audio_formats";
 			path = "/Applications/JUCE/modules/juce_audio_formats";
 			sourceTree = "<absolute>";
+		};
+		0D74E0760E36D4827E85FFC8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FileInfoPanel.cpp;
+			path = ../../Source/FileInfoPanel.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		17341067295BCD7F4EA6F243 = {
 			isa = PBXFileReference;
@@ -239,13 +253,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_devices.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		4A14B1511454497F94DD865E = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = GUIDefines.h;
-			path = ../../Source/GUIDefines.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		5099558801E45075B15008DD = {
@@ -353,19 +360,19 @@
 			path = "/Applications/JUCE/modules/juce_graphics";
 			sourceTree = "<absolute>";
 		};
+		AAA04D8882C3DAD48C92E8EC = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Defines.h;
+			path = ../../Source/Defines.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		ABCFC2FE90A180D1B8410A0A = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
 			name = OpenGL.framework;
 			path = System/Library/Frameworks/OpenGL.framework;
 			sourceTree = SDKROOT;
-		};
-		AFB2AA26945FA3C4CB1CFBCE = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = FileInfoWindow.h;
-			path = ../../Source/FileInfoWindow.h;
-			sourceTree = "SOURCE_ROOT";
 		};
 		BB59DA859E804BDBD713BD01 = {
 			isa = PBXFileReference;
@@ -437,13 +444,6 @@
 			path = ../../Source/Main.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		EAB954E5C6ABDA07F08B981C = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = FileInfoWindow.cpp;
-			path = ../../Source/FileInfoWindow.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		EDC646DF958D669939FEBC25 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -491,9 +491,9 @@
 			children = (
 				37577BA9E8937188D45C3906,
 				2A24A73F75ED8B41506D5B8B,
-				4A14B1511454497F94DD865E,
-				EAB954E5C6ABDA07F08B981C,
-				AFB2AA26945FA3C4CB1CFBCE,
+				AAA04D8882C3DAD48C92E8EC,
+				0D74E0760E36D4827E85FFC8,
+				0149A5C68C283D8C913EF77B,
 				843BB4D6D1C07ADAF33FC787,
 				9E5A61649A92ADDBC9678E90,
 				E6418E280832B35D3456A309,
@@ -811,7 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE62DAEFBAD2E5D28883DA4D,
-				74BA8C6AD4EE6FC6AB35F7C5,
+				259F4FE2F6B51BB69A9A6582,
 				24FE964556565D8499D9EEA7,
 				35A01818016A1C80B3E7A2A1,
 				99A1266BC32C28DD68A41185,

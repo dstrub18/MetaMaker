@@ -21,6 +21,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Defines.h"
 //[/Headers]
 
 
@@ -33,15 +34,26 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class FileInfoWindow  : public Component
+class FileInfoPanel  : public Component
 {
 public:
     //==============================================================================
-    FileInfoWindow ();
-    ~FileInfoWindow();
+    FileInfoPanel ();
+    ~FileInfoPanel();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+
+    inline void setFileNameLabelText ( const String& text)  { this->fileNameLabel->setText(text, Defines::noNotification);   };
+    inline void setArtistLabelText ( const String& text)    { this->artistLabel->setText(text, Defines::noNotification);     };
+    inline void setFileCreationDateLabelText ( const String& text)    { this->fileCreationDate->setText(text, Defines::noNotification);     };
+    inline void setDescriptionLabelLabelText ( const String& text)    { this->descriptionLabel->setText(text, Defines::noNotification);     };
+
+    inline const String getFileNameLabelText (){  return this -> fileNameLabel -> getText( Defines::doNotreturnActiveEditorContents );   };
+    inline const String getArtistLabelText (){    return this -> artistLabel -> getText( Defines::doNotreturnActiveEditorContents );     };
+    inline const String getFileCreationDateLabeltext(){   return this -> fileCreationDate -> getText( Defines::doNotreturnActiveEditorContents ); };
+    inline const String getDescriptionLabelText(){    return this -> descriptionLabel -> getText( Defines::doNotreturnActiveEditorContents ); };
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -51,9 +63,9 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    
-    
-    
+
+
+
     //[/UserVariables]
 
     //==============================================================================
@@ -64,7 +76,7 @@ private:
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoWindow)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoPanel)
 };
 
 //[EndFile] You can add extra defines here...
