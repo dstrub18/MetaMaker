@@ -12,10 +12,9 @@
 
 
 namespace GUIDefines {
-    static const int margin = 10;
+    
+    static const int marginBetweenComponents = 10;
     static const int buttonHeight = 30;
     static const int buttonAreaWidth = 150;
     static const int initialFileBrowserWidth = 200; // Isn't that handled automatically when using a flexbox?
-    
-    
 }
