@@ -62,9 +62,32 @@ MainComponent::MainComponent()
     fileInfoBoxRect.setPosition(fullBoxRect.getWidth()/4 * 3, 0);
     
     
-    addAndMakeVisible(*fileBrowserPanel);
+    addChildComponent(*fileBrowserPanel);
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
+    
+    
+    
+    
+    
+    
+    const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
+    const juce::String fileFilterDirPatterns = "*";
+    const juce::String fileFilterDescription = "File Filter";
+    std::unique_ptr<WildcardFileFilter> wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
+    
+    // Handles the file restrictions and permissions of the File Browser
+   int fileBrowserTypeFlags =   FileBrowserComponent::FileChooserFlags::openMode +
+    FileBrowserComponent::FileChooserFlags::canSelectFiles +
+    FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
+    
+   File initialFilePath = File(initialPath);
+    
+    
+    temp = std::make_unique<FileBrowserComponent>(fileBrowserTypeFlags, initialFilePath, &*wildCardFileFilter, nullptr);
+    addAndMakeVisible(*temp);
+    
+    //addAndMakeVisible(*fileBrowserPanel);
     
     
     
@@ -125,13 +148,13 @@ void MainComponent::releaseResources()
 void MainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.setColour(Colours::blueviolet);
-    g.fillRect(fileBrowserBoxRect);
-    g.setColour(Colours::orangered);
-    g.fillRect(editingBoxRect);
-    g.setColour(Colours::yellow);
-    g.fillRect(fileInfoBoxRect);
+  //  g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+  //  g.setColour(Colours::blueviolet);
+  //  g.fillRect(fileBrowserBoxRect);
+  //  g.setColour(Colours::orangered);
+  //  g.fillRect(editingBoxRect);
+  //  g.setColour(Colours::yellow);
+  //  g.fillRect(fileInfoBoxRect);
     // You can add your drawing code here!
 
     
@@ -142,25 +165,25 @@ void MainComponent::paint (Graphics& g)
         
         metaDataInformation = reader->metadataValues;
         
-        fileInfoWindow-> setDescriptionLabel(metaDataInformation.getValue("bwav description", "error"));
-        fileInfoWindow-> setFileNameLabel(   currentFile.getFileName());
-        fileInfoWindow-> setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
-        fileInfoWindow-> setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
+      //  fileInfoWindow-> setDescriptionLabel(metaDataInformation.getValue("bwav description", "error"));
+      //  fileInfoWindow-> setFileNameLabel(   currentFile.getFileName());
+      //  fileInfoWindow-> setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
+      //  fileInfoWindow-> setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
         
     }
 }
 
 void MainComponent::resized()
 {
-    fullBoxRect = getLocalBounds();
-    fileBrowserBoxRect.setSize(fullBoxRect.getWidth()/4, fullBoxRect.getHeight());
-    fileBrowserBoxRect.setPosition(0,0);
+   // fullBoxRect = getLocalBounds();
+   // fileBrowserBoxRect.setSize(fullBoxRect.getWidth()/4, fullBoxRect.getHeight());
+   // fileBrowserBoxRect.setPosition(0,0);
     
-    editingBoxRect.setSize(fullBoxRect.getWidth()/2, fullBoxRect.getHeight());
-    editingBoxRect.setPosition(fullBoxRect.getWidth()/4, 0);
+   // editingBoxRect.setSize(fullBoxRect.getWidth()/2, fullBoxRect.getHeight());
+   // editingBoxRect.setPosition(fullBoxRect.getWidth()/4, 0);
     
-    fileInfoBoxRect.setSize(fullBoxRect.getWidth()/4, fullBoxRect.getHeight());
-    fileInfoBoxRect.setPosition(fullBoxRect.getWidth()/4*3, 0);
+   // fileInfoBoxRect.setSize(fullBoxRect.getWidth()/4, fullBoxRect.getHeight());
+   // fileInfoBoxRect.setPosition(fullBoxRect.getWidth()/4*3, 0);
 
     //fileBrowserBox.performLayout(fileBrowserBoxRect);
     //editingBox.performLayout(editingBoxRect);

@@ -38,6 +38,7 @@ class FileBrowserPanel  : public Component
 public:
     //==============================================================================
     FileBrowserPanel (int panelWidth, int panelHeight, String& initialPath);
+    
     ~FileBrowserPanel();
     
 
@@ -60,8 +61,10 @@ private:
     
     std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
     int fileBrowserTypeFlags;
-    std::unique_ptr<FileBrowserComponent> fileBrowser;
+    
     File initialFilePath;
+    
+    std::unique_ptr<FileBrowserComponent> fileBrowser;
     
     //[/UserVariables]
 

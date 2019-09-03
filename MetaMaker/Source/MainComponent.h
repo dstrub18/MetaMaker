@@ -83,6 +83,7 @@ public:
     
     std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
     
+    std::unique_ptr<FileBrowserComponent> temp;
     
 private:
 

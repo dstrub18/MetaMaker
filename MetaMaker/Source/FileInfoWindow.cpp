@@ -77,7 +77,7 @@ FileInfoWindow::FileInfoWindow ()
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     descriptionLabel->setBounds (24, 160, 150, 24);
-
+    
 
     //[UserPreSize]
     //[/UserPreSize]

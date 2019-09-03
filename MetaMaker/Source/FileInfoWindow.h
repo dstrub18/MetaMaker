@@ -48,24 +48,21 @@ public:
     void resized() override;
 
 
-    inline void setFileNameLabel (const String& text)     { this->fileNameLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setartistLabel (const String& text)          { this->artistLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setBwavOriginatorLabel (const String& text){ this->bwavOriginatorLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setFileCreationDateLabel (const String& text)  { this->fileCreationDate->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setDescriptionLabel(const String& text)   { this->descriptionLabel->setText(text, juce::NotificationType::dontSendNotification); };
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    
+    
+    
     //[/UserVariables]
 
     //==============================================================================
     std::unique_ptr<Label> fileNameLabel;
     std::unique_ptr<Label> artistLabel;
-    std::unique_ptr<Label> bwavOriginatorLabel;
     std::unique_ptr<Label> fileCreationDate;
     std::unique_ptr<Label> descriptionLabel;
-    
-    
+
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoWindow)
 };

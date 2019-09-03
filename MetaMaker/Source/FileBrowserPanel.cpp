@@ -41,22 +41,24 @@ FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String& ini
     
     // Handles the file restrictions and permissions of the File Browser
     fileBrowserTypeFlags =   FileBrowserComponent::FileChooserFlags::openMode +
-                             FileBrowserComponent::FileChooserFlags::canSelectFiles +
-                             FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
+    FileBrowserComponent::FileChooserFlags::canSelectFiles +
+    FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
     
     initialFilePath = File(initialPath);
     
     // Make the File Browser
     fileBrowser = std::make_unique<FileBrowserComponent>(fileBrowserTypeFlags, initialFilePath, &*wildCardFileFilter, nullptr);
     
+    
+    
+    addAndMakeVisible(*fileBrowser);
     //[/UserPreSize]
 
-    setSize (panelWidth, panelHeight);
+    setSize (800, 600);
     
 
     //[Constructor] You can add your own custom stuff here..
     
-    addAndMakeVisible(*fileBrowser);
     
     
     //[/Constructor]
@@ -66,7 +68,7 @@ FileBrowserPanel::~FileBrowserPanel()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
-
+    
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -83,6 +85,7 @@ void FileBrowserPanel::paint (Graphics& g)
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
+    
 }
 
 void FileBrowserPanel::resized()
