@@ -25,37 +25,16 @@ MainComponent::MainComponent()
     metaDataInformation = StringPairArray();
     
     File initialDirectory = File("~");
-
-    // Specifications for files, that should only be displayed.
-    const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
-    const juce::String fileFilterDirPatterns = "*";
-    const juce::String fileFilterDescription = "File Filter";
-    wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
-    
-    // Handles the file restrictions and permissions of the File Browser
-    fileChooserFlag =   FileBrowserComponent::FileChooserFlags::openMode +
-                            FileBrowserComponent::FileChooserFlags::canSelectFiles +
-                            FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
-    
-    // Make the File Browser
-    fileBrowser = std::make_unique<FileBrowserComponent>(fileChooserFlag, initialDirectory, &*wildCardFileFilter, nullptr);
     
     // Make the FileInfoWindow
-    fileInfoWindow = std::make_unique<FileInfoWindow>();
-    fileInfoWindow->setdescriptionLabel("Hello JUCE");
-    
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat>();
     
     // Set the writeMetadataButton text.
     writeMetadataButton.setButtonText("Write Metadata");
+     
     
-    // Add the writeMetadataButton.
-    //fullBoxItems.add(FlexItem(40,30,writeMetadataButton));
-    
-    //addAndMakeVisible(*fileInfoWindow);
-    // addAndMakeVisible(writeMetadataButton);
-    
+    fileBrowserPanel  = std::make_unique<FileBrowserPanel> (getLocalBounds().getWidth()/4, getLocalBounds().getHeight(), initialPath);
     
     // Customize the full flex box
     fullBoxRect = getLocalBounds();
@@ -68,54 +47,26 @@ MainComponent::MainComponent()
     fileBrowserBoxRect.setPosition(0,0);
     //fileBrowserBoxRect = fullBoxRect.removeFromLeft(fullBoxRect.getWidth()/4);
     
-   // fileBrowserBox.flexWrap = FlexBox::Wrap::noWrap;
-   // fileBrowserBox.justifyContent = FlexBox::JustifyContent::flexStart;
-   // fileBrowserBox.alignContent = FlexBox::AlignContent::stretch;
-   // fileBrowserBox.flexDirection = FlexBox::Direction::row;
-    
     // Add the FileBrowser to the FlexBox
     //fileBrowserBox.items.add(FlexItem(fileBrowserBoxRect.getWidth(), fileBrowserBoxRect.getHeight(), *fileBrowser));
     //fileBrowserBox.performLayout(fileBrowserBoxRect);
     
     // Customize the editing FlexBox
     editingBoxRect.setSize(fullBoxRect.getWidth()/2, fullBoxRect.getHeight());
-    //editingBoxRect = fullBoxRect.removeFromRight(fullBoxRect.getWidth()/2);
     editingBoxRect.setPosition(fullBoxRect.getWidth()/4, 0);
-  //  editingBox.flexWrap = FlexBox::Wrap::noWrap;
-  //  editingBox.justifyContent = FlexBox::JustifyContent::flexStart;
-  //  editingBox.alignContent = FlexBox::AlignContent::stretch;
-  //  editingBox.performLayout(editingBoxRect);
+  
     
     // Customize the fileInfo Flexbox
     fileInfoBoxRect.setSize(fullBoxRect.getWidth()/4, fullBoxRect.getHeight());
-    //fileInfoBoxRect = fullBoxRect.removeFromRight(fullBoxRect.getWidth()/4);
+
     fileInfoBoxRect.setPosition(fullBoxRect.getWidth()/4 * 3, 0);
-   // fileInfoBox.flexWrap = FlexBox::Wrap::noWrap;
-   // fileInfoBox.justifyContent = FlexBox::JustifyContent::flexStart;
-   // fileInfoBox.alignContent = FlexBox::AlignContent::stretch;
-   // fileInfoBox.items.add(FlexItem(fileInfoBoxRect.getWidth(), fullBoxRect.getHeight(), *fileInfoWindow));
-   // fileInfoBox.performLayout(fileInfoBoxRect);
     
     
-    //fullBox.items.add(FlexItem(fullBoxRect.getWidth(),fullBoxRect.getHeight(),fileBrowserBox));
-    //fullBox.items.add(FlexItem(editingBoxRect.getWidth(),editingBoxRect.getHeight(),editingBox));
-    //fullBox.items.add(FlexItem(fileInfoBoxRect.getWidth(),fileInfoBoxRect.getHeight(),fileInfoBox));
-    
-    //fullBox.alignContent = FlexBox::AlignContent::stretch;
-    //fullBox.performLayout (fullBoxRect);
-    
-    
-    // AddAndMakeVisibles
-    //addAndMakeVisible(*fileBrowser);
-    //addAndMakeVisible(*fileInfoWindow);
-    
-    
+    addAndMakeVisible(*fileBrowserPanel);
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
     
-    // Set the new metadata. This will be explicit for debugging capabilities for now.
-    newMetaData = StringPairArray();
-    newMetaData.set("bwav Description", "New metadata!");
+    
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -175,8 +126,6 @@ void MainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.setColour(Colours::aquamarine);
-    g.fillEllipse(fullBoxRect.getX(), fullBoxRect.getY(), 5, 5);
     g.setColour(Colours::blueviolet);
     g.fillRect(fileBrowserBoxRect);
     g.setColour(Colours::orangered);
@@ -184,10 +133,8 @@ void MainComponent::paint (Graphics& g)
     g.setColour(Colours::yellow);
     g.fillRect(fileInfoBoxRect);
     // You can add your drawing code here!
+
     
-    
-    
-    currentFile = fileBrowser->getHighlightedFile();
     
     reader = formatManager.createReaderFor(currentFile);
     
@@ -195,7 +142,7 @@ void MainComponent::paint (Graphics& g)
         
         metaDataInformation = reader->metadataValues;
         
-        fileInfoWindow-> setdescriptionLabel(metaDataInformation.getValue("bwav description", "error"));
+        fileInfoWindow-> setDescriptionLabel(metaDataInformation.getValue("bwav description", "error"));
         fileInfoWindow-> setFileNameLabel(   currentFile.getFileName());
         fileInfoWindow-> setFileCreationDateLabel(   metaDataInformation.getValue("bwav time reference", "error"));
         fileInfoWindow-> setBwavOriginatorLabel( metaDataInformation.getValue("bwav originator", "error"));
@@ -233,7 +180,6 @@ void MainComponent::buttonClicked(Button* button){
 
     if (button == &writeMetadataButton) {
         
-        currentFile = fileBrowser->getHighlightedFile();
         
         reader = formatManager.createReaderFor(currentFile);
         

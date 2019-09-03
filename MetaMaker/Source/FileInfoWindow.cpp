@@ -44,30 +44,30 @@ FileInfoWindow::FileInfoWindow ()
 
     fileNameLabel->setBounds (24, 64, 150, 24);
 
-    bwavOriginatorLabel.reset (new Label ("artistLabel",
+    artistLabel.reset (new Label ("artistLabel",
                                   TRANS("Artist label")));
-    addAndMakeVisible (bwavOriginatorLabel.get());
-    bwavOriginatorLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-    bwavOriginatorLabel->setJustificationType (Justification::centredLeft);
-    bwavOriginatorLabel->setEditable (false, false, false);
-    bwavOriginatorLabel->setColour (TextEditor::textColourId, Colours::black);
-    bwavOriginatorLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (artistLabel.get());
+    artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    artistLabel->setJustificationType (Justification::centredLeft);
+    artistLabel->setEditable (false, false, false);
+    artistLabel->setColour (TextEditor::textColourId, Colours::black);
+    artistLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    bwavOriginatorLabel->setBounds (24, 96, 150, 24);
+    artistLabel->setBounds (24, 96, 150, 24);
 
-    fileCreationDateLabel.reset (new Label ("fileCreationDate",
+    fileCreationDate.reset (new Label ("fileCreationDate",
                                        TRANS("File Creation Date")));
-    addAndMakeVisible (fileCreationDateLabel.get());
-    fileCreationDateLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-    fileCreationDateLabel->setJustificationType (Justification::centredLeft);
-    fileCreationDateLabel->setEditable (false, false, false);
-    fileCreationDateLabel->setColour (TextEditor::textColourId, Colours::black);
-    fileCreationDateLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (fileCreationDate.get());
+    fileCreationDate->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    fileCreationDate->setJustificationType (Justification::centredLeft);
+    fileCreationDate->setEditable (false, false, false);
+    fileCreationDate->setColour (TextEditor::textColourId, Colours::black);
+    fileCreationDate->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileCreationDateLabel->setBounds (24, 128, 150, 24);
+    fileCreationDate->setBounds (24, 128, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
-                                       TRANS("Description")));
+                                       TRANS("File Creation Date")));
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
@@ -77,8 +77,8 @@ FileInfoWindow::FileInfoWindow ()
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     descriptionLabel->setBounds (24, 160, 150, 24);
-    
-    
+
+
     //[UserPreSize]
     //[/UserPreSize]
 
@@ -95,10 +95,10 @@ FileInfoWindow::~FileInfoWindow()
     //[/Destructor_pre]
 
     fileNameLabel = nullptr;
-    bwavOriginatorLabel = nullptr;
-    fileCreationDateLabel = nullptr;
+    artistLabel = nullptr;
+    fileCreationDate = nullptr;
     descriptionLabel = nullptr;
-    debugLabel = nullptr;
+
 
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]

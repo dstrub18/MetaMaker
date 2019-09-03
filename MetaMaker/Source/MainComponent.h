@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileInfoWindow.h"
+#include "FileBrowserPanel.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -35,7 +36,13 @@ public:
     void buttonClicked(Button* button) override;
     
     
+    
+    
+    String initialPath = "~";
     //============================ Flexboxes and the necessary information
+    
+    
+    
     
     Rectangle<int> fullBoxRect;
     FlexBox fullBox;
@@ -52,12 +59,7 @@ public:
     
     // Variables for the FileBrowser; 
     int fileChooserFlag;
-    std::unique_ptr<FileBrowserComponent> fileBrowser; // Filebrowser on the left hand side of the final window.
-    
-    
-    std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
-    
-    
+
     
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
@@ -79,7 +81,7 @@ public:
     // helper object to replace the metadata.
     std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
-    
+    std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
     
     
 private:

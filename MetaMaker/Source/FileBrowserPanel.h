@@ -33,41 +33,43 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class FileInfoWindow  : public Component
+class FileBrowserPanel  : public Component
 {
 public:
     //==============================================================================
-    FileInfoWindow ();
-    ~FileInfoWindow();
+    FileBrowserPanel (int panelWidth, int panelHeight, String& initialPath);
+    ~FileBrowserPanel();
+    
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    inline File getCurrentFile(){  return this->fileBrowser->getHighlightedFile();   };
+    
+    
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
 
-
-    inline void setFileNameLabel (const String& text)     { this->fileNameLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setartistLabel (const String& text)          { this->artistLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setBwavOriginatorLabel (const String& text){ this->bwavOriginatorLabel->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setFileCreationDateLabel (const String& text)  { this->fileCreationDate->setText(text, juce::NotificationType::dontSendNotification); };
-    inline void setDescriptionLabel(const String& text)   { this->descriptionLabel->setText(text, juce::NotificationType::dontSendNotification); };
+    //void inline setFilePath(String& filePath) {this->fileBrowser->;};
+    
 
 private:
+
     //[UserVariables]   -- You can add your own custom variables in this section.
+    
+    std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
+    int fileBrowserTypeFlags;
+    std::unique_ptr<FileBrowserComponent> fileBrowser;
+    File initialFilePath;
+    
     //[/UserVariables]
 
     //==============================================================================
-    std::unique_ptr<Label> fileNameLabel;
-    std::unique_ptr<Label> artistLabel;
-    std::unique_ptr<Label> bwavOriginatorLabel;
-    std::unique_ptr<Label> fileCreationDate;
-    std::unique_ptr<Label> descriptionLabel;
-    
-    
+
+
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileInfoWindow)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileBrowserPanel)
 };
 
 //[EndFile] You can add extra defines here...
