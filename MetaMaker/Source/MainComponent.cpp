@@ -22,7 +22,6 @@ MainComponent::MainComponent()
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
-    metaDataInformation = StringPairArray();
     
 
     
@@ -139,7 +138,6 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
-    
 }
 
 
@@ -164,12 +162,23 @@ void MainComponent::buttonClicked(Button* button){
 
 void updateFileInfoPanel() {
     
+    
+    
 }
 
-StringPairArray getMetaDataFromFile() {
+StringPairArray MainComponent::getMetaDataFromFile() {
 
-
-    return new StringPairArray;
+    File currentFile = fileBrowserPanel->getCurrentFile();
+    
+    reader = formatManager.createReaderFor(currentFile);
+    
+    if (reader != nullptr)
+    {
+      return reader->metadataValues;
+      
+    }
+    
+    //Investigate std::optional!!!!
     
 }
 

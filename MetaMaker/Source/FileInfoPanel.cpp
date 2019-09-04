@@ -85,7 +85,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     //[UserPreSize]
     //[/UserPreSize]
 
-    //setSize (200, 400);
+    //setSize (1, 1);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -148,9 +148,9 @@ void FileInfoPanel::resized()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="FileInfoPanel" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="200" initialHeight="400">
+                 parentClasses="public Component" constructorParams="int panelWidth, int panelHeight"
+                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
+                 overlayOpacity="0.330" fixedSize="0" initialWidth="1" initialHeight="1">
   <BACKGROUND backgroundColour="323e44"/>
   <LABEL name="fileNameLabel" id="e2a9cce2df4c6527" memberName="fileNameLabel"
          virtualName="" explicitFocusOrder="0" pos="24 64 150 24" bkgCol="ffe41713"

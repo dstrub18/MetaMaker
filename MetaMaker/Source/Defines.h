@@ -24,6 +24,13 @@ namespace GUIDefines {
     
     static const int mainWindowTopYCoordinate = 0;
     
+    
+    static const Colour mainWindowBackgroundColour = Colours::grey; //  Unnecessary?
+    static const Colour fileBrowserBackgroundColour = Colours::blanchedalmond;
+    static const Colour editPanelBackgroundColour = Colours::red;
+    static const Colour fileInfoPanelBackgroundColour = Colours::aliceblue;
+    
+    
 }
 
 

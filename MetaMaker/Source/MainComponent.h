@@ -55,7 +55,6 @@ private:
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     File currentFile;
     AudioFormatReader* reader;
-    StringPairArray metaDataInformation;            // New Metadata to replace the in the Wav file.
     StringPairArray newMetaData;
     std::unique_ptr<WavAudioFormat> wavAudioFormat; // helper object to replace the metadata.
     
@@ -74,7 +73,7 @@ private:
     
     
     void updateFileInfoPanel();                     // Updates the FileInfoPanel
-    void getMetaDatafromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
+    StringPairArray getMetaDataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
     //==============================================================================
     // Your private member variables go here...
 
