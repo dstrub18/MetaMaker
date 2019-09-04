@@ -43,28 +43,15 @@ MainComponent::MainComponent()
     
     fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, getLocalBounds().getHeight());
     fileInfoPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
+    
+    
     // AddAndMakeVisibles
     addAndMakeVisible(*fileBrowserPanel);
     addAndMakeVisible(*fileInfoPanel);
-    
-    
-    
-    // Add the listening functionality for the button.
-    writeMetadataButton.addListener(this);
-    
-    
-    
-    
-    
-    
-    const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
-    const juce::String fileFilterDirPatterns = "*";
-    const juce::String fileFilterDescription = "File Filter";
-    std::unique_ptr<WildcardFileFilter> wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
 
-    fileBrowserPanel = std::make_unique<FileBrowserPanel>(getLocalBounds().getWidth() / 4, getLocalBounds().getHeight(), initialPath);
-    
-    addAndMakeVisible(*fileBrowserPanel);
+    // Add Listeners
+    writeMetadataButton.addListener(this); // Add the listening functionality for the button.
+    fileBrowserPanel -> getFileBrowser() -> addListener(this);
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -145,33 +132,61 @@ void MainComponent::resized()
 
 void MainComponent::buttonClicked(Button* button){
 
-    if (button == &writeMetadataButton) {
-        
-        
-        reader = formatManager.createReaderFor(currentFile);
-        
-        wavAudioFormat->replaceMetadataInFile(currentFile, newMetaData);
-        
-        
-    }
+    // TBC
     
+}
+
+//==================== override methods from FileBrowserListener
+void MainComponent::selectionChanged ()
+{
+    //std::cout << "Selection changed \n";
+    
+    updateFileInfoPanel();
+}
+
+void MainComponent::fileClicked(const File &file, const MouseEvent &e)
+{
+    std::cout << "File Clicked! \n";
+}
+
+void MainComponent::fileDoubleClicked(const File &file)
+{
+    std::cout << "File double-Clicked! \n";
+}
+
+void MainComponent::browserRootChanged(const File &newBrowserRoot)
+{
+    std::cout << "Browser Root changed! \n";
 }
 
 
 // Custom Methods
 
-void updateFileInfoPanel() {
+void MainComponent::updateFileInfoPanel() {
     
+    /*
+        Updates the labels in the FileInfoPanel
+     */
     
+    std::optional<StringPairArray> metaDataValues = getMetadataFromFile();
+    
+    if (metaDataValues.has_value()) {
+        std::cout << "There's data! \n";
+    }
+    else
+    {
+        std::cout << "No data! \n";
+    }
     
 }
 
-StringPairArray MainComponent::getMetaDataFromFile() {
-
-    File currentFile = fileBrowserPanel->getCurrentFile();
+std::optional<StringPairArray> MainComponent::getMetadataFromFile() {
     
-    reader = formatManager.createReaderFor(currentFile);
+    /*
+     Retrieves the metadata from the file that's currently selected in the fileBrowser.
+     */
     
+    reader = formatManager.createReaderFor ( fileBrowserPanel->getCurrentFile() );
     if (reader != nullptr)
     {
       return reader->metadataValues;
@@ -179,7 +194,10 @@ StringPairArray MainComponent::getMetaDataFromFile() {
     }
     
     //Investigate std::optional!!!!
+    return {}; // This returns an empty std::optional
     
+    
+    // Check memory leaks here.
 }
 
 

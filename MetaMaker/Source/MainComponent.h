@@ -11,13 +11,16 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
+
+#include <optional>
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
 class MainComponent   : public AudioAppComponent,
-                        public Button::Listener
+                        public Button::Listener,
+                        public FileBrowserListener
 {
 public:
     //==============================================================================
@@ -32,12 +35,17 @@ public:
     //==============================================================================
     void paint (Graphics& g) override;
     void resized() override;
-    //==============================================================================
+    //============================================================ButtonListener overrides
     
+
     void buttonClicked(Button* button) override;
-    
-    
-    
+    //============================================================FileBrowserListener overrides
+    void selectionChanged () override;
+    void fileClicked (const File &file, const MouseEvent &e) override;
+    void fileDoubleClicked (const File &file) override;
+    void browserRootChanged (const File & newBrowserRoot) override;
+
+    //==============================================================================
     
     
     
@@ -72,8 +80,10 @@ private:
     TextButton writeMetadataButton;
     
     
-    void updateFileInfoPanel();                     // Updates the FileInfoPanel
-    StringPairArray getMetaDataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
+    void updateFileInfoPanel();                                 // Updates the FileInfoPanel
+    std::optional<StringPairArray> getMetadataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
+    
+    
     //==============================================================================
     // Your private member variables go here...
 

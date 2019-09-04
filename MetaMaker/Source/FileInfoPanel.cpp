@@ -85,7 +85,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     //[UserPreSize]
     //[/UserPreSize]
 
-    //setSize (1, 1);
+    setSize (1, 1);
 
 
     //[Constructor] You can add your own custom stuff here..
