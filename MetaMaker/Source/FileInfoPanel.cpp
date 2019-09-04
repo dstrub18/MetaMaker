@@ -27,9 +27,12 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileInfoWindow::FileInfoWindow ()
+FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 {
     //[Constructor_pre] You can add your own custom stuff here..
+    
+    
+    
     //[/Constructor_pre]
 
     fileNameLabel.reset (new Label ("fileNameLabel",
@@ -67,7 +70,7 @@ FileInfoWindow::FileInfoWindow ()
     fileCreationDate->setBounds (24, 128, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
-                                       TRANS("File Creation Date")));
+                                       TRANS("Description Label")));
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
@@ -82,14 +85,12 @@ FileInfoWindow::FileInfoWindow ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (200, 400);
-
-
     //[Constructor] You can add your own custom stuff here..
+    setSize (panelWidth, panelHeight);
     //[/Constructor]
 }
 
-FileInfoWindow::~FileInfoWindow()
+FileInfoPanel::~FileInfoPanel()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
@@ -105,16 +106,21 @@ FileInfoWindow::~FileInfoWindow()
 }
 
 //==============================================================================
-void FileInfoWindow::paint (Graphics& g)
+void FileInfoPanel::paint (Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
+    g.fillAll (Colours::coral);
+
+
     //[/UserPrePaint]
 
     //[UserPaint] Add your own custom painting code here..
+
+
     //[/UserPaint]
 }
 
-void FileInfoWindow::resized()
+void FileInfoPanel::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
@@ -138,7 +144,7 @@ void FileInfoWindow::resized()
 
 BEGIN_JUCER_METADATA
 
-<JUCER_COMPONENT documentType="Component" className="FileInfoWindow" componentName=""
+<JUCER_COMPONENT documentType="Component" className="FileInfoPanel" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="200" initialHeight="400">
@@ -160,7 +166,7 @@ BEGIN_JUCER_METADATA
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="descriptionLabel" id="c099da4c3f67f9bd" memberName="descriptionLabel"
          virtualName="" explicitFocusOrder="0" pos="24 160 150 24" bkgCol="ff008000"
-         edTextCol="ff000000" edBkgCol="0" labelText="File Creation Date"
+         edTextCol="ff000000" edBkgCol="0" labelText="Description Label"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
          italic="0" justification="33"/>

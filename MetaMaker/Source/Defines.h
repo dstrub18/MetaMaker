@@ -22,6 +22,7 @@ namespace GUIDefines {
     static const int initialEditPanelWidth = 400;
     static const int initialFileInfoWidth = 200;
     
+    static const int mainWindowTopYCoordinate = 0;
     
 }
 

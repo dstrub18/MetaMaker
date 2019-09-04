@@ -24,18 +24,32 @@ MainComponent::MainComponent()
     
     metaDataInformation = StringPairArray();
     
-    File initialDirectory = File("~");
+
     
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat>();
     
     // Set the writeMetadataButton text.
     writeMetadataButton.setButtonText("Write Metadata");
-     
     
+    
+    // FileBrowserPanel Creation
+    File initialDirectory = File("~");
     fileBrowserPanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, getLocalBounds().getHeight(), initialPath);
-
+    
+    // EditPanel Creation
+    
+    
+    // FileInfoPanel creation
+    
+    fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, getLocalBounds().getHeight());
+    fileInfoPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
+    // AddAndMakeVisibles
     addAndMakeVisible(*fileBrowserPanel);
+    addAndMakeVisible(*fileInfoPanel);
+    
+    
+    
     // Add the listening functionality for the button.
     writeMetadataButton.addListener(this);
     

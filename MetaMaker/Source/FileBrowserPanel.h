@@ -44,9 +44,9 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    inline File getCurrentFile(){  return this -> fileBrowser -> getHighlightedFile();   };
+    inline File getCurrentFile(){  return this-> fileBrowser -> getHighlightedFile();   };
     
-    
+    inline FileBrowserComponent* getFileBrowser () { return this -> fileBrowser ;  };
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -64,7 +64,7 @@ private:
     
     File initialFilePath;
     
-    std::unique_ptr<FileBrowserComponent> fileBrowser;
+    FileBrowserComponent* fileBrowser;
     
     //[/UserVariables]
 

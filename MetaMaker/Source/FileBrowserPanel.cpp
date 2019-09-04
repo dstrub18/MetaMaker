@@ -47,7 +47,7 @@ FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String init
     initialFilePath = File(initialPath);
     
     // Make the File Browser
-    fileBrowser = std::make_unique<FileBrowserComponent>(fileBrowserTypeFlags, initialFilePath, &*wildCardFileFilter, nullptr);
+    fileBrowser = new FileBrowserComponent(fileBrowserTypeFlags, initialFilePath, &*wildCardFileFilter, nullptr);
     
     fileBrowser->setSize(panelWidth, panelHeight);
     
@@ -67,6 +67,8 @@ FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String init
 FileBrowserPanel::~FileBrowserPanel()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+    delete fileBrowser;
+    std::cout << "FileBrowser deleted \n";
     //[/Destructor_pre]
     
 
