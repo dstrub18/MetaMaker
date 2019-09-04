@@ -59,6 +59,7 @@ FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String init
 
     //[Constructor] You can add your own custom stuff here..
     
+    void updateFileInfoPanel();
     
     
     //[/Constructor]

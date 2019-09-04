@@ -33,25 +33,37 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     //==============================================================================
+    
     void buttonClicked(Button* button) override;
     
     
     
     
-    String initialPath = "~";
+    
+    
+    
+private:
+    
+    
+    
+    
     //============================ Flexboxes and the necessary information
     
-
-    // Variables for the FileBrowser; 
-    int fileChooserFlag;
-
     
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     File currentFile;
     AudioFormatReader* reader;
-    StringPairArray metaDataInformation;
+    StringPairArray metaDataInformation;            // New Metadata to replace the in the Wav file.
+    StringPairArray newMetaData;
+    std::unique_ptr<WavAudioFormat> wavAudioFormat; // helper object to replace the metadata.
+    
+    // FileBrowser and accompanying variables;
+    int fileChooserFlag;
+    std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
+    String initialPath = "~";
+    
     
     
     // This displays the information of the file.
@@ -60,16 +72,9 @@ public:
     // Button for writing Metadata into a file.
     TextButton writeMetadataButton;
     
-    // New Metadata to replace the in the Wav file.
-    StringPairArray newMetaData;
     
-    // helper object to replace the metadata.
-    std::unique_ptr<WavAudioFormat> wavAudioFormat;
-    
-    std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
-    Rectangle<int> fileBrowserBoxRect;
-private:
-
+    void updateFileInfoPanel();                     // Updates the FileInfoPanel
+    void getMetaDatafromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
     //==============================================================================
     // Your private member variables go here...
 

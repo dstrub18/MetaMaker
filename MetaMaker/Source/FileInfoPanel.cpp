@@ -30,9 +30,9 @@
 FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 {
     //[Constructor_pre] You can add your own custom stuff here..
-    
-    
-    
+
+
+
     //[/Constructor_pre]
 
     fileNameLabel.reset (new Label ("fileNameLabel",
@@ -84,6 +84,9 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 
     //[UserPreSize]
     //[/UserPreSize]
+
+    //setSize (200, 400);
+
 
     //[Constructor] You can add your own custom stuff here..
     setSize (panelWidth, panelHeight);

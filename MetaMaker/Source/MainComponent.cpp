@@ -160,3 +160,17 @@ void MainComponent::buttonClicked(Button* button){
 }
 
 
+// Custom Methods
+
+void updateFileInfoPanel() {
+    
+}
+
+StringPairArray getMetaDataFromFile() {
+
+
+    return new StringPairArray;
+    
+}
+
+

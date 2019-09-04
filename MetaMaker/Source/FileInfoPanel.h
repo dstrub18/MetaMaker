@@ -38,14 +38,13 @@ class FileInfoPanel  : public Component
 {
 public:
     //==============================================================================
-    FileInfoPanel ();
     ~FileInfoPanel();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 
     FileInfoPanel(int panelWidth, int panelHeight);
-    
+
     inline void setFileNameLabelText ( const String& text)  { this -> fileNameLabel -> setText(text, Defines::noNotification);   };
     inline void setArtistLabelText ( const String& text)    { this -> artistLabel -> setText(text, Defines::noNotification);     };
     inline void setFileCreationDateLabelText ( const String& text)    { this->fileCreationDate->setText(text, Defines::noNotification);     };
