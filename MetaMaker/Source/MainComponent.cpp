@@ -168,10 +168,16 @@ void MainComponent::updateFileInfoPanel() {
         Updates the labels in the FileInfoPanel
      */
     
-    std::optional<StringPairArray> metaDataValues = getMetadataFromFile();
+    StringPairArray metaDataValues = getMetadataFromFile();
     
-    if (metaDataValues.has_value()) {
+    if (metaDataValues != Defines::emptyMetaDataFields) {
+        
         std::cout << "There's data! \n";
+        
+        fileInfoPanel -> setDescriptionLabelText (metaDataValues.getValue (Defines::descriptionKey, "error"));
+        fileInfoPanel -> setArtistLabelText (metaDataValues.getValue( Defines::originatorKey, "error"));
+        fileInfoPanel -> setFileCreationDateLabelText(metaDataValues.getValue(Defines::originationDateKey, "error"));
+        fileInfoPanel ->setFileNameLabelText(fileBrowserPanel->getCurrentFile().getFileName());
     }
     else
     {
@@ -180,24 +186,33 @@ void MainComponent::updateFileInfoPanel() {
     
 }
 
-std::optional<StringPairArray> MainComponent::getMetadataFromFile() {
+    StringPairArray MainComponent::getMetadataFromFile() {
     
     /*
      Retrieves the metadata from the file that's currently selected in the fileBrowser.
      */
     
-    reader = formatManager.createReaderFor ( fileBrowserPanel->getCurrentFile() );
+    
+    AudioFormatReader* reader = formatManager.createReaderFor ( fileBrowserPanel -> getCurrentFile() );
     if (reader != nullptr)
     {
-      return reader->metadataValues;
-      
+        std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
+        std::cout << metaDataValues->getValue("bwav description", "error") << "\n";
+        delete reader;
+        return *metaDataValues;
+        
+    }
+        
+    else{
+        // std::cout << Defines::emptyMetaDataFields.getDescription() << "temp \n";
+        return Defines::emptyMetaDataFields;
+        
     }
     
-    //Investigate std::optional!!!!
-    return {}; // This returns an empty std::optional
     
     
     // Check memory leaks here.
+
 }
 
 

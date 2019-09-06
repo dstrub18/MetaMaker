@@ -44,4 +44,10 @@ namespace Defines {
     static const bool returnActiveEditorContents = true;
     
     
+    static const StringPairArray emptyMetaDataFields  = StringPairArray::StringPairArray();
+ 
+    // Keys for accessing the metadata
+    static const String descriptionKey  = "bwav description";
+    static const String originatorKey  = "bwav originator";
+    static const String originationDateKey = "bwav origination date";
 }

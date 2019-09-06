@@ -603,7 +603,7 @@
 		E57BBF7CA0F77D9929CCE4DA = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -636,7 +636,6 @@
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_CPLUSPLUSFLAGS = "-std=c++1z";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.MetaMaker;
 				PRODUCT_NAME = "MetaMaker";
 				USE_HEADERMAP = NO;
@@ -646,7 +645,7 @@
 		5181010C2FB3A41AC595AFE8 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -681,7 +680,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_CPLUSPLUSFLAGS = "-std=c++1z";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.MetaMaker;
 				PRODUCT_NAME = "MetaMaker";
 				USE_HEADERMAP = NO;

@@ -2721,14 +2721,13 @@ target_compile_definitions (APP PRIVATE
 
 target_compile_options (APP PRIVATE
     -mmacosx-version-min=10.11
-    -std=c++1z
     -O0
     -stdlib=libc++
 )
 
 set_target_properties (APP PROPERTIES
     OUTPUT_NAME "MetaMaker"
-    CXX_STANDARD 17
+    CXX_STANDARD 14
     CXX_EXTENSIONS OFF
     XCODE_ATTRIBUTE_CLANG_LINK_OBJC_RUNTIME NO
     XCODE_ATTRIBUTE_COMBINE_HIDPI_IMAGES YES
@@ -2798,7 +2797,6 @@ target_compile_definitions (APP PRIVATE
 
 target_compile_options (APP PRIVATE
     -mmacosx-version-min=10.11
-    -std=c++1z
     -O3
     -flto
     -stdlib=libc++
@@ -2806,7 +2804,7 @@ target_compile_options (APP PRIVATE
 
 set_target_properties (APP PROPERTIES
     OUTPUT_NAME "MetaMaker"
-    CXX_STANDARD 17
+    CXX_STANDARD 14
     CXX_EXTENSIONS OFF
     XCODE_ATTRIBUTE_CLANG_LINK_OBJC_RUNTIME NO
     XCODE_ATTRIBUTE_COMBINE_HIDPI_IMAGES YES

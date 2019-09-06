@@ -12,7 +12,7 @@
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
 
-#include <optional>
+
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -62,7 +62,6 @@ private:
     AudioFormatManager formatManager;
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     File currentFile;
-    AudioFormatReader* reader;
     StringPairArray newMetaData;
     std::unique_ptr<WavAudioFormat> wavAudioFormat; // helper object to replace the metadata.
     
@@ -81,7 +80,7 @@ private:
     
     
     void updateFileInfoPanel();                                 // Updates the FileInfoPanel
-    std::optional<StringPairArray> getMetadataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
+    StringPairArray getMetadataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
     
     
     //==============================================================================
