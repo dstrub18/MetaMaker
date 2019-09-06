@@ -11,7 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
-
+#include "EditingPanel.h"
 
 //==============================================================================
 /*
@@ -70,7 +70,8 @@ private:
     std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
     String initialPath = "~";
     
-    
+    // EditingPanel
+    std::unique_ptr<EditingPanel> editingPanel;
     
     // This displays the information of the file.
     std::unique_ptr<FileInfoPanel> fileInfoPanel;

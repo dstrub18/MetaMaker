@@ -61,14 +61,6 @@
 			isa = PBXBuildFile;
 			fileRef = 8DB3967A4F3BB024E6C2FD34;
 		};
-		DE62DAEFBAD2E5D28883DA4D = {
-			isa = PBXBuildFile;
-			fileRef = 37577BA9E8937188D45C3906;
-		};
-		259F4FE2F6B51BB69A9A6582 = {
-			isa = PBXBuildFile;
-			fileRef = 0D74E0760E36D4827E85FFC8;
-		};
 		24FE964556565D8499D9EEA7 = {
 			isa = PBXBuildFile;
 			fileRef = 9E5A61649A92ADDBC9678E90;
@@ -76,6 +68,18 @@
 		35A01818016A1C80B3E7A2A1 = {
 			isa = PBXBuildFile;
 			fileRef = E6418E280832B35D3456A309;
+		};
+		DE62DAEFBAD2E5D28883DA4D = {
+			isa = PBXBuildFile;
+			fileRef = 37577BA9E8937188D45C3906;
+		};
+		F2FB1E7CDD4467EC3CF1E127 = {
+			isa = PBXBuildFile;
+			fileRef = C67453C54E174F748CAC9F8A;
+		};
+		259F4FE2F6B51BB69A9A6582 = {
+			isa = PBXBuildFile;
+			fileRef = 0D74E0760E36D4827E85FFC8;
 		};
 		99A1266BC32C28DD68A41185 = {
 			isa = PBXBuildFile;
@@ -395,6 +399,13 @@
 			path = "../../JuceLibraryCode/include_juce_core.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		C67453C54E174F748CAC9F8A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = EditingPanel.cpp;
+			path = ../../Source/EditingPanel.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		C9E3A32212CA441BBA17F016 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -444,6 +455,13 @@
 			path = ../../Source/Main.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		E9AA25ABC27874A02B3796EC = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = EditingPanel.h;
+			path = ../../Source/EditingPanel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		EDC646DF958D669939FEBC25 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -489,14 +507,16 @@
 		EEE42443086007FF536B08CD = {
 			isa = PBXGroup;
 			children = (
-				37577BA9E8937188D45C3906,
-				2A24A73F75ED8B41506D5B8B,
-				AAA04D8882C3DAD48C92E8EC,
-				0D74E0760E36D4827E85FFC8,
-				0149A5C68C283D8C913EF77B,
 				843BB4D6D1C07ADAF33FC787,
 				9E5A61649A92ADDBC9678E90,
 				E6418E280832B35D3456A309,
+				37577BA9E8937188D45C3906,
+				2A24A73F75ED8B41506D5B8B,
+				AAA04D8882C3DAD48C92E8EC,
+				C67453C54E174F748CAC9F8A,
+				E9AA25ABC27874A02B3796EC,
+				0D74E0760E36D4827E85FFC8,
+				0149A5C68C283D8C913EF77B,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -810,10 +830,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE62DAEFBAD2E5D28883DA4D,
-				259F4FE2F6B51BB69A9A6582,
 				24FE964556565D8499D9EEA7,
 				35A01818016A1C80B3E7A2A1,
+				DE62DAEFBAD2E5D28883DA4D,
+				F2FB1E7CDD4467EC3CF1E127,
+				259F4FE2F6B51BB69A9A6582,
 				99A1266BC32C28DD68A41185,
 				EF393009CDDAE76E37396113,
 				43CC2A1B3AA48B5DF59F4A79,

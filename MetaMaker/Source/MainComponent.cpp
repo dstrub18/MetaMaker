@@ -34,19 +34,21 @@ MainComponent::MainComponent()
     
     // FileBrowserPanel Creation
     File initialDirectory = File("~");
-    fileBrowserPanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, getLocalBounds().getHeight(), initialPath);
+    fileBrowserPanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialPath);
+    fileBrowserPanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
     
     // EditPanel Creation
-    
+    editingPanel = std::make_unique<EditingPanel>(GUIDefines::initialEditPanelWidth, GUIDefines::universalHeight);
+    editingPanel -> setTopLeftPosition( 150, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
-    
-    fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, getLocalBounds().getHeight());
+    fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight);
     fileInfoPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
     
     
     // AddAndMakeVisibles
     addAndMakeVisible(*fileBrowserPanel);
+    addAndMakeVisible(*editingPanel);
     addAndMakeVisible(*fileInfoPanel);
 
     // Add Listeners

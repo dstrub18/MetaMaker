@@ -85,7 +85,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (1, 1);
+    // setSize (1, 1); // Don't uncomment. This is set by Juce due to the auto-generated code.
 
 
     //[Constructor] You can add your own custom stuff here..

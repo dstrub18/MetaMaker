@@ -4,18 +4,21 @@
               cppLanguageStandard="14">
   <MAINGROUP id="wjIBQh" name="MetaMaker">
     <GROUP id="{6D2151D4-0EFF-A9DE-B4A0-F8403FA505FA}" name="Source">
+      <FILE id="XLYYPb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="aBJGe1" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="dBURuu" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="HrJM1X" name="FileBrowserPanel.cpp" compile="1" resource="0"
             file="Source/FileBrowserPanel.cpp"/>
       <FILE id="qHwMlm" name="FileBrowserPanel.h" compile="0" resource="0"
             file="Source/FileBrowserPanel.h"/>
       <FILE id="daMbnw" name="Defines.h" compile="0" resource="0" file="Source/Defines.h"/>
+      <FILE id="FqyZPy" name="EditingPanel.cpp" compile="1" resource="0"
+            file="Source/EditingPanel.cpp"/>
+      <FILE id="D5IiGJ" name="EditingPanel.h" compile="0" resource="0" file="Source/EditingPanel.h"/>
       <FILE id="NFQhnd" name="FileInfoPanel.cpp" compile="1" resource="0"
             file="Source/FileInfoPanel.cpp"/>
       <FILE id="pbN06N" name="FileInfoPanel.h" compile="0" resource="0" file="Source/FileInfoPanel.h"/>
-      <FILE id="XLYYPb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="aBJGe1" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="dBURuu" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

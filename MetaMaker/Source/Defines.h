@@ -22,16 +22,19 @@ namespace GUIDefines {
     static const int initialEditPanelWidth = 400;
     static const int initialFileInfoWidth = 200;
     
+    static const int universalHeight = 600;
+    
     static const int mainWindowTopYCoordinate = 0;
     
     
     static const Colour mainWindowBackgroundColour = Colours::grey; //  Unnecessary?
     static const Colour fileBrowserBackgroundColour = Colours::blanchedalmond;
-    static const Colour editPanelBackgroundColour = Colours::red;
+    static const Colour editPanelBackgroundColour = Colours::green;
     static const Colour fileInfoPanelBackgroundColour = Colours::aliceblue;
     
     
 }
+
 
 
 namespace Defines {
@@ -43,11 +46,11 @@ namespace Defines {
     static const bool doNotreturnActiveEditorContents = false;
     static const bool returnActiveEditorContents = true;
     
-    
-    static const StringPairArray emptyMetaDataFields  = StringPairArray::StringPairArray();
+    static const StringPairArray emptyMetaDataFields  = StringPairArray ();
  
     // Keys for accessing the metadata
     static const String descriptionKey  = "bwav description";
     static const String originatorKey  = "bwav originator";
     static const String originationDateKey = "bwav origination date";
+    
 }
