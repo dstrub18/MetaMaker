@@ -47,7 +47,7 @@ EditingPanel::EditingPanel (int panelWidth, int panelHeight)
 
     writeMetadataButton.reset (new TextButton ("Write MetadataButton"));
     addAndMakeVisible (writeMetadataButton.get());
-    writeMetadataButton->setButtonText (TRANS("new button"));
+    writeMetadataButton->setButtonText (TRANS("Write Metadata"));
     writeMetadataButton->addListener (this);
 
     writeMetadataButton->setBounds (125, 325, 150, 24);
@@ -156,7 +156,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="1" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="Write MetadataButton" id="527d7a6fc5ac91bf" memberName="writeMetadataButton"
-              virtualName="" explicitFocusOrder="0" pos="125 325 150 24" buttonText="new button"
+              virtualName="" explicitFocusOrder="0" pos="125 325 150 24" buttonText="Write Metadata"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 

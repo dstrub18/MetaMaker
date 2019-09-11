@@ -18,7 +18,7 @@ MainComponent::MainComponent()
     // you add any child components.
     
     setSize (800, 600);
-    
+
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
@@ -29,7 +29,6 @@ MainComponent::MainComponent()
     wavAudioFormat = std::make_unique<WavAudioFormat>();
     
     // Set the writeMetadataButton text.
-    writeMetadataButton.setButtonText("Write Metadata");
     
     
     // FileBrowserPanel Creation
@@ -52,7 +51,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(*fileInfoPanel);
 
     // Add Listeners
-    writeMetadataButton.addListener(this); // Add the listening functionality for the button.
+                        // Add the listening functionality for the button.
     fileBrowserPanel -> getFileBrowser() -> addListener(this);
     
     
@@ -134,7 +133,7 @@ void MainComponent::resized()
 
 void MainComponent::buttonClicked(Button* button){
 
-    // TBC
+    
     
 }
 

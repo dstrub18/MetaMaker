@@ -37,7 +37,7 @@ class FileBrowserPanel  : public Component
 {
 public:
     //==============================================================================
-    FileBrowserPanel (int panelWidth, int panelHeight, String initialPath);
+    FileBrowserPanel (const int panelWidth, const int panelHeight, String initialPath);
     
     ~FileBrowserPanel();
     

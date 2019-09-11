@@ -44,6 +44,10 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    String getEditLabelText () {  return this -> editingLabel -> getText(); }
+    
+    void setEditButtonText (const String& text)   { this -> writeMetadataButton -> setButtonText(text);   }
+    
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -55,8 +59,6 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-
-     String getEditLabelText () {  return this -> editingLabel -> getText(); }
 
     //[/UserVariables]
 

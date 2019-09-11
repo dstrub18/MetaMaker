@@ -27,7 +27,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileBrowserPanel::FileBrowserPanel (int panelWidth, int panelHeight, String initialPath)
+FileBrowserPanel::FileBrowserPanel (const int panelWidth, const int panelHeight, String initialPath)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]

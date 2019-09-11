@@ -26,6 +26,7 @@ namespace GUIDefines {
     
     static const int mainWindowTopYCoordinate = 0;
     
+    static const String metadataButtonText = "Write Metadata";
     
     static const Colour mainWindowBackgroundColour = Colours::grey; //  Unnecessary?
     static const Colour fileBrowserBackgroundColour = Colours::blanchedalmond;
