@@ -55,6 +55,7 @@ MainComponent::MainComponent()
     fileBrowserPanel -> getFileBrowser() -> addListener(this);
     
     
+    
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
         && ! RuntimePermissions::isGranted (RuntimePermissions::recordAudio))
@@ -132,8 +133,25 @@ void MainComponent::resized()
 //==================== override methods from ButtonListener
 
 void MainComponent::buttonClicked(Button* button){
-
     
+    if (button->getButtonText()== "Write Metadata") {
+        
+        AudioFormatReader* reader = formatManager.createReaderFor ( fileBrowserPanel -> getCurrentFile() );
+        if (reader != nullptr)
+        {
+            File file  = fileBrowserPanel -> getCurrentFile();
+            std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
+            metaDataValues -> set("bwav description", "Metadata written!");
+            delete reader;
+            
+        }
+        
+        else{
+            std::cout << "Error!" << " \n";
+            
+        }
+    }
+
     
 }
 
@@ -178,7 +196,7 @@ void MainComponent::updateFileInfoPanel() {
         fileInfoPanel -> setDescriptionLabelText (metaDataValues.getValue (Defines::descriptionKey, "error"));
         fileInfoPanel -> setArtistLabelText (metaDataValues.getValue( Defines::originatorKey, "error"));
         fileInfoPanel -> setFileCreationDateLabelText(metaDataValues.getValue(Defines::originationDateKey, "error"));
-        fileInfoPanel ->setFileNameLabelText(fileBrowserPanel->getCurrentFile().getFileName());
+        fileInfoPanel -> setFileNameLabelText(fileBrowserPanel->getCurrentFile().getFileName());
     }
     else
     {
