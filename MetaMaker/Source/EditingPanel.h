@@ -44,18 +44,22 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    String getEditLabelText () {  return this -> editingLabel -> getText(); }
+    //String getEditLabelText () {  return this -> editingLabel -> getText(); }
     // Continue here
-    
-    void setEditButtonText (const String& text)   { this -> writeMetadataButton -> setButtonText(text);   }
 
+    const void setEditButtonText (const String& text)   { this -> writeMetadataButton -> setButtonText(text);   }
+
+    TextButton* getWriteMetadataButton()                   { return this -> writeMetadataButton.get();             }
+
+    const String getTextFromEditingLabel()             { return this -> editingLabel -> getText();             }
+    
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void labelTextChanged (Label* labelThatHasChanged) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
-
+    
 
 
 private:

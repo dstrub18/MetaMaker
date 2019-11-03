@@ -28,8 +28,6 @@ MainComponent::MainComponent()
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat>();
     
-    // Set the writeMetadataButton text.
-    
     
     // FileBrowserPanel Creation
     File initialDirectory = File("~");
@@ -53,6 +51,7 @@ MainComponent::MainComponent()
     // Add Listeners
                         // Add the listening functionality for the button.
     fileBrowserPanel -> getFileBrowser() -> addListener(this);
+    editingPanel -> getWriteMetadataButton() -> addListener(this);
     
     
     
@@ -136,14 +135,17 @@ void MainComponent::buttonClicked(Button* button){
     
     if (button->getButtonText()== "Write Metadata") {
         
+        std::cout << "WriteButton clicked! \n";
+        
         AudioFormatReader* reader = formatManager.createReaderFor ( fileBrowserPanel -> getCurrentFile() );
         if (reader != nullptr)
         {
             File file  = fileBrowserPanel -> getCurrentFile();
             std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
-            metaDataValues -> set("bwav description", "Metadata written!");
+            metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
+            wavAudioFormat -> replaceMetadataInFile(file, *metaDataValues);
             delete reader;
-            
+            updateFileInfoPanel();
         }
         
         else{

@@ -33,7 +33,7 @@ EditingPanel::EditingPanel (int panelWidth, int panelHeight)
     //[/Constructor_pre]
 
     editingLabel.reset (new Label ("Editing Label",
-                                   TRANS("Editing Label")));
+                                   TRANS("Text goes here")));
     addAndMakeVisible (editingLabel.get());
     editingLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     editingLabel->setJustificationType (Justification::centred);
@@ -152,9 +152,10 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ff323e44"/>
   <LABEL name="Editing Label" id="1f7608345f36fbf8" memberName="editingLabel"
          virtualName="" explicitFocusOrder="0" pos="125 288 150 24" bkgCol="dbff0000"
-         edTextCol="ff000000" edBkgCol="0" labelText="Editing Label" editableSingleClick="1"
-         editableDoubleClick="1" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
+         edTextCol="ff000000" edBkgCol="0" labelText="Text goes here"
+         editableSingleClick="1" editableDoubleClick="1" focusDiscardsChanges="0"
+         fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
+         italic="0" justification="36"/>
   <TEXTBUTTON name="Write MetadataButton" id="527d7a6fc5ac91bf" memberName="writeMetadataButton"
               virtualName="" explicitFocusOrder="0" pos="125 325 150 24" buttonText="Write Metadata"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
