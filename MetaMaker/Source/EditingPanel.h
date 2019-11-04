@@ -21,6 +21,8 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <vector>
+#include "Defines.h"
 //[/Headers]
 
 
@@ -52,25 +54,26 @@ public:
     TextButton* getWriteMetadataButton()                   { return this -> writeMetadataButton.get();             }
 
     const String getTextFromEditingLabel()             { return this -> editingLabel -> getText();             }
-    
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
     void labelTextChanged (Label* labelThatHasChanged) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
-    
+
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-
+    
     //[/UserVariables]
 
     //==============================================================================
     std::unique_ptr<Label> editingLabel;
     std::unique_ptr<TextButton> writeMetadataButton;
-
+    std::unique_ptr<TextButton> createnewLabelButton;
+    std::unique_ptr<Label> fullLabel;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EditingPanel)

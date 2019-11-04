@@ -50,7 +50,27 @@ EditingPanel::EditingPanel (int panelWidth, int panelHeight)
     writeMetadataButton->setButtonText (TRANS("Write Metadata"));
     writeMetadataButton->addListener (this);
 
-    writeMetadataButton->setBounds (125, 325, 150, 24);
+    writeMetadataButton->setBounds (24, 368, 150, 24);
+
+    createnewLabelButton.reset (new TextButton ("createnewLabelButton"));
+    addAndMakeVisible (createnewLabelButton.get());
+    createnewLabelButton->setButtonText (TRANS("Create new label"));
+    createnewLabelButton->addListener (this);
+    createnewLabelButton->setColour (TextButton::buttonColourId, Colours::blue);
+
+    createnewLabelButton->setBounds (224, 368, 150, 24);
+
+    fullLabel.reset (new Label ("fullLabel",
+                                String()));
+    addAndMakeVisible (fullLabel.get());
+    fullLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    fullLabel->setJustificationType (Justification::centred);
+    fullLabel->setEditable (false, false, false);
+    fullLabel->setColour (Label::backgroundColourId, Colour (0xffff00b5));
+    fullLabel->setColour (TextEditor::textColourId, Colours::black);
+    fullLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    fullLabel->setBounds (24, 424, 350, 24);
 
 
     //[UserPreSize]
@@ -73,6 +93,8 @@ EditingPanel::~EditingPanel()
 
     editingLabel = nullptr;
     writeMetadataButton = nullptr;
+    createnewLabelButton = nullptr;
+    fullLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -125,6 +147,29 @@ void EditingPanel::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_writeMetadataButton] -- add your button handler code here..
         //[/UserButtonCode_writeMetadataButton]
     }
+    else if (buttonThatWasClicked == createnewLabelButton.get())
+    {
+        //[UserButtonCode_createnewLabelButton] -- add your button handler code here..
+        
+        std::unique_ptr<Label> label = std::make_unique<Label>("label","emptylabel");
+        addAndMakeVisible(label.get());
+        label -> setEditable(Defines::IS_EDITABLE);
+        
+        label -> setColour( Label::backgroundColourId, Colours::yellow);
+        label -> setBounds(125, 20, GUIDefines::labelWidth, GUIDefines::labelHeight); // Change position later!!s
+        
+        label->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+        label->setJustificationType (Justification::centred);
+        
+        
+        
+        if (label.get() == nullptr) {
+            std::cout << "Label is null!!! \n \n";
+        }
+        
+        std::cout << "New label generated! \n";
+        //[/UserButtonCode_createnewLabelButton]
+    }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
@@ -157,8 +202,17 @@ BEGIN_JUCER_METADATA
          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
          italic="0" justification="36"/>
   <TEXTBUTTON name="Write MetadataButton" id="527d7a6fc5ac91bf" memberName="writeMetadataButton"
-              virtualName="" explicitFocusOrder="0" pos="125 325 150 24" buttonText="Write Metadata"
+              virtualName="" explicitFocusOrder="0" pos="24 368 150 24" buttonText="Write Metadata"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TEXTBUTTON name="createnewLabelButton" id="5d285aa66433309c" memberName="createnewLabelButton"
+              virtualName="" explicitFocusOrder="0" pos="224 368 150 24" bgColOff="ff0000ff"
+              buttonText="Create new label" connectedEdges="0" needsCallback="1"
+              radioGroupId="0"/>
+  <LABEL name="fullLabel" id="97b5bc3ffd6e4c8e" memberName="fullLabel"
+         virtualName="" explicitFocusOrder="0" pos="24 424 350 24" bkgCol="ffff00b5"
+         edTextCol="ff000000" edBkgCol="0" labelText="" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

@@ -33,6 +33,11 @@ namespace GUIDefines {
     static const Colour editPanelBackgroundColour = Colours::green;
     static const Colour fileInfoPanelBackgroundColour = Colours::aliceblue;
     
+    static const unsigned int labelWidth = 150;
+    static const unsigned int labelHeight = 24;
+ 
+    
+    
     
 }
 
@@ -53,5 +58,9 @@ namespace Defines {
     static const String descriptionKey  = "bwav description";
     static const String originatorKey  = "bwav originator";
     static const String originationDateKey = "bwav origination date";
+    
+    // Label helpers and dimensions
+    static const bool IS_EDITABLE = true;
+    
     
 }
