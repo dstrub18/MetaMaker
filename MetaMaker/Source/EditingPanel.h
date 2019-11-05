@@ -55,6 +55,8 @@ public:
 
     const String getTextFromEditingLabel()             { return this -> editingLabel -> getText();             }
 
+    
+    const void clearEditingLabels();
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -66,7 +68,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    
+
     //[/UserVariables]
 
     //==============================================================================
@@ -75,6 +77,7 @@ private:
     std::unique_ptr<TextButton> createnewLabelButton;
     std::unique_ptr<Label> fullLabel;
 
+    std::vector<Label*> editingLabels;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EditingPanel)
 };
