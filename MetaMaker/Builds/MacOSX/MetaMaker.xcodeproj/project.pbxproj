@@ -69,6 +69,10 @@
 			isa = PBXBuildFile;
 			fileRef = E6418E280832B35D3456A309;
 		};
+		07FB6E8C3456D243BD91918F = {
+			isa = PBXBuildFile;
+			fileRef = 20A44F68536C4CC35E2A96B2;
+		};
 		DE62DAEFBAD2E5D28883DA4D = {
 			isa = PBXBuildFile;
 			fileRef = 37577BA9E8937188D45C3906;
@@ -166,6 +170,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_gui_extra.mm";
 			path = "../../JuceLibraryCode/include_juce_gui_extra.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		20A44F68536C4CC35E2A96B2 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = KeywordButton.cpp;
+			path = ../../Source/KeywordButton.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		291A9E34BD00A63F630D8F88 = {
@@ -378,6 +389,13 @@
 			path = System/Library/Frameworks/OpenGL.framework;
 			sourceTree = SDKROOT;
 		};
+		B8446231BB37C96A9AE11BBB = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = KeywordButton.h;
+			path = ../../Source/KeywordButton.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		BB59DA859E804BDBD713BD01 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -510,6 +528,8 @@
 				843BB4D6D1C07ADAF33FC787,
 				9E5A61649A92ADDBC9678E90,
 				E6418E280832B35D3456A309,
+				20A44F68536C4CC35E2A96B2,
+				B8446231BB37C96A9AE11BBB,
 				37577BA9E8937188D45C3906,
 				2A24A73F75ED8B41506D5B8B,
 				AAA04D8882C3DAD48C92E8EC,
@@ -832,6 +852,7 @@
 			files = (
 				24FE964556565D8499D9EEA7,
 				35A01818016A1C80B3E7A2A1,
+				07FB6E8C3456D243BD91918F,
 				DE62DAEFBAD2E5D28883DA4D,
 				F2FB1E7CDD4467EC3CF1E127,
 				259F4FE2F6B51BB69A9A6582,

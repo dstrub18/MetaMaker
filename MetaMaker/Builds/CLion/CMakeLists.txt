@@ -19,6 +19,8 @@ add_executable (APP
     "../../Source/MainComponent.h"
     "../../Source/MainComponent.cpp"
     "../../Source/Main.cpp"
+    "../../Source/KeywordButton.cpp"
+    "../../Source/KeywordButton.h"
     "../../Source/FileBrowserPanel.cpp"
     "../../Source/FileBrowserPanel.h"
     "../../Source/Defines.h"
@@ -1365,6 +1367,7 @@ add_executable (APP
 )
 
 set_source_files_properties ("../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../Source/KeywordButton.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/FileBrowserPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/Defines.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/EditingPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)

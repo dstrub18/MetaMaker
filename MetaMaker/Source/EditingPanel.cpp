@@ -74,6 +74,10 @@ EditingPanel::EditingPanel (int panelWidth, int panelHeight)
 
     
     
+    
+    
+    
+
     //[UserPreSize]
     //[/UserPreSize]
 
@@ -96,14 +100,13 @@ EditingPanel::~EditingPanel()
     writeMetadataButton = nullptr;
     createnewLabelButton = nullptr;
     fullLabel = nullptr;
-    
-    
+
 
     //[Destructor]. You can add your own custom destruction code here..
-    
+
     clearEditingLabels();   // Deletes all objects, that the elements in the vector are pointing at.
-    
-    
+
+
     //[/Destructor]
 }
 
@@ -161,18 +164,18 @@ void EditingPanel::buttonClicked (Button* buttonThatWasClicked)
         //label.reset(new Label("label","emptylabel"));
         addAndMakeVisible(label);
         label -> setEditable(Defines::IS_EDITABLE);
-        
+
         label -> setColour( Label::backgroundColourId, Colours::darkgreen);
         label -> setBounds(125, 10, GUIDefines::labelWidth, GUIDefines::labelHeight); // Change position later!!
-        
+
         label->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
         label->setJustificationType (Justification::centred);
-        
-        
-        editingLabels.emplace_back(label);
-        
-        std::cout << "Vector size: " + (String) editingLabels.size() << " \n";
-        
+
+
+        editingLabels.add(label);
+
+        std::cout << "Array size: " + (String) editingLabels.size() << " \n";
+
         //[/UserButtonCode_createnewLabelButton]
     }
 
@@ -185,15 +188,10 @@ void EditingPanel::buttonClicked (Button* buttonThatWasClicked)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
 const void EditingPanel::clearEditingLabels(){
-    
-    for (auto i = editingLabels.begin(); i < editingLabels.end(); i++)
-    {
-        delete *i;
-        std::cout << "Deleting element in vector! Size = " <<(String) editingLabels.size() << "\n";
-        // Size of vector doesn't change? Investigate!!
-        
-    }
-    
+
+    editingLabels.clear();
+    std::cout << editingLabels.size() << "\n";
+
 }
 
 //[/MiscUserCode]

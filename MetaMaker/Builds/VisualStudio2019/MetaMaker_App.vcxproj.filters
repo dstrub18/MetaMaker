@@ -418,6 +418,9 @@
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\KeywordButton.cpp">
+      <Filter>MetaMaker\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FileBrowserPanel.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
@@ -2338,6 +2341,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\MainComponent.h">
+      <Filter>MetaMaker\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\KeywordButton.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FileBrowserPanel.h">

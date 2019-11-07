@@ -55,7 +55,7 @@ private:
     
     
     
-    //============================ Flexboxes and the necessary information
+    //============================ Flexboxes and the necessary information. Let's revisit this later.
     
     
     // This handles the reading of the .wav files and the metadata.
@@ -83,6 +83,8 @@ private:
     void updateFileInfoPanel();                                 // Updates the FileInfoPanel
     StringPairArray getMetadataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
     
+    
+    std::unique_ptr<KeywordButton> tempKeywordButton;          // Delete this and let editingPanel handle that.
     
     //==============================================================================
     // Your private member variables go here...
