@@ -72,7 +72,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     
-    OwnedArray<Label> editingLabels;
+    OwnedArray<KeywordButton> editingLabels;
     
     //[/UserVariables]
 

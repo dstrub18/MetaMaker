@@ -80,11 +80,9 @@ private:
     TextButton writeMetadataButton;
     
     
-    void updateFileInfoPanel();                                 // Updates the FileInfoPanel
-    StringPairArray getMetadataFromFile();                     // Retrieves the MetaData from the file in the fileBrowser.
+    void updateFileInfoPanel();                    // Updates the FileInfoPanel
+    StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.
     
-    
-    std::unique_ptr<KeywordButton> tempKeywordButton;          // Delete this and let editingPanel handle that.
     
     //==============================================================================
     // Your private member variables go here...

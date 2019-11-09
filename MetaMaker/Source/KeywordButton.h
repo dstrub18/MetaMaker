@@ -15,7 +15,8 @@
 //==============================================================================
 /*
 */
-class KeywordButton    : public Component
+class KeywordButton    : public Component,
+                         public Button::Listener
 {
 public:
     KeywordButton();
@@ -35,7 +36,8 @@ public:
     const void SetButtonText (const String& text) {   this -> button -> setButtonText(text);    }
     const String getButtonText ()                 {   return this -> button -> getButtonText(); }
     
-    
+    //===================================
+    void buttonClicked(Button* button) override;
     
 private:
     

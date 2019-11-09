@@ -160,19 +160,15 @@ void EditingPanel::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_createnewLabelButton] -- add your button handler code here..
 
-        Label* label = new Label("label","emptylabel");
+        KeywordButton* keywordButton = new KeywordButton(GUIDefines::labelWidth, GUIDefines::labelHeight,
+                                                 125, 125, "Temp!!!");
         //label.reset(new Label("label","emptylabel"));
-        addAndMakeVisible(label);
-        label -> setEditable(Defines::IS_EDITABLE);
+        addAndMakeVisible(keywordButton);
+        
 
-        label -> setColour( Label::backgroundColourId, Colours::darkgreen);
-        label -> setBounds(125, 10, GUIDefines::labelWidth, GUIDefines::labelHeight); // Change position later!!
+        keywordButton -> setColour( TextButton::ColourIds::buttonColourId, Colours::darkgreen);
 
-        label->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        label->setJustificationType (Justification::centred);
-
-
-        editingLabels.add(label);
+        editingLabels.add(keywordButton);
 
         std::cout << "Array size: " + (String) editingLabels.size() << " \n";
 

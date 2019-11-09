@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="SgGklm" name="MetaMaker" projectType="guiapp" jucerVersion="5.4.4"
+<JUCERPROJECT id="SgGklm" name="MetaMaker" projectType="guiapp" jucerVersion="5.4.5"
               cppLanguageStandard="14">
   <MAINGROUP id="wjIBQh" name="MetaMaker">
     <GROUP id="{6D2151D4-0EFF-A9DE-B4A0-F8403FA505FA}" name="Source">

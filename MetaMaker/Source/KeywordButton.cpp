@@ -32,12 +32,25 @@ KeywordButton::KeywordButton(const int& width, const int& height,
     
     addAndMakeVisible(button);
     
+    //Listeners
+    this -> button -> addListener(this);
+    
 }
 
 KeywordButton::~KeywordButton()
 {
     delete button; // This can be done a bit more elegantly!!
 }
+
+// ButtonClicked method
+
+void KeywordButton::buttonClicked(Button* button)
+    {
+        
+        std::cout << "Clicked! \n";
+        
+    }
+
 
 void KeywordButton::paint (Graphics& g)
 {

@@ -41,16 +41,13 @@ MainComponent::MainComponent()
     // FileInfoPanel creation
     fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight);
     fileInfoPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
-    
-    
-    // temp keywordButton
-    tempKeywordButton = std::make_unique<KeywordButton>(20, 20, this -> getWidth() / 2, this -> getHeight() / 2, "Peter Herrmann Josef Struebig"); // Delete this and let editingPanel handle that.
+
     
     // AddAndMakeVisibles
     addAndMakeVisible(*fileBrowserPanel);
     addAndMakeVisible(*editingPanel);
     addAndMakeVisible(*fileInfoPanel);
-    addAndMakeVisible(*tempKeywordButton);
+    
 
     // Add Listeners
                         // Add the listening functionality for the button.
