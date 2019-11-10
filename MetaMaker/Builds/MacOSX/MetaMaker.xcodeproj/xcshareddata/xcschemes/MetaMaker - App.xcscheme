@@ -54,7 +54,7 @@
       <PathRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "com.yourcompany.MetaMaker"
-         FilePath = "/Users/danielstrubig/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/MacOSX/build/Debug/MetaMaker.app">
+         FilePath = "/Users/strue-audio/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/MacOSX/build/Debug/MetaMaker.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
