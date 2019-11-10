@@ -40,9 +40,9 @@ FileBrowserPanel::FileBrowserPanel (const int panelWidth, const int panelHeight,
     wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
     
     // Handles the file restrictions and permissions of the File Browser
-    fileBrowserTypeFlags =   FileBrowserComponent::FileChooserFlags::openMode +
-    FileBrowserComponent::FileChooserFlags::canSelectFiles +
-    FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
+    fileBrowserTypeFlags =  FileBrowserComponent::FileChooserFlags::openMode +
+                            FileBrowserComponent::FileChooserFlags::canSelectFiles +
+                            FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
     
     initialFilePath = File(initialPath);
     

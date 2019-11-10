@@ -83,7 +83,7 @@ private:
     std::unique_ptr<Label> fullLabel;
     
 
-
+    Random randomNumberGenerator;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EditingPanel)
 };

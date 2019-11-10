@@ -161,7 +161,9 @@ void EditingPanel::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_createnewLabelButton] -- add your button handler code here..
 
         KeywordButton* keywordButton = new KeywordButton(GUIDefines::labelWidth, GUIDefines::labelHeight,
-                                                 125, 125, "Temp!!!");
+                                                         randomNumberGenerator.nextInt (Range<int> (0, GUIDefines::initialEditPanelWidth)),
+                                                         randomNumberGenerator.nextInt (Range<int> (0, GUIDefines::universalHeight /2)),
+                                                 "Temp!!!");
         //label.reset(new Label("label","emptylabel"));
         addAndMakeVisible(keywordButton);
         

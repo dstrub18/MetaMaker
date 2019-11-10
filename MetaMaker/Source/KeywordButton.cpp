@@ -47,7 +47,7 @@ KeywordButton::~KeywordButton()
 void KeywordButton::buttonClicked(Button* button)
     {
         
-        std::cout << "Clicked! \n";
+        this -> textEnterWindow.showDialog("Hello!", this -> button, this -> button, Colours::yellow, true);
         
     }
 
