@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.4.4
+  Created with Projucer version: 5.4.6
 
   ------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ class FileInfoPanel  : public Component
 public:
     //==============================================================================
     FileInfoPanel (int panelWidth, int panelHeight);
-    ~FileInfoPanel();
+    ~FileInfoPanel() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.

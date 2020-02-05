@@ -30,30 +30,36 @@ MainComponent::MainComponent()
     
     
     // FileBrowserPanel Creation
-    File initialDirectory = File("~");
-    fileBrowserPanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialPath);
-    fileBrowserPanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
+    String initialSourceDirectoryPath = "~/Desktop/metamakerWavs/Source";
+    String initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
+    
+    sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialSourceDirectoryPath);
+    sourceFilePanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
     
     // EditPanel Creation
-    editingPanel = std::make_unique<EditingPanel>(GUIDefines::initialEditPanelWidth, GUIDefines::universalHeight);
+    editingPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialEditPanelWidth, GUIDefines::universalHeight);
     editingPanel -> setTopLeftPosition( 150, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
-    fileInfoPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight);
-    fileInfoPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
+    destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialDestinationDirectoryPath);
+    destinationPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
 
     
     // AddAndMakeVisibles
-    addAndMakeVisible(*fileBrowserPanel);
+    addAndMakeVisible(*sourceFilePanel);
     addAndMakeVisible(*editingPanel);
-    addAndMakeVisible(*fileInfoPanel);
+    addAndMakeVisible(*destinationPanel);
     
-
+    sourceFilePanel -> getFileBrowser() -> refresh();
+    destinationPanel -> getFileBrowser() -> refresh();
     // Add Listeners
                         // Add the listening functionality for the button.
-    fileBrowserPanel -> getFileBrowser() -> addListener(this);
-    editingPanel -> getWriteMetadataButton() -> addListener(this);
+    sourceFilePanel -> getFileBrowser() -> addListener(this);
+    //editingPanel -> getWriteMetadataButton() -> addListener(this);
     
+    // Set initial Directories
+    sourceFilePanel -> setRoot(initialSourceDirectoryPath);
+    destinationPanel -> setRoot(initialDestinationDirectoryPath);
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -138,12 +144,12 @@ void MainComponent::buttonClicked(Button* button){
         
         std::cout << "WriteButton clicked! \n";
         
-        AudioFormatReader* reader = formatManager.createReaderFor ( fileBrowserPanel -> getCurrentFile() );
+        AudioFormatReader* reader = formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() );
         if (reader != nullptr)
         {
-            File file  = fileBrowserPanel -> getCurrentFile();
+            File file  = sourceFilePanel -> getCurrentFile();
             std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
-            metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
+           // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
             wavAudioFormat -> replaceMetadataInFile(file, *metaDataValues);
             delete reader;
             updateFileInfoPanel();
@@ -196,10 +202,11 @@ void MainComponent::updateFileInfoPanel() {
         
         std::cout << "There's data! \n";
         
-        fileInfoPanel -> setDescriptionLabelText (metaDataValues.getValue (Defines::descriptionKey, "error"));
-        fileInfoPanel -> setArtistLabelText (metaDataValues.getValue( Defines::originatorKey, "error"));
-        fileInfoPanel -> setFileCreationDateLabelText(metaDataValues.getValue(Defines::originationDateKey, "error"));
-        fileInfoPanel -> setFileNameLabelText(fileBrowserPanel->getCurrentFile().getFileName());
+        editingPanel -> setDescriptionLabelText (metaDataValues.getValue (Defines::descriptionKey, "error"));
+        editingPanel -> setArtistLabelText (metaDataValues.getValue( Defines::originatorKey, "error"));
+        editingPanel -> setFileCreationDateLabelText(metaDataValues.getValue(Defines::originationDateKey, "error"));
+        editingPanel -> setFileNameLabelText(sourceFilePanel->getCurrentFile().getFileName());
+        
     }
     else
     {
@@ -215,7 +222,7 @@ void MainComponent::updateFileInfoPanel() {
      */
     
     
-    AudioFormatReader* reader = formatManager.createReaderFor ( fileBrowserPanel -> getCurrentFile() );
+    AudioFormatReader* reader = formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() );
     if (reader != nullptr)
     {
         std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);

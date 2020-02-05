@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.4.4
+  Created with Projucer version: 5.4.6
 
   ------------------------------------------------------------------------------
 
@@ -37,37 +37,39 @@ class FileBrowserPanel  : public Component
 {
 public:
     //==============================================================================
-    FileBrowserPanel (const int panelWidth, const int panelHeight, String initialPath);
-    
-    ~FileBrowserPanel();
-    
+    //FileBrowserPanel ();
+    FileBrowserPanel (const int& initialWidth, const int& initialHeight, const String& initialPath);
+    ~FileBrowserPanel() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    inline File getCurrentFile(){  return this -> fileBrowser -> getHighlightedFile();   };
-    
-    inline FileBrowserComponent* getFileBrowser () { return this -> fileBrowser ;  };
-    
-    
+    File getCurrentFile(){  return this -> fileBrowser -> getHighlightedFile();   };
+
+    FileBrowserComponent* getFileBrowser () { return this -> fileBrowser ;  };
+
+    const File getRoot () {   return this -> fileBrowser -> getRoot();};
+    void setRoot (const File& newRootDirectory) {   this -> fileBrowser -> setRoot(newRootDirectory);}
+
+
+
+
     //[/UserMethods]
 
     void paint (Graphics& g) override;
     void resized() override;
 
-    //void inline setFilePath(String& filePath) {this->fileBrowser->;};
-    
+
 
 private:
-
     //[UserVariables]   -- You can add your own custom variables in this section.
-    
+
     std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
     int fileBrowserTypeFlags;
-    
+
     File initialFilePath;
-    
+
     FileBrowserComponent* fileBrowser;
-    
+
     //[/UserVariables]
 
     //==============================================================================

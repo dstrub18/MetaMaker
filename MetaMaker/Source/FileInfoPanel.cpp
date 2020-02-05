@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.4.4
+  Created with Projucer version: 5.4.6
 
   ------------------------------------------------------------------------------
 
@@ -40,52 +40,52 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     addAndMakeVisible (fileNameLabel.get());
     fileNameLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileNameLabel->setJustificationType (Justification::centredLeft);
-    fileNameLabel->setEditable (false, false, false);
+    fileNameLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
     fileNameLabel->setColour (Label::backgroundColourId, Colour (0xffe41713));
     fileNameLabel->setColour (TextEditor::textColourId, Colours::black);
     fileNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileNameLabel->setBounds (24, 64, 150, 24);
+    fileNameLabel->setBounds (100, 72, 150, 24);
 
     artistLabel.reset (new Label ("artistLabel",
                                   TRANS("Artist label")));
     addAndMakeVisible (artistLabel.get());
     artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     artistLabel->setJustificationType (Justification::centredLeft);
-    artistLabel->setEditable (false, false, false);
+    artistLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
     artistLabel->setColour (TextEditor::textColourId, Colours::black);
     artistLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    artistLabel->setBounds (24, 96, 150, 24);
+    artistLabel->setBounds (100, 104, 150, 24);
 
     fileCreationDate.reset (new Label ("fileCreationDate",
                                        TRANS("File Creation Date")));
     addAndMakeVisible (fileCreationDate.get());
     fileCreationDate->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileCreationDate->setJustificationType (Justification::centredLeft);
-    fileCreationDate->setEditable (false, false, false);
+    fileCreationDate->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
     fileCreationDate->setColour (TextEditor::textColourId, Colours::black);
     fileCreationDate->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileCreationDate->setBounds (24, 128, 150, 24);
+    fileCreationDate->setBounds (100, 136, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
                                        TRANS("Description Label")));
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
-    descriptionLabel->setEditable (false, false, false);
+    descriptionLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
     descriptionLabel->setColour (Label::backgroundColourId, Colours::green);
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    descriptionLabel->setBounds (24, 160, 150, 24);
+    descriptionLabel->setBounds (100, 168, 150, 24);
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    // setSize (1, 1); // Don't uncomment. This is set by Juce due to the auto-generated code.
+    setSize (1, 1);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -153,22 +153,22 @@ BEGIN_JUCER_METADATA
                  overlayOpacity="0.330" fixedSize="0" initialWidth="1" initialHeight="1">
   <BACKGROUND backgroundColour="323e44"/>
   <LABEL name="fileNameLabel" id="e2a9cce2df4c6527" memberName="fileNameLabel"
-         virtualName="" explicitFocusOrder="0" pos="24 64 150 24" bkgCol="ffe41713"
+         virtualName="" explicitFocusOrder="0" pos="376 72 150 24" bkgCol="ffe41713"
          edTextCol="ff000000" edBkgCol="0" labelText="File Name" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="artistLabel" id="ebaf385d731b9325" memberName="artistLabel"
-         virtualName="" explicitFocusOrder="0" pos="24 96 150 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="376 104 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Artist label" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="fileCreationDate" id="97a6b6f0912d21ed" memberName="fileCreationDate"
-         virtualName="" explicitFocusOrder="0" pos="24 128 150 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="376 136 150 24" edTextCol="ff000000"
          edBkgCol="0" labelText="File Creation Date" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="descriptionLabel" id="c099da4c3f67f9bd" memberName="descriptionLabel"
-         virtualName="" explicitFocusOrder="0" pos="24 160 150 24" bkgCol="ff008000"
+         virtualName="" explicitFocusOrder="0" pos="376 168 150 24" bkgCol="ff008000"
          edTextCol="ff000000" edBkgCol="0" labelText="Description Label"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"

@@ -60,7 +60,10 @@ namespace Defines {
     static const String originationDateKey = "bwav origination date";
     
     // Label helpers and dimensions
-    static const bool IS_EDITABLE = true;
+    static const bool ON_SINGLE_CLICK_EDITABLE = false;
+    static const bool ON_DOUBLE_CLICK_EDITABLE = true;
+    static const bool DISCARD_CHANGES_ON_LOSS = false;
+    
     
     
 }

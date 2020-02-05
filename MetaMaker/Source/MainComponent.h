@@ -67,14 +67,14 @@ private:
     
     // FileBrowser and accompanying variables;
     int fileChooserFlag;
-    std::unique_ptr<FileBrowserPanel> fileBrowserPanel;
+    std::unique_ptr<FileBrowserPanel> sourceFilePanel;
     String initialPath = "~";
     
     // EditingPanel
-    std::unique_ptr<EditingPanel> editingPanel;
+    std::unique_ptr<FileInfoPanel> editingPanel;
     
     // This displays the information of the file.
-    std::unique_ptr<FileInfoPanel> fileInfoPanel;
+    std::unique_ptr<FileBrowserPanel> destinationPanel;
     
     // Button for writing Metadata into a file.
     TextButton writeMetadataButton;
