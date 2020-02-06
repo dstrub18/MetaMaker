@@ -22,44 +22,54 @@ MainComponent::MainComponent()
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
-    
-
-    
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat>();
     
     
-    // FileBrowserPanel Creation
+    // SourceFilePanel Creation
     String initialSourceDirectoryPath = "~/Desktop/metamakerWavs/Source";
     String initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
     
-    sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialSourceDirectoryPath);
+    sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
+                                                           GUIDefines::universalHeight,
+                                                           initialSourceDirectoryPath);
+    
     sourceFilePanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
     
-    // EditPanel Creation
-    editingPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialEditPanelWidth, GUIDefines::universalHeight);
-    editingPanel -> setTopLeftPosition( 150, GUIDefines::mainWindowTopYCoordinate);
+    // FileProperty Creation
+    propertyPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialEditPanelWidth,
+                                                   GUIDefines::universalHeight);
+    
+    propertyPanel -> setTopLeftPosition( 150, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
-    destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight, initialDestinationDirectoryPath);
+    destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth,
+                                                          GUIDefines::universalHeight,
+                                                          initialDestinationDirectoryPath);
+    
     destinationPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
 
     
     // AddAndMakeVisibles
     addAndMakeVisible(*sourceFilePanel);
-    addAndMakeVisible(*editingPanel);
+    addAndMakeVisible(*propertyPanel);
     addAndMakeVisible(*destinationPanel);
     
     sourceFilePanel -> getFileBrowser() -> refresh();
     destinationPanel -> getFileBrowser() -> refresh();
-    // Add Listeners
-                        // Add the listening functionality for the button.
+    
+    
+    // LISTENERS
+    // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser() -> addListener(this);
     //editingPanel -> getWriteMetadataButton() -> addListener(this);
     
     // Set initial Directories
     sourceFilePanel -> setRoot(initialSourceDirectoryPath);
     destinationPanel -> setRoot(initialDestinationDirectoryPath);
+    
+    
+    kp = KeyPress('m');
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -123,6 +133,12 @@ void MainComponent::paint (Graphics& g)
     // You can add your drawing code here!
 
     
+    if (kp.isCurrentlyDown()) {
+        Logger::writeToLog("m pressed. \n");
+        copyFromSourceToDestination();
+        
+    }
+    
     
     
 }
@@ -136,8 +152,7 @@ void MainComponent::resized()
 }
 
 
-//==================== override methods from ButtonListener
-
+// Override methods from ButtonListener
 void MainComponent::buttonClicked(Button* button){
     
     if (button->getButtonText()== "Write Metadata") {
@@ -152,7 +167,7 @@ void MainComponent::buttonClicked(Button* button){
            // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
             wavAudioFormat -> replaceMetadataInFile(file, *metaDataValues);
             delete reader;
-            updateFileInfoPanel();
+            updateFilePropertyPanel();
         }
         
         else{
@@ -160,16 +175,14 @@ void MainComponent::buttonClicked(Button* button){
             
         }
     }
-
-    
 }
 
-//==================== override methods from FileBrowserListener
+// Override methods from FileBrowserListener
 void MainComponent::selectionChanged ()
 {
     //std::cout << "Selection changed \n";
     
-    updateFileInfoPanel();
+    updateFilePropertyPanel();
 }
 
 void MainComponent::fileClicked(const File &file, const MouseEvent &e)
@@ -190,58 +203,75 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
 
 // Custom Methods
 
-void MainComponent::updateFileInfoPanel() {
-    
-    /*
-        Updates the labels in the FileInfoPanel
-     */
+// Updates the FileInfoPanel
+void MainComponent::updateFilePropertyPanel()
+{
     
     StringPairArray metaDataValues = getMetadataFromFile();
     
-    if (metaDataValues != Defines::emptyMetaDataFields) {
-        
+    if (metaDataValues != Defines::emptyMetaDataFields || ! sourceFilePanel -> isCurrentlySelectedFileDirectory())
+    {
         std::cout << "There's data! \n";
         
-        editingPanel -> setDescriptionLabelText (metaDataValues.getValue (Defines::descriptionKey, "error"));
-        editingPanel -> setArtistLabelText (metaDataValues.getValue( Defines::originatorKey, "error"));
-        editingPanel -> setFileCreationDateLabelText(metaDataValues.getValue(Defines::originationDateKey, "error"));
-        editingPanel -> setFileNameLabelText(sourceFilePanel->getCurrentFile().getFileName());
-        
+        propertyPanel -> setDescriptionLabelText         (metaDataValues.getValue (Defines::descriptionKey, ""));
+        propertyPanel -> setArtistLabelText              (metaDataValues.getValue (Defines::originatorKey, ""));
+        propertyPanel -> setFileCreationDateLabelText    (metaDataValues.getValue (Defines::originationDateKey, ""));
+        propertyPanel -> setFileNameLabelText            (sourceFilePanel->getCurrentFileName());
     }
     else
     {
-        std::cout << "No data! \n";
+        propertyPanel -> setDescriptionLabelText         ("");
+        propertyPanel -> setArtistLabelText              ("");
+        propertyPanel -> setFileCreationDateLabelText    ("");
+        propertyPanel -> setFileNameLabelText            ("");
     }
     
 }
 
-    StringPairArray MainComponent::getMetadataFromFile() {
-    
+StringPairArray MainComponent::getMetadataFromFile()
+{
     /*
      Retrieves the metadata from the file that's currently selected in the fileBrowser.
      */
     
-    
     AudioFormatReader* reader = formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() );
     if (reader != nullptr)
     {
-        std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
-        std::cout << metaDataValues->getValue("bwav description", "error") << "\n";
+        StringPairArray metaDataValues = StringPairArray (reader -> metadataValues);
+        std::cout << metaDataValues.getValue("bwav description", "error") << "\n";
         delete reader;
-        return *metaDataValues;
-        
+        return metaDataValues;
     }
         
-    else{
-        // std::cout << Defines::emptyMetaDataFields.getDescription() << "temp \n";
+    else
+    {
         return Defines::emptyMetaDataFields;
-        
     }
+        
+
     
     
     
     // Check memory leaks here.
 
+}
+
+const void MainComponent::copyFromSourceToDestination()
+{
+    File fileToCopy = sourceFilePanel -> getCurrentFile ();
+    
+    File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
+    
+    bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
+    if (hasBeenCopied)
+    {
+        Logger::writeToLog("Worked!");
+    }
+    else
+    {
+        Logger::writeToLog("Didn't work!");
+    }
+    destinationPanel -> refreshFileBrowser();
 }
 
 

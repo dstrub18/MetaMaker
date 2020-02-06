@@ -563,6 +563,8 @@ add_executable (APP
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Result.h"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_RuntimePermissions.cpp"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_RuntimePermissions.h"
+    "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_StdFunctionCompat.cpp"
+    "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_StdFunctionCompat.h"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Uuid.cpp"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Uuid.h"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_WindowsRegistry.h"
@@ -678,7 +680,6 @@ add_executable (APP
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_ThreadPool.h"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_TimeSliceThread.cpp"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_TimeSliceThread.h"
-    "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_WaitableEvent.cpp"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_WaitableEvent.h"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/time/juce_PerformanceCounter.cpp"
     "../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/time/juce_PerformanceCounter.h"
@@ -1906,6 +1907,8 @@ set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/mo
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Result.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_RuntimePermissions.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_RuntimePermissions.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_StdFunctionCompat.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_StdFunctionCompat.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Uuid.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_Uuid.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/misc/juce_WindowsRegistry.h" PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -2021,7 +2024,6 @@ set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/mo
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_ThreadPool.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_TimeSliceThread.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_TimeSliceThread.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_WaitableEvent.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/threads/juce_WaitableEvent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/time/juce_PerformanceCounter.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../Applications/JUCE-5.4.3/modules/juce_core/time/juce_PerformanceCounter.h" PROPERTIES HEADER_FILE_ONLY TRUE)

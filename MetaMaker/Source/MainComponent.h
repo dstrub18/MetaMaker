@@ -35,27 +35,24 @@ public:
     //==============================================================================
     void paint (Graphics& g) override;
     void resized() override;
-    //============================================================ButtonListener overrides
     
-
+    //ButtonListener overrides
     void buttonClicked(Button* button) override;
-    //============================================================FileBrowserListener overrides
+    
+    //FileBrowserListener overrides
     void selectionChanged () override;
     void fileClicked (const File &file, const MouseEvent &e) override;
     void fileDoubleClicked (const File &file) override;
     void browserRootChanged (const File & newBrowserRoot) override;
 
-    //==============================================================================
+    // Copy from source to destination
+    const void copyFromSourceToDestination();
     
     
     
     
 private:
     
-    
-    
-    
-    //============================ Flexboxes and the necessary information. Let's revisit this later.
     
     
     // This handles the reading of the .wav files and the metadata.
@@ -71,7 +68,7 @@ private:
     String initialPath = "~";
     
     // EditingPanel
-    std::unique_ptr<FileInfoPanel> editingPanel;
+    std::unique_ptr<FileInfoPanel> propertyPanel;
     
     // This displays the information of the file.
     std::unique_ptr<FileBrowserPanel> destinationPanel;
@@ -80,9 +77,10 @@ private:
     TextButton writeMetadataButton;
     
     
-    void updateFileInfoPanel();                    // Updates the FileInfoPanel
+    void updateFilePropertyPanel();                    // Updates the FileInfoPanel
     StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.
     
+    KeyPress kp;
     
     //==============================================================================
     // Your private member variables go here...

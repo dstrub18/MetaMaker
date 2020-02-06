@@ -43,15 +43,20 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    File getCurrentFile(){  return this -> fileBrowser -> getHighlightedFile();   };
+    File getCurrentFile()                           {   return this -> fileBrowser -> getHighlightedFile();   }
 
-    FileBrowserComponent* getFileBrowser () { return this -> fileBrowser ;  };
+    FileBrowserComponent* getFileBrowser ()         {   return this -> fileBrowser;  }
 
-    const File getRoot () {   return this -> fileBrowser -> getRoot();};
-    void setRoot (const File& newRootDirectory) {   this -> fileBrowser -> setRoot(newRootDirectory);}
+    const File getRoot ()                           {   return this -> fileBrowser -> getRoot();  }
+    void setRoot (const File& newRootDirectory )    {   this -> fileBrowser -> setRoot(newRootDirectory);   }
+    
+    const String getFullPath ()                     {   return this -> fileBrowser -> getRoot().getFullPathName();  }
 
-
-
+    const void refreshFileBrowser ()                {   this -> fileBrowser -> refresh();}
+    
+    const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile().getFileName();   }
+    
+    const bool isCurrentlySelectedFileDirectory()     {   return this -> getCurrentFile().isDirectory();  }
 
     //[/UserMethods]
 
