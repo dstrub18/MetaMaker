@@ -54,7 +54,7 @@ FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialH
     addAndMakeVisible(*fileBrowser);
     //[/UserPreSize]
 
-    setSize (600, 400);
+    setSize (initialWidth, initialHeight);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -81,7 +81,7 @@ void FileBrowserPanel::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colours::limegreen);
+    g.fillAll (backgroundColour);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]

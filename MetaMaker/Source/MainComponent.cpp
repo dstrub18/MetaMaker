@@ -33,28 +33,33 @@ MainComponent::MainComponent()
     sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
                                                            GUIDefines::universalHeight,
                                                            initialSourceDirectoryPath);
-    
     sourceFilePanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
     
     // FileProperty Creation
-    propertyPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialEditPanelWidth,
+    propertyPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileInfoWidth,
                                                    GUIDefines::universalHeight);
-    
     propertyPanel -> setTopLeftPosition( GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
     destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth,
                                                           GUIDefines::universalHeight,
                                                           initialDestinationDirectoryPath);
+    destinationPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
+                                           GUIDefines::mainWindowTopYCoordinate);
     
-    destinationPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth + GUIDefines::initialEditPanelWidth,
-                                         GUIDefines::mainWindowTopYCoordinate);
-
+    buttonPanel = std::make_unique<ButtonPanel>(GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
+    
+    buttonPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
+    
+    // Set initial Directories
+    sourceFilePanel -> setRoot(initialSourceDirectoryPath);
+    destinationPanel -> setRoot(initialDestinationDirectoryPath);
     
     // AddAndMakeVisibles
     addAndMakeVisible(*sourceFilePanel);
     addAndMakeVisible(*propertyPanel);
     addAndMakeVisible(*destinationPanel);
+    addAndMakeVisible(*buttonPanel);
     
     sourceFilePanel -> getFileBrowser() -> refresh();
     destinationPanel -> getFileBrowser() -> refresh();
@@ -63,11 +68,9 @@ MainComponent::MainComponent()
     // LISTENERS
     // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser() -> addListener(this);
-    //editingPanel -> getWriteMetadataButton() -> addListener(this);
+    buttonPanel     -> getCopyButton()  -> addListener(this);
     
-    // Set initial Directories
-    sourceFilePanel -> setRoot(initialSourceDirectoryPath);
-    destinationPanel -> setRoot(initialDestinationDirectoryPath);
+
     
     
     kp = KeyPress('m');
@@ -156,6 +159,7 @@ void MainComponent::resized()
 // Override methods from ButtonListener
 void MainComponent::buttonClicked(Button* button){
     
+
     if (button->getButtonText()== "Write Metadata") {
         
         std::cout << "WriteButton clicked! \n";
@@ -176,6 +180,12 @@ void MainComponent::buttonClicked(Button* button){
             
         }
     }
+    
+    if (button -> getButtonText() == "CopyButton") {
+        copyFromSourceToDestination();
+    }
+    
+    
 }
 
 // Override methods from FileBrowserListener

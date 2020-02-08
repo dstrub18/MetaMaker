@@ -11,8 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
-#include "EditingPanel.h"
-
+#include "ButtonPanel.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -65,7 +64,6 @@ private:
     // FileBrowser and accompanying variables;
     int fileChooserFlag;
     std::unique_ptr<FileBrowserPanel> sourceFilePanel;
-    String initialPath = "~";
     
     // EditingPanel
     std::unique_ptr<FileInfoPanel> propertyPanel;
@@ -73,9 +71,8 @@ private:
     // This displays the information of the file.
     std::unique_ptr<FileBrowserPanel> destinationPanel;
     
-    // Button for writing Metadata into a file.
-    TextButton writeMetadataButton;
-    
+    // Buttons
+    std::unique_ptr<ButtonPanel> buttonPanel;
     
     void updateFilePropertyPanel();                    // Updates the FileInfoPanel
     StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.

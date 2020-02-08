@@ -59,9 +59,8 @@ public:
     
     const bool isCurrentlySelectedFileDirectory()   {   return this -> getCurrentFile().isDirectory();  }
     
-    const void setBackgroundColour (const Colour c) {   this -> fileBrowser ->
-                                                                setColour (FileBrowserComponent::ColourIds::currentPathBoxBackgroundColourId, c);   }
-
+    
+    
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -78,6 +77,8 @@ private:
     File initialFilePath;
 
     FileBrowserComponent* fileBrowser;
+    
+    Colour backgroundColour;
 
     //[/UserVariables]
 

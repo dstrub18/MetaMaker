@@ -27,7 +27,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
+FileInfoPanel::FileInfoPanel (const int& panelWidth, const int& panelHeight)
 {
     //[Constructor_pre] You can add your own custom stuff here..
 

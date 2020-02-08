@@ -14,15 +14,16 @@
 namespace GUIDefines {
     // Definitions of GUI-related variables that make the code more verbose and accessible.
     
-    static const int marginBetweenComponents = 10;
-    static const int buttonHeight = 30;
-    static const int buttonAreaWidth = 150;
+    static const unsigned int marginBetweenComponents = 10;
+    static const unsigned int buttonHeight = 30;
+    static const unsigned int buttonWidth = 50;
     
-    static const int initialFileBrowserWidth = 300; // Isn't that handled automatically when using a flexbox?
-    static const int initialEditPanelWidth = 200;
-    static const int initialFileInfoWidth = 300;
+    static const unsigned int initialFileBrowserWidth = 300; // Isn't that handled automatically when using a flexbox?
+    static const unsigned int initialFileInfoWidth = 200;
+    static const unsigned int initialButtonPanelWidth = initialFileInfoWidth;
+    static const unsigned int initialButtonPanelHeight = 100;
     
-    static const int universalHeight = 600;
+    static const unsigned int universalHeight = 600;
     
     static const int mainWindowTopYCoordinate = 0;
     
@@ -35,8 +36,10 @@ namespace GUIDefines {
     
     static const unsigned int labelWidth = 150;
     static const unsigned int labelHeight = 24;
- 
     
+    static const unsigned int marginBetweenButtons = 5;
+    
+ 
     
     
 }
