@@ -17,8 +17,8 @@ MainComponent::MainComponent()
     // Make sure you set the size of the component after
     // you add any child components.
     
-    setSize (800, 600);
-
+    setSize (800, GUIDefines::universalHeight);
+    
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
@@ -40,14 +40,15 @@ MainComponent::MainComponent()
     propertyPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialEditPanelWidth,
                                                    GUIDefines::universalHeight);
     
-    propertyPanel -> setTopLeftPosition( 150, GUIDefines::mainWindowTopYCoordinate);
+    propertyPanel -> setTopLeftPosition( GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
     destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth,
                                                           GUIDefines::universalHeight,
                                                           initialDestinationDirectoryPath);
     
-    destinationPanel->setTopLeftPosition(getLocalBounds().getWidth() / 4 * 3, GUIDefines::mainWindowTopYCoordinate);
+    destinationPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth + GUIDefines::initialEditPanelWidth,
+                                         GUIDefines::mainWindowTopYCoordinate);
 
     
     // AddAndMakeVisibles

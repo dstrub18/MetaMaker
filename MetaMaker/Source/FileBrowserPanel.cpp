@@ -59,7 +59,6 @@ FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialH
 
     //[Constructor] You can add your own custom stuff here..
     fileBrowser -> refresh();
-
     //[/Constructor]
 }
 
@@ -82,7 +81,7 @@ void FileBrowserPanel::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff323e44));
+    g.fillAll (Colours::limegreen);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -116,7 +115,6 @@ BEGIN_JUCER_METADATA
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="600" initialHeight="400">
-  <BACKGROUND backgroundColour="ff323e44"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

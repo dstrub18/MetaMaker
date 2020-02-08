@@ -21,6 +21,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Defines.h"
 //[/Headers]
 
 
@@ -56,7 +57,10 @@ public:
     
     const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile().getFileName();   }
     
-    const bool isCurrentlySelectedFileDirectory()     {   return this -> getCurrentFile().isDirectory();  }
+    const bool isCurrentlySelectedFileDirectory()   {   return this -> getCurrentFile().isDirectory();  }
+    
+    const void setBackgroundColour (const Colour c) {   this -> fileBrowser ->
+                                                                setColour (FileBrowserComponent::ColourIds::currentPathBoxBackgroundColourId, c);   }
 
     //[/UserMethods]
 

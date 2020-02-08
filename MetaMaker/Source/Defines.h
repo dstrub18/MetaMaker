@@ -18,9 +18,9 @@ namespace GUIDefines {
     static const int buttonHeight = 30;
     static const int buttonAreaWidth = 150;
     
-    static const int initialFileBrowserWidth = 200; // Isn't that handled automatically when using a flexbox?
-    static const int initialEditPanelWidth = 400;
-    static const int initialFileInfoWidth = 200;
+    static const int initialFileBrowserWidth = 300; // Isn't that handled automatically when using a flexbox?
+    static const int initialEditPanelWidth = 200;
+    static const int initialFileInfoWidth = 300;
     
     static const int universalHeight = 600;
     
