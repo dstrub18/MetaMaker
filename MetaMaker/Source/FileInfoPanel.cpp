@@ -27,7 +27,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-FileInfoPanel::FileInfoPanel (const int& panelWidth, const int& panelHeight)
+FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 {
     //[Constructor_pre] You can add your own custom stuff here..
 
@@ -40,52 +40,52 @@ FileInfoPanel::FileInfoPanel (const int& panelWidth, const int& panelHeight)
     addAndMakeVisible (fileNameLabel.get());
     fileNameLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileNameLabel->setJustificationType (Justification::centredLeft);
-    fileNameLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
+    fileNameLabel->setEditable (false, false, false);
     fileNameLabel->setColour (Label::backgroundColourId, Colour (0xffe41713));
     fileNameLabel->setColour (TextEditor::textColourId, Colours::black);
     fileNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileNameLabel->setBounds (20, 72, 150, 24);
+    fileNameLabel->setBounds (376, 72, 150, 24);
 
     artistLabel.reset (new Label ("artistLabel",
                                   TRANS("Artist label")));
     addAndMakeVisible (artistLabel.get());
     artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     artistLabel->setJustificationType (Justification::centredLeft);
-    artistLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
+    artistLabel->setEditable (false, false, false);
     artistLabel->setColour (TextEditor::textColourId, Colours::black);
     artistLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    artistLabel->setBounds (20, 104, 150, 24);
+    artistLabel->setBounds (376, 104, 150, 24);
 
     fileCreationDate.reset (new Label ("fileCreationDate",
                                        TRANS("File Creation Date")));
     addAndMakeVisible (fileCreationDate.get());
     fileCreationDate->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileCreationDate->setJustificationType (Justification::centredLeft);
-    fileCreationDate->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
+    fileCreationDate->setEditable (false, false, false);
     fileCreationDate->setColour (TextEditor::textColourId, Colours::black);
     fileCreationDate->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileCreationDate->setBounds (20, 136, 150, 24);
+    fileCreationDate->setBounds (376, 136, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
                                        TRANS("Description Label")));
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
-    descriptionLabel->setEditable (Defines::ON_SINGLE_CLICK_EDITABLE, Defines::ON_DOUBLE_CLICK_EDITABLE, Defines::DISCARD_CHANGES_ON_LOSS);
+    descriptionLabel->setEditable (false, false, false);
     descriptionLabel->setColour (Label::backgroundColourId, Colours::green);
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    descriptionLabel->setBounds (20, 168, 150, 24);
+    descriptionLabel->setBounds (376, 168, 150, 24);
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    //setSize (1, 1);
+    setSize (1, 1);
 
 
     //[Constructor] You can add your own custom stuff here..

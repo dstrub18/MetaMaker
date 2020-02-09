@@ -38,7 +38,7 @@ class FileInfoPanel  : public Component
 {
 public:
     //==============================================================================
-    FileInfoPanel (const int& panelWidth, const int& panelHeight);
+    FileInfoPanel (int panelWidth, int panelHeight);
     ~FileInfoPanel() override;
 
     //==============================================================================
