@@ -44,20 +44,24 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    File getCurrentFile()                           {   return this -> fileBrowser -> getHighlightedFile();   }
+    File getCurrentFile()                           {   return this -> fileBrowser -> getHighlightedFile();     }
+    //Overload for case when multiple files are selected
+    File getCurrentFile (int& index)                {   return this -> fileBrowser -> getSelectedFile (index);  }
+    
+    const int getNumSelectedFiles () const      {   return this -> fileBrowser -> getNumSelectedFiles();        }
 
     FileBrowserComponent* getFileBrowser ()         {   return this -> fileBrowser;  }
 
-    const File getRoot ()                           {   return this -> fileBrowser -> getRoot();  }
-    void setRoot (const File& newRootDirectory )    {   this -> fileBrowser -> setRoot(newRootDirectory);   }
+    const File getRoot ()                           {   return this -> fileBrowser -> getRoot ();  }
+    void setRoot (const File& newRootDirectory )    {   this -> fileBrowser -> setRoot (newRootDirectory);   }
     
-    const String getFullPath ()                     {   return this -> fileBrowser -> getRoot().getFullPathName();  }
+    const String getFullPath ()                     {   return this -> fileBrowser -> getRoot ().getFullPathName ();  }
 
-    const void refreshFileBrowser ()                {   this -> fileBrowser -> refresh();}
+    const void refreshFileBrowser ()                {   this -> fileBrowser -> refresh ();}
     
-    const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile().getFileName();   }
+    const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile ().getFileName ();   }
     
-    const bool isCurrentlySelectedFileDirectory()   {   return this -> getCurrentFile().isDirectory();  }
+    const bool isCurrentlySelectedFileDirectory()   {   return this -> getCurrentFile ().isDirectory ();  }
     
     
     

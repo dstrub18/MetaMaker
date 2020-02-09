@@ -44,8 +44,6 @@ namespace GUIDefines {
     
 }
 
-
-
 namespace Defines {
     // Definitions of non-GUI-related variables that make the code more verbose and accessible.
     
@@ -66,7 +64,6 @@ namespace Defines {
     static const bool ON_SINGLE_CLICK_EDITABLE = false;
     static const bool ON_DOUBLE_CLICK_EDITABLE = true;
     static const bool DISCARD_CHANGES_ON_LOSS = false;
-    
     
     
 }

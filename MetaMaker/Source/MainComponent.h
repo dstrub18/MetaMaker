@@ -46,6 +46,7 @@ public:
 
     // Copy from source to destination
     const void copyFromSourceToDestination();
+    const void moveFromSourceToDestination();
     
     
     
@@ -77,7 +78,7 @@ private:
     void updateFilePropertyPanel();                    // Updates the FileInfoPanel
     StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.
     
-    KeyPress kp;
+    
     
     //==============================================================================
     // Your private member variables go here...

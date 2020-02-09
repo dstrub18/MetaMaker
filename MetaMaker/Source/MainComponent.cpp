@@ -61,6 +61,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(*destinationPanel);
     addAndMakeVisible(*buttonPanel);
     
+    // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser() -> refresh();
     destinationPanel -> getFileBrowser() -> refresh();
     
@@ -69,11 +70,7 @@ MainComponent::MainComponent()
     // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser() -> addListener(this);
     buttonPanel     -> getCopyButton()  -> addListener(this);
-    
-
-    
-    
-    kp = KeyPress('m');
+    buttonPanel     -> getMoveButton()  -> addListener(this);
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -137,12 +134,6 @@ void MainComponent::paint (Graphics& g)
     // You can add your drawing code here!
 
     
-    if (kp.isCurrentlyDown()) {
-        Logger::writeToLog("m pressed. \n");
-        copyFromSourceToDestination();
-        
-    }
-    
     
     
 }
@@ -183,6 +174,12 @@ void MainComponent::buttonClicked(Button* button){
     
     if (button -> getButtonText() == "CopyButton") {
         copyFromSourceToDestination();
+    }
+    
+    if (button -> getButtonText() == "MoveButton") {
+        Logger::writeToLog("MoveButton Clicked! \n");
+        moveFromSourceToDestination();
+        
     }
     
     
@@ -269,20 +266,45 @@ StringPairArray MainComponent::getMetadataFromFile()
 
 const void MainComponent::copyFromSourceToDestination()
 {
-    File fileToCopy = sourceFilePanel -> getCurrentFile ();
-    
-    File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
-    
-    bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
-    if (hasBeenCopied)
-    {
-        Logger::writeToLog("Worked!");
+    for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
+        File fileToCopy = sourceFilePanel -> getCurrentFile(i);
+        
+        File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
+        
+        bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
+        if (hasBeenCopied)
+        {
+            Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
+        }
+        else
+        {
+            Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
+        }
+        destinationPanel -> refreshFileBrowser();
     }
-    else
-    {
-        Logger::writeToLog("Didn't work!");
+    
+}
+
+const void MainComponent::moveFromSourceToDestination()
+{
+    for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
+        File fileToCopy = sourceFilePanel -> getCurrentFile(i);
+        
+        File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
+        
+        bool hasBeenCopied = fileToCopy.moveFileTo(destinationFile);
+        if (hasBeenCopied)
+        {
+            Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
+        }
+        else
+        {
+            Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
+        }
+        sourceFilePanel -> refreshFileBrowser();
+        destinationPanel -> refreshFileBrowser();
     }
-    destinationPanel -> refreshFileBrowser();
+    
 }
 
 

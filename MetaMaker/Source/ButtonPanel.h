@@ -25,10 +25,12 @@ public:
     void resized() override;
     
     TextButton* getCopyButton()                   { return this -> copyButton.get();             }
+    TextButton* getMoveButton()                   { return this -> moveButton.get();             }
 
 private:
     
     std::unique_ptr<TextButton> copyButton;
+    std::unique_ptr<TextButton> moveButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)

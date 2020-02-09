@@ -46,15 +46,15 @@ public:
 
 
 
-    inline void setFileNameLabelText ( const String& text)  { this -> fileNameLabel -> setText(text, Defines::noNotification);   };
-    inline void setArtistLabelText ( const String& text)    { this -> artistLabel -> setText(text, Defines::noNotification);     };
-    inline void setFileCreationDateLabelText ( const String& text)    { this->fileCreationDate->setText(text, Defines::noNotification);     };
-    inline void setDescriptionLabelText ( const String& text)    { this->descriptionLabel->setText(text, Defines::noNotification);     };
+    inline void setFileNameLabelText ( const String& text)  { this -> fileNameLabel -> setText (text, Defines::noNotification);         };
+    inline void setArtistLabelText ( const String& text)    { this -> artistLabel -> setText (text, Defines::noNotification);           };
+    inline void setFileCreationDateLabelText ( const String& text)    { this->fileCreationDate->setText (text, Defines::noNotification);};
+    inline void setDescriptionLabelText ( const String& text)    { this->descriptionLabel->setText (text, Defines::noNotification);     };
 
-    inline const String getFileNameLabelText (){  return this -> fileNameLabel -> getText( Defines::doNotreturnActiveEditorContents );   };
-    inline const String getArtistLabelText (){    return this -> artistLabel -> getText( Defines::doNotreturnActiveEditorContents );     };
-    inline const String getFileCreationDateLabeltext(){   return this -> fileCreationDate -> getText( Defines::doNotreturnActiveEditorContents ); };
-    inline const String getDescriptionLabelText(){    return this -> descriptionLabel -> getText( Defines::doNotreturnActiveEditorContents ); };
+    inline const String getFileNameLabelText () {  return this -> fileNameLabel -> getText (Defines::doNotreturnActiveEditorContents );  };
+    inline const String getArtistLabelText ()   {    return this -> artistLabel -> getText (Defines::doNotreturnActiveEditorContents );    };
+    inline const String getFileCreationDateLabeltext (){   return this -> fileCreationDate -> getText (Defines::doNotreturnActiveEditorContents); };
+    inline const String getDescriptionLabelText (){    return this -> descriptionLabel -> getText (Defines::doNotreturnActiveEditorContents ); };
 
     //[/UserMethods]
 
