@@ -17,49 +17,49 @@ MainComponent::MainComponent()
     // Make sure you set the size of the component after
     // you add any child components.
     
-    setSize (800, GUIDefines::universalHeight);
+    setSize (GUIDefines::universalWidth, GUIDefines::universalHeight);
     
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
     // Make the WavAudioFormat
-    wavAudioFormat = std::make_unique<WavAudioFormat>();
+    wavAudioFormat = std::make_unique<WavAudioFormat> ();
     
     
     // SourceFilePanel Creation
-    String initialSourceDirectoryPath = "~/Desktop/metamakerWavs/Source";
-    String initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
+    initialSourceDirectoryPath = "~/Desktop/metamakerWavs/Source";
+    initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
     
     sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
                                                            GUIDefines::universalHeight,
                                                            initialSourceDirectoryPath);
-    sourceFilePanel -> setTopLeftPosition(0, GUIDefines::mainWindowTopYCoordinate);
+    sourceFilePanel -> setTopLeftPosition (0, GUIDefines::mainWindowTopYCoordinate);
     
     // FileProperty Creation
-    propertyPanel = std::make_unique<FileInfoPanel>(GUIDefines::initialFileInfoWidth,
-                                                   GUIDefines::universalHeight);
-    propertyPanel -> setTopLeftPosition( GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
+    propertyPanel = std::make_unique<FileInfoPanel> (GUIDefines::initialFileInfoWidth,
+                                                     GUIDefines::universalHeight);
+    propertyPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
-    destinationPanel = std::make_unique<FileBrowserPanel>(GUIDefines::initialFileBrowserWidth,
-                                                          GUIDefines::universalHeight,
-                                                          initialDestinationDirectoryPath);
-    destinationPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
-                                           GUIDefines::mainWindowTopYCoordinate);
+    destinationPanel = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
+                                                           GUIDefines::universalHeight,
+                                                           initialDestinationDirectoryPath);
+    destinationPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
+                                            GUIDefines::mainWindowTopYCoordinate);
     
-    buttonPanel = std::make_unique<ButtonPanel>(GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
+    buttonPanel = std::make_unique<ButtonPanel> (GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
     
-    buttonPanel -> setTopLeftPosition(GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
+    buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
     
     // Set initial Directories
-    sourceFilePanel -> setRoot(initialSourceDirectoryPath);
-    destinationPanel -> setRoot(initialDestinationDirectoryPath);
+    sourceFilePanel -> setRoot (initialSourceDirectoryPath);
+    destinationPanel -> setRoot (initialDestinationDirectoryPath);
     
     // AddAndMakeVisibles
-    addAndMakeVisible(*sourceFilePanel);
-    addAndMakeVisible(*propertyPanel);
-    addAndMakeVisible(*destinationPanel);
-    addAndMakeVisible(*buttonPanel);
+    addAndMakeVisible (*sourceFilePanel);
+    addAndMakeVisible (*propertyPanel);
+    addAndMakeVisible (*destinationPanel);
+    addAndMakeVisible (*buttonPanel);
     
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser() -> refresh();

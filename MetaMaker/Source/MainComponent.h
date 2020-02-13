@@ -35,22 +35,6 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     
-    //ButtonListener overrides
-    void buttonClicked(Button* button) override;
-    
-    //FileBrowserListener overrides
-    void selectionChanged () override;
-    void fileClicked (const File &file, const MouseEvent &e) override;
-    void fileDoubleClicked (const File &file) override;
-    void browserRootChanged (const File & newBrowserRoot) override;
-
-    // Copy from source to destination
-    const void copyFromSourceToDestination();
-    const void moveFromSourceToDestination();
-    
-    
-    
-    
 private:
     
     
@@ -75,11 +59,26 @@ private:
     // Buttons
     std::unique_ptr<ButtonPanel> buttonPanel;
     
-    void updateFilePropertyPanel();                    // Updates the FileInfoPanel
+    
     StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.
     
+    String initialSourceDirectoryPath;
+    String initialDestinationDirectoryPath;
     
+    //ButtonListener overrides
+    void buttonClicked(Button* button) override;
     
+    //FileBrowserListener overrides
+    void selectionChanged () override;
+    void fileClicked (const File &file, const MouseEvent &e) override;
+    void fileDoubleClicked (const File &file) override;
+    void browserRootChanged (const File & newBrowserRoot) override;
+    
+    // File Copy / Move Functionality
+    const void copyFromSourceToDestination();
+    const void moveFromSourceToDestination();
+    
+    void updateFilePropertyPanel();                    // Updates the FileInfoPanel
     //==============================================================================
     // Your private member variables go here...
 

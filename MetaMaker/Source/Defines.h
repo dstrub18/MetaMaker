@@ -24,6 +24,7 @@ namespace GUIDefines {
     static const unsigned int initialButtonPanelHeight = 100;
     
     static const unsigned int universalHeight = 600;
+    static const unsigned int universalWidth = 800;
     
     static const int mainWindowTopYCoordinate = 0;
     
