@@ -45,7 +45,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     fileNameLabel->setColour (TextEditor::textColourId, Colours::black);
     fileNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileNameLabel->setBounds (5, 72, 150, 24);
+    fileNameLabel->setBounds (panelWidth / 2 - 150 / 2, 72, 150, 24);
 
     artistLabel.reset (new Label ("artistLabel",
                                   TRANS("Artist label")));
@@ -56,7 +56,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     artistLabel->setColour (TextEditor::textColourId, Colours::black);
     artistLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    artistLabel->setBounds (5, 104, 150, 24);
+    artistLabel->setBounds (panelWidth / 2 - 150 / 2, 104, 150, 24);
 
     fileCreationDate.reset (new Label ("fileCreationDate",
                                        TRANS("File Creation Date")));
@@ -67,7 +67,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     fileCreationDate->setColour (TextEditor::textColourId, Colours::black);
     fileCreationDate->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    fileCreationDate->setBounds (5, 136, 150, 24);
+    fileCreationDate->setBounds (panelWidth / 2 - 150 / 2, 136, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
                                        TRANS("Description Label")));
@@ -79,7 +79,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    descriptionLabel->setBounds (5, 168, 150, 24);
+    descriptionLabel->setBounds (panelWidth / 2 - 150 / 2, 168, 150, 24);
 
 
     //[UserPreSize]
