@@ -47,9 +47,13 @@ MainComponent::MainComponent()
     destinationPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
                                             GUIDefines::mainWindowTopYCoordinate);
     
+    // Debug Button Panel
     buttonPanel = std::make_unique<ButtonPanel> (GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
     
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
+    
+    // Metadata Manager
+    mm = MetadataManager();
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
@@ -61,16 +65,16 @@ MainComponent::MainComponent()
     addAndMakeVisible (*destinationPanel);
     addAndMakeVisible (*buttonPanel);
     
-    // Initial Refresh for the Filebrowsers
-    sourceFilePanel -> getFileBrowser() -> refresh();
-    destinationPanel -> getFileBrowser() -> refresh();
-    
     
     // LISTENERS
     // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser() -> addListener(this);
     buttonPanel     -> getCopyButton()  -> addListener(this);
     buttonPanel     -> getMoveButton()  -> addListener(this);
+    
+    // Initial Refresh for the Filebrowsers
+    sourceFilePanel -> getFileBrowser() -> refresh();
+    destinationPanel -> getFileBrowser() -> refresh();
     
     
     // Some platforms require permissions to open input channels so request that here

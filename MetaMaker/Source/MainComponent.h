@@ -12,6 +12,7 @@
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
 #include "ButtonPanel.h"
+#include "MetadataManager.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -37,7 +38,7 @@ public:
     
 private:
     
-    
+    MetadataManager mm;
     
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;

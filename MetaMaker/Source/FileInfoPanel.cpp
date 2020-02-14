@@ -74,7 +74,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
-    descriptionLabel->setEditable (false, false, false);
+    descriptionLabel->setEditable (false, true, false);
     descriptionLabel->setColour (Label::backgroundColourId, Colours::green);
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
     descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
