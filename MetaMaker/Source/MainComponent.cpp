@@ -53,7 +53,7 @@ MainComponent::MainComponent()
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
     
     // Metadata Manager
-    mm = MetadataManager();
+    metadataManager = std::make_unique<MetadataManager>();
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
@@ -67,14 +67,23 @@ MainComponent::MainComponent()
     
     
     // LISTENERS
-    // Add the listening functionality for the button.
-    sourceFilePanel -> getFileBrowser() -> addListener(this);
-    buttonPanel     -> getCopyButton()  -> addListener(this);
-    buttonPanel     -> getMoveButton()  -> addListener(this);
+        // Add the listening functionality for the button.
+    sourceFilePanel -> getFileBrowser () -> addListener(this);
     
-    // Initial Refresh for the Filebrowsers
-    sourceFilePanel -> getFileBrowser() -> refresh();
-    destinationPanel -> getFileBrowser() -> refresh();
+    buttonPanel     -> getCopyButton ()  -> addListener(this);
+    buttonPanel     -> getMoveButton ()  -> addListener(this);
+    
+    propertyPanel   -> getArtistLabel () -> addListener(this);
+    propertyPanel   -> getFileNameLabel () -> addListener(this);
+    propertyPanel   -> getDescriptionLabel () -> addListener(this);
+    propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
+    
+    
+        // Initial Refresh for the Filebrowsers
+    sourceFilePanel -> getFileBrowser () -> refresh();
+    destinationPanel -> getFileBrowser () -> refresh();
+    
+    
     
     
     // Some platforms require permissions to open input channels so request that here
@@ -170,9 +179,9 @@ void MainComponent::buttonClicked(Button* button){
             updateFilePropertyPanel();
         }
         
-        else{
+        else
+        {
             std::cout << "Error!" << " \n";
-            
         }
     }
     
@@ -213,12 +222,30 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
 }
 
 
+
+
+// Override functions from LabelListener
+
+void MainComponent::labelTextChanged(Label *labelThatHasChanged)
+{
+    Logger::writeToLog ("LabelTextChanged! \n");
+}
+
+void MainComponent::editorShown (Label* , TextEditor &)
+{
+    Logger::writeToLog ("EditorShown! \n");
+}
+
+void MainComponent::editorHidden (Label *, TextEditor &)
+{
+    Logger::writeToLog ("EditorHidden! \n");
+}
+
 // Custom Methods
 
 // Updates the FileInfoPanel
 void MainComponent::updateFilePropertyPanel()
 {
-    
     StringPairArray metaDataValues = getMetadataFromFile();
     
     if (metaDataValues != Defines::emptyMetaDataFields || ! sourceFilePanel -> isCurrentlySelectedFileDirectory())
@@ -237,7 +264,6 @@ void MainComponent::updateFilePropertyPanel()
         propertyPanel -> setFileCreationDateLabelText    ("");
         propertyPanel -> setFileNameLabelText            ("");
     }
-    
 }
 
 StringPairArray MainComponent::getMetadataFromFile()
@@ -254,15 +280,10 @@ StringPairArray MainComponent::getMetadataFromFile()
         delete reader;
         return metaDataValues;
     }
-        
     else
     {
         return Defines::emptyMetaDataFields;
     }
-        
-
-    
-    
     
     // Check memory leaks here.
 

@@ -24,6 +24,8 @@ class MetadataManager
         const StringPairArray getNewMetadata ()                     {  return this -> newMetadata;        }
     
         const void printMetadata (StringPairArray& array);
+    
+
     private:
         StringPairArray oldMetadata;
         StringPairArray newMetadata;

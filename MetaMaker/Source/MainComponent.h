@@ -20,7 +20,9 @@
 */
 class MainComponent   : public AudioAppComponent,
                         public Button::Listener,
-                        public FileBrowserListener
+                        public FileBrowserListener,
+                        public Label::Listener
+
 {
 public:
     //==============================================================================
@@ -37,8 +39,6 @@ public:
     void resized() override;
     
 private:
-    
-    MetadataManager mm;
     
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
@@ -61,25 +61,36 @@ private:
     std::unique_ptr<ButtonPanel> buttonPanel;
     
     
-    StringPairArray getMetadataFromFile();         // Retrieves the MetaData from the file in the fileBrowser.
+    
     
     String initialSourceDirectoryPath;
     String initialDestinationDirectoryPath;
     
-    //ButtonListener overrides
+    std::unique_ptr<MetadataManager> metadataManager;
+    
+    // ButtonListener overrides
     void buttonClicked(Button* button) override;
     
-    //FileBrowserListener overrides
+    // FileBrowserListener overrides
     void selectionChanged () override;
     void fileClicked (const File &file, const MouseEvent &e) override;
     void fileDoubleClicked (const File &file) override;
     void browserRootChanged (const File & newBrowserRoot) override;
     
+    // LabelListener overrides
+    void labelTextChanged (Label* labelThatHasChanged) override;
+    void editorShown (Label* ,TextEditor &) override;
+    void editorHidden (Label *,TextEditor &) override;
+    
     // File Copy / Move Functionality
     const void copyFromSourceToDestination();
     const void moveFromSourceToDestination();
     
-    void updateFilePropertyPanel();                    // Updates the FileInfoPanel
+    // Updates the FileInfoPanel
+    void updateFilePropertyPanel();
+    
+    // Retrieves the MetaData from the file in the fileBrowser.
+    StringPairArray getMetadataFromFile();
     //==============================================================================
     // Your private member variables go here...
 

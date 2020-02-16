@@ -16,14 +16,11 @@ MetadataManager::MetadataManager ()
     this -> oldMetadata.set (Defines::originatorKey, "Originator_old");
     this -> oldMetadata.set (Defines::descriptionKey, "Description_old");
     
+    Utilites::printMetadata(oldMetadata);
+    
     this -> newMetadata.set (Defines::originationDateKey, "Date_new");
     this -> newMetadata.set (Defines::originatorKey, "Originator_new");
     this -> newMetadata.set (Defines::descriptionKey, "Description_new");
-}
-
-const void MetadataManager::printMetadata(StringPairArray& array)
-{
-    Logger::writeToLog (Defines::originationDateKey + "\t\t" + array [Defines::originationDateKey]);
-    Logger::writeToLog (Defines::originatorKey + "\t\t\t\t" + array [Defines::originatorKey]);
-    Logger::writeToLog (Defines::descriptionKey + "\t\t\t" + array [Defines::descriptionKey]);
+    
+    Utilites::printMetadata(newMetadata);
 }

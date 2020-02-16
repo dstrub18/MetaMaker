@@ -11,7 +11,8 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 
-namespace GUIDefines {
+namespace GUIDefines
+{
     // Definitions of GUI-related variables that make the code more verbose and accessible.
     
     static const unsigned int marginBetweenComponents = 10;
@@ -40,13 +41,11 @@ namespace GUIDefines {
     
     static const unsigned int marginBetweenButtons = 5;
     
- 
-    
-    
 }
 
-namespace Defines {
-    // Definitions of non-GUI-related variables that make the code more verbose and accessible.
+namespace Defines
+{
+    // Definitions of non-GUI-related variables that make the code more readible and accessible.
     
     
     static const auto noNotification = juce::NotificationType::dontSendNotification;
@@ -67,4 +66,14 @@ namespace Defines {
     static const bool DISCARD_CHANGES_ON_LOSS = false;
     
     
+}
+
+namespace Utilites
+{
+    static const void printMetadata(StringPairArray& array)
+    {
+        Logger::writeToLog (Defines::originationDateKey + "\t\t" + array [Defines::originationDateKey]);
+        Logger::writeToLog (Defines::originatorKey + "\t\t\t\t" + array [Defines::originatorKey]);
+        Logger::writeToLog (Defines::descriptionKey + "\t\t\t" + array [Defines::descriptionKey]);
+    }
 }
