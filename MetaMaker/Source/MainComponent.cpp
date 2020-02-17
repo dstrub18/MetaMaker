@@ -72,6 +72,7 @@ MainComponent::MainComponent()
     
     buttonPanel     -> getCopyButton ()  -> addListener(this);
     buttonPanel     -> getMoveButton ()  -> addListener(this);
+    buttonPanel     -> getWriteAndCopyButton() -> addListener(this);
     
     propertyPanel   -> getArtistLabel () -> addListener(this);
     propertyPanel   -> getFileNameLabel () -> addListener(this);
@@ -166,24 +167,9 @@ void MainComponent::buttonClicked(Button* button){
 
     if (button->getButtonText()== "Write Metadata") {
         
-        std::cout << "WriteButton clicked! \n";
         
-        AudioFormatReader* reader = formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() );
-        if (reader != nullptr)
-        {
-            File file  = sourceFilePanel -> getCurrentFile();
-            std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
-           // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
-            wavAudioFormat -> replaceMetadataInFile(file, *metaDataValues);
-            delete reader;
-            updateFilePropertyPanel();
-        }
-        
-        else
-        {
-            std::cout << "Error!" << " \n";
-        }
     }
+    
     
     if (button -> getButtonText() == "CopyButton") {
         copyFromSourceToDestination();
@@ -193,6 +179,57 @@ void MainComponent::buttonClicked(Button* button){
         Logger::writeToLog("MoveButton Clicked! \n");
         moveFromSourceToDestination();
         
+    }
+    
+    if (button -> getButtonText() == "WriteAndCopy") {
+        Logger::writeToLog("Write and Copy!");
+        
+        for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
+            
+            File fileToCopy = sourceFilePanel -> getCurrentFile(i);
+            
+            File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
+            
+            AudioFormatReader* reader = formatManager.createReaderFor ( fileToCopy );
+            Logger::writeToLog("Reader created!");
+            
+            if (reader != nullptr)
+            {
+                
+                //File file  = sourceFilePanel -> getCurrentFile();
+                std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
+                Logger::writeToLog("MetaDataValues Received!");
+                // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
+                metaDataValues -> set("bwav description", "Did it work ? " + String (i));
+                
+                
+                delete reader;
+                updateFilePropertyPanel();
+                
+                bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
+                if (hasBeenCopied)
+                {
+                    Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
+                }
+                else
+                {
+                    Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
+                }
+                destinationPanel -> refreshFileBrowser();
+                wavAudioFormat -> replaceMetadataInFile(destinationFile, *metaDataValues);
+                
+                
+                
+                
+            }
+            
+            else
+            {
+                Logger::writeToLog("Error");
+                
+            }
+        }
+       
     }
     
     
