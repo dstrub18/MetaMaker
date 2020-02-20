@@ -60,13 +60,11 @@ private:
     // Buttons
     std::unique_ptr<ButtonPanel> buttonPanel;
     
-    
-    
-    
     String initialSourceDirectoryPath;
     String initialDestinationDirectoryPath;
     
-    std::unique_ptr<MetadataManager> metadataManager;
+    // array that stores all changes on the central property panel
+    StringPairArray metadataInPanel;
     
     // ButtonListener overrides
     void buttonClicked(Button* button) override;

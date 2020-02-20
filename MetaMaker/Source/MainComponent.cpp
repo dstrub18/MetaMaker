@@ -53,7 +53,7 @@ MainComponent::MainComponent()
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
     
     // Metadata Manager
-    metadataManager = std::make_unique<MetadataManager>();
+    //metadataManager = std::make_unique<MetadataManager>();
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
@@ -85,7 +85,13 @@ MainComponent::MainComponent()
     destinationPanel -> getFileBrowser () -> refresh();
     
     
+    // Initialize stringpairArray with keys and initial values;
+    metadataInPanel = StringPairArray();
+    metadataInPanel.set(Defines::originatorKey, "originator");
+    metadataInPanel.set(Defines::originationDateKey, "date");
+    metadataInPanel.set(Defines::descriptionKey, "description");
     
+    Utilites::printMetadata(metadataInPanel);
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -200,7 +206,7 @@ void MainComponent::buttonClicked(Button* button){
                 std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
                 Logger::writeToLog("MetaDataValues Received!");
                 // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
-                metaDataValues -> set("bwav description", "Did it work ? " + String (i));
+                metaDataValues -> set("bwav description", "Did it work ? ");
                 
                 
                 delete reader;
@@ -275,7 +281,8 @@ void MainComponent::editorShown (Label* , TextEditor &)
 
 void MainComponent::editorHidden (Label *, TextEditor &)
 {
-    Logger::writeToLog ("EditorHidden! \n");
+    metadataInPanel.set(Defines::descriptionKey, propertyPanel ->getDescriptionLabelText());
+    Utilites::printMetadata(metadataInPanel);
 }
 
 // Custom Methods
