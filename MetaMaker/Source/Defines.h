@@ -16,7 +16,7 @@ namespace GUIDefines
     // Definitions of GUI-related variables that make the code more verbose and accessible.
     
     static const unsigned int marginBetweenComponents = 10;
-    static const unsigned int buttonHeight = 30;
+    static const unsigned int buttonHeight = 20;
     static const unsigned int buttonWidth = 50;
     
     static const unsigned int initialFileBrowserWidth = 300; // Isn't that handled automatically when using a flexbox?

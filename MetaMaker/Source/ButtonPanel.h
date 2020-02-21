@@ -27,12 +27,14 @@ public:
     TextButton* getCopyButton ()                   { return this -> copyButton.get();             }
     TextButton* getMoveButton ()                   { return this -> moveButton.get();             }
     TextButton* getWriteAndCopyButton ()           { return this -> writeAndCoppyButton.get();    }
+    TextButton* getreplaceMetadataButton ()        { return this -> replaceMetadataButton.get();  }
 
 private:
     
     std::unique_ptr<TextButton> copyButton;
     std::unique_ptr<TextButton> moveButton;
     std::unique_ptr<TextButton> writeAndCoppyButton;
+    std::unique_ptr<TextButton> replaceMetadataButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)
