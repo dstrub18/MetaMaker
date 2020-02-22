@@ -52,8 +52,6 @@ MainComponent::MainComponent()
     
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
     
-    // Metadata Manager
-    //metadataManager = std::make_unique<MetadataManager>();
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);

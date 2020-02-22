@@ -43,9 +43,11 @@ private:
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
     std::unique_ptr<AudioFormatReaderSource> readerSource;
-    File currentFile;
+    
     StringPairArray newMetaData;
-    std::unique_ptr<WavAudioFormat> wavAudioFormat; // helper object to replace the metadata.
+    
+    // helper object to replace the metadata.
+    std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
     // FileBrowser and accompanying variables;
     int fileChooserFlag;
@@ -66,6 +68,13 @@ private:
     // array that stores all changes on the central property panel
     StringPairArray metadataInPanel;
     
+    
+    
+    /*
+     =====================
+        LISTENER FUNCTIONS
+     =====================
+     */ 
     // ButtonListener overrides
     void buttonClicked(Button* button) override;
     

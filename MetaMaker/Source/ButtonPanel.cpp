@@ -23,56 +23,38 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     
     copyButton = std::make_unique<TextButton> ("Copy File");
     
-    copyButton -> setBounds(GUIDefines::initialButtonPanelWidth / 2 - GUIDefines::buttonWidth / 2,
-                            GUIDefines::initialButtonPanelHeight / 2 - GUIDefines::buttonHeight / 2,
-                            GUIDefines::buttonWidth,
-                            GUIDefines::buttonHeight);
+    copyButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
     copyButton -> changeWidthToFitText ();
-    copyButton -> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 2 - copyButton -> getWidth() / 2,
-                                     GUIDefines::initialButtonPanelHeight / 2 - GUIDefines::buttonHeight / 2 - 30);
+    copyButton -> setTopLeftPosition(0,0);
     copyButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::blue);
     
+    
     moveButton = std::make_unique<TextButton> ("Move File");
-    //    copyButton -> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 2, GUIDefines::initialButtonPanelHeight / 2);
-    //    copyButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
-    
-    
-    moveButton -> setBounds (GUIDefines::initialButtonPanelWidth / 2 - GUIDefines::buttonWidth / 2,
-                            GUIDefines::initialButtonPanelHeight / 2 - GUIDefines::buttonHeight / 2,
-                            GUIDefines::buttonWidth,
-                            GUIDefines::buttonHeight);
+    moveButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
     moveButton -> changeWidthToFitText ();
-    moveButton -> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 2 - moveButton -> getWidth() / 2,
-                                     GUIDefines::initialButtonPanelHeight / 2 - GUIDefines::buttonHeight / 2 );
-    
+    moveButton -> setTopLeftPosition(0, GUIDefines::buttonHeight);
     moveButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::darkmagenta);
     
-    writeAndCoppyButton = std::make_unique<TextButton> ("WriteAndCopy");
-    writeAndCoppyButton -> setBounds (GUIDefines::initialButtonPanelWidth / 2 - GUIDefines::buttonWidth / 2,
-                                     GUIDefines::initialButtonPanelHeight / 2 + GUIDefines::buttonHeight / 2,
-                                     GUIDefines::buttonWidth,
-                                     GUIDefines::buttonHeight);
-    writeAndCoppyButton -> changeWidthToFitText ();
-    writeAndCoppyButton -> setTopLeftPosition (GUIDefines::initialButtonPanelWidth / 2 - writeAndCoppyButton -> getWidth() / 2,
-                                               GUIDefines::initialButtonPanelHeight / 2 + GUIDefines::buttonHeight / 2);
     
+    writeAndCoppyButton = std::make_unique<TextButton> ("WriteAndCopy");
+    writeAndCoppyButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    writeAndCoppyButton -> changeWidthToFitText ();
+    writeAndCoppyButton -> setTopLeftPosition (0, GUIDefines::buttonHeight * 2);
     writeAndCoppyButton -> setColour (TextButton::ColourIds::buttonColourId, Colours::darkorange);
     
     
-    replaceMetadataButton = std::make_unique<TextButton>("Replace");
-    replaceMetadataButton -> setBounds (GUIDefines::initialButtonPanelWidth / 2 - GUIDefines::buttonWidth / 2,
-                                        GUIDefines::initialButtonPanelHeight / 2 + GUIDefines::buttonHeight / 2,
-                                        GUIDefines::buttonWidth,
-                                        GUIDefines::buttonHeight);
+    replaceMetadataButton = std::make_unique<TextButton> ("Override");
+    replaceMetadataButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
     replaceMetadataButton -> changeWidthToFitText ();
-    replaceMetadataButton -> setTopLeftPosition (GUIDefines::initialButtonPanelWidth / 2 - writeAndCoppyButton -> getWidth() / 2,
-                                                 GUIDefines::initialButtonPanelHeight / 2 + GUIDefines::buttonHeight / 2);
+    replaceMetadataButton -> setTopLeftPosition (0, GUIDefines::buttonHeight * 3);
     replaceMetadataButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::green);
     
-    addAndMakeVisible(*copyButton);
-    addAndMakeVisible(*moveButton);
-    addAndMakeVisible(*writeAndCoppyButton);
-    addAndMakeVisible(*replaceMetadataButton);
+    
+    
+    addAndMakeVisible (*copyButton);
+    addAndMakeVisible (*moveButton);
+    addAndMakeVisible (*writeAndCoppyButton);
+    addAndMakeVisible (*replaceMetadataButton);
 }
 
 ButtonPanel::~ButtonPanel()
