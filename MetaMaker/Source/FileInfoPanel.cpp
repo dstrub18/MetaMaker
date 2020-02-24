@@ -40,7 +40,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     addAndMakeVisible (fileNameLabel.get());
     fileNameLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileNameLabel->setJustificationType (Justification::centredLeft);
-    fileNameLabel->setEditable (false, false, false);
+    fileNameLabel->setEditable (false, true, false);
     fileNameLabel->setColour (Label::backgroundColourId, Colour (0xffe41713));
     fileNameLabel->setColour (TextEditor::textColourId, Colours::black);
     fileNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
@@ -52,9 +52,9 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     addAndMakeVisible (artistLabel.get());
     artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     artistLabel->setJustificationType (Justification::centredLeft);
-    artistLabel->setEditable (false, false, false);
+    artistLabel->setEditable (false, true, false);
     artistLabel->setColour (TextEditor::textColourId, Colours::black);
-    artistLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    artistLabel->setColour (Label::backgroundColourId, Colours::violet);
 
     artistLabel->setBounds (panelWidth / 2 - 150 / 2, 104, 150, 24);
 
@@ -63,9 +63,10 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     addAndMakeVisible (fileCreationDate.get());
     fileCreationDate->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileCreationDate->setJustificationType (Justification::centredLeft);
-    fileCreationDate->setEditable (false, false, false);
+    fileCreationDate->setEditable (false, true, false);
+    fileCreationDate->setColour (Label::backgroundColourId, Colours::blue);
     fileCreationDate->setColour (TextEditor::textColourId, Colours::black);
-    fileCreationDate->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    
 
     fileCreationDate->setBounds (panelWidth / 2 - 150 / 2, 136, 150, 24);
 
@@ -77,7 +78,6 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     descriptionLabel->setEditable (false, true, false);
     descriptionLabel->setColour (Label::backgroundColourId, Colours::green);
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
-    descriptionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     descriptionLabel->setBounds (panelWidth / 2 - 150 / 2, 168, 150, 24);
 
@@ -90,6 +90,11 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 
     //[Constructor] You can add your own custom stuff here..
     setSize (panelWidth, panelHeight);
+    
+//    completer = std::make_unique<CodeEditorComponent>();
+//    completer -> setSize(30, 100);
+//    completer -> setTopLeftPosition(0, 400);
+//    addAndMakeVisible(*completer);
     //[/Constructor]
 }
 

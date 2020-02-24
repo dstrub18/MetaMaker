@@ -22,7 +22,6 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     setSize(panelWidth, panelHeight);
     
     copyButton = std::make_unique<TextButton> ("Copy File");
-    
     copyButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
     copyButton -> changeWidthToFitText ();
     copyButton -> setTopLeftPosition(0,0);
@@ -43,7 +42,7 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     writeAndCoppyButton -> setColour (TextButton::ColourIds::buttonColourId, Colours::darkorange);
     
     
-    replaceMetadataButton = std::make_unique<TextButton> ("Override");
+    replaceMetadataButton = std::make_unique<TextButton> ("Replace");
     replaceMetadataButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
     replaceMetadataButton -> changeWidthToFitText ();
     replaceMetadataButton -> setTopLeftPosition (0, GUIDefines::buttonHeight * 3);

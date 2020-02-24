@@ -34,6 +34,7 @@ MainComponent::MainComponent()
                                                            GUIDefines::universalHeight,
                                                            initialSourceDirectoryPath);
     sourceFilePanel -> setTopLeftPosition (0, GUIDefines::mainWindowTopYCoordinate);
+    sourceFilePanel -> setColour (FileBrowserComponent::ColourIds::filenameBoxBackgroundColourId, Colours::yellow);
     
     // FileProperty Creation
     propertyPanel = std::make_unique<FileInfoPanel> (GUIDefines::initialFileInfoWidth,
@@ -89,8 +90,6 @@ MainComponent::MainComponent()
     metadataInPanel.set(Defines::originatorKey, "originator");
     metadataInPanel.set(Defines::originationDateKey, "date");
     metadataInPanel.set(Defines::descriptionKey, "description");
-    
-    Utilites::printMetadata(metadataInPanel);
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -242,8 +241,8 @@ void MainComponent::buttonClicked(Button* button){
                 //File file  = sourceFilePanel -> getCurrentFile();
                 std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
                 // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
-                metaDataValues -> set("bwav description", "Did it insert ? ");
                 wavAudioFormat -> replaceMetadataInFile(fileToEdit, metadataInPanel);
+                Logger::writeToLog("Worked!");
                 delete reader;
                 updateFilePropertyPanel();
                 
@@ -292,7 +291,11 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
 
 void MainComponent::labelTextChanged(Label *labelThatHasChanged)
 {
-    Logger::writeToLog ("LabelTextChanged! \n");
+    metadataInPanel.set(Defines::originatorKey, propertyPanel -> getArtistLabelText());
+    metadataInPanel.set(Defines::originationDateKey, propertyPanel -> getFileCreationDateLabeltext());
+    metadataInPanel.set(Defines::descriptionKey, propertyPanel -> getDescriptionLabelText());
+    
+    Utilites::printMetadata(metadataInPanel);
 }
 
 void MainComponent::editorShown (Label* , TextEditor &)
@@ -303,7 +306,6 @@ void MainComponent::editorShown (Label* , TextEditor &)
 void MainComponent::editorHidden (Label *, TextEditor &)
 {
     metadataInPanel.set(Defines::descriptionKey, propertyPanel ->getDescriptionLabelText());
-    Utilites::printMetadata(metadataInPanel);
 }
 
 // Custom Methods
