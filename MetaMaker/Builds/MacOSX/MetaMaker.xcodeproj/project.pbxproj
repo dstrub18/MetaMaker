@@ -172,6 +172,13 @@
 			path = "../../JuceLibraryCode/include_juce_gui_extra.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		260C35AF38563EEEDB8B73A7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			name = MetaMaker.entitlements;
+			path = MetaMaker.entitlements;
+			sourceTree = "SOURCE_ROOT";
+		};
 		291A9E34BD00A63F630D8F88 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -770,7 +777,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "MetaMaker";
-				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -816,7 +822,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "MetaMaker";
-				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};

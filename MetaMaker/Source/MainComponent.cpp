@@ -25,7 +25,6 @@ MainComponent::MainComponent()
     // Make the WavAudioFormat
     wavAudioFormat = std::make_unique<WavAudioFormat> ();
     
-    
     // SourceFilePanel Creation
     initialSourceDirectoryPath = "~/Desktop/metamakerWavs/Source";
     initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
@@ -264,24 +263,23 @@ void MainComponent::buttonClicked(Button* button){
 // Override methods from FileBrowserListener
 void MainComponent::selectionChanged ()
 {
-    //std::cout << "Selection changed \n";
     
     updateFilePropertyPanel();
 }
 
 void MainComponent::fileClicked(const File &file, const MouseEvent &e)
 {
-    std::cout << "File Clicked! \n";
+
 }
 
 void MainComponent::fileDoubleClicked(const File &file)
 {
-    std::cout << "File double-Clicked! \n";
+
 }
 
 void MainComponent::browserRootChanged(const File &newBrowserRoot)
 {
-    std::cout << "Browser Root changed! \n";
+
 }
 
 
@@ -317,7 +315,6 @@ void MainComponent::updateFilePropertyPanel()
     
     if (metaDataValues != Defines::emptyMetaDataFields || ! sourceFilePanel -> isCurrentlySelectedFileDirectory())
     {
-        std::cout << "There's data! \n";
         
         propertyPanel -> setDescriptionLabelText         (metaDataValues.getValue (Defines::descriptionKey, ""));
         propertyPanel -> setArtistLabelText              (metaDataValues.getValue (Defines::originatorKey, ""));
@@ -343,7 +340,6 @@ StringPairArray MainComponent::getMetadataFromFile()
     if (reader != nullptr)
     {
         StringPairArray metaDataValues = StringPairArray (reader -> metadataValues);
-        std::cout << metaDataValues.getValue("bwav description", "error") << "\n";
         delete reader;
         return metaDataValues;
     }
