@@ -13,6 +13,7 @@
 #include "FileBrowserPanel.h"
 #include "ButtonPanel.h"
 #include "MetadataManager.h"
+#include "FileVisualiser.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -61,6 +62,10 @@ private:
     
     // Buttons
     std::unique_ptr<ButtonPanel> buttonPanel;
+    
+    // FileVisualiser
+    FileVisualiser fileVisualiser;
+    AudioThumbnailCache thumbnailCache;
     
     String initialSourceDirectoryPath;
     String initialDestinationDirectoryPath;

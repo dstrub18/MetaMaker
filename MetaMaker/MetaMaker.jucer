@@ -4,6 +4,8 @@
               cppLanguageStandard="14">
   <MAINGROUP id="wjIBQh" name="MetaMaker">
     <GROUP id="{6D2151D4-0EFF-A9DE-B4A0-F8403FA505FA}" name="Source">
+      <FILE id="iXDj4J" name="FileVisualiser.h" compile="0" resource="0"
+            file="Source/FileVisualiser.h"/>
       <FILE id="grYGSS" name="MetadataManager.cpp" compile="1" resource="0"
             file="Source/MetadataManager.cpp"/>
       <FILE id="JWldiX" name="MetadataManager.h" compile="0" resource="0"

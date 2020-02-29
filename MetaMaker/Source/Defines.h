@@ -24,8 +24,13 @@ namespace GUIDefines
     static const unsigned int initialButtonPanelWidth = initialFileInfoWidth;
     static const unsigned int initialButtonPanelHeight = 100;
     
-    static const unsigned int universalHeight = 600;
+    static const unsigned int universalHeight = 800;
     static const unsigned int universalWidth = 800;
+    
+    static const unsigned int fileBrowserHeight = 600;
+    static const unsigned int propertyPanelHeight = 600;
+    static const unsigned int buttonPanelHeight = 600;
+    
     
     static const int mainWindowTopYCoordinate = 0;
     

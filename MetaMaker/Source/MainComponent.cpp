@@ -10,6 +10,8 @@
 #include "Defines.h"
 //==============================================================================
 MainComponent::MainComponent()
+                : thumbnailCache (512),
+                fileVisualiser(512, formatManager, thumbnailCache)
 #if JUCE_PROJUCER_LIVE_BUILD
 #endif
 {
@@ -30,19 +32,19 @@ MainComponent::MainComponent()
     initialDestinationDirectoryPath = "~/Desktop/metamakerWavs/Destination";
     
     sourceFilePanel  = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
-                                                           GUIDefines::universalHeight,
+                                                           GUIDefines::fileBrowserHeight,
                                                            initialSourceDirectoryPath);
     sourceFilePanel -> setTopLeftPosition (0, GUIDefines::mainWindowTopYCoordinate);
     sourceFilePanel -> setColour (FileBrowserComponent::ColourIds::filenameBoxBackgroundColourId, Colours::yellow);
     
     // FileProperty Creation
     propertyPanel = std::make_unique<FileInfoPanel> (GUIDefines::initialFileInfoWidth,
-                                                     GUIDefines::universalHeight);
+                                                     GUIDefines::propertyPanelHeight);
     propertyPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
     
     // FileInfoPanel creation
     destinationPanel = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
-                                                           GUIDefines::universalHeight,
+                                                           GUIDefines::fileBrowserHeight,
                                                            initialDestinationDirectoryPath);
     destinationPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
                                             GUIDefines::mainWindowTopYCoordinate);
@@ -50,18 +52,21 @@ MainComponent::MainComponent()
     // Debug Button Panel
     buttonPanel = std::make_unique<ButtonPanel> (GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
     
-    buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::universalHeight - GUIDefines::initialButtonPanelHeight);
-    
+    buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::propertyPanelHeight - GUIDefines::initialButtonPanelHeight);
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
     destinationPanel -> setRoot (initialDestinationDirectoryPath);
+    
+    // FileVisualiser
+    fileVisualiser.setBounds (0, GUIDefines::fileBrowserHeight, GUIDefines::universalWidth, 200);
     
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
     addAndMakeVisible (*propertyPanel);
     addAndMakeVisible (*destinationPanel);
     addAndMakeVisible (*buttonPanel);
+    addAndMakeVisible (&fileVisualiser);
     
     
     // LISTENERS
@@ -263,8 +268,10 @@ void MainComponent::buttonClicked(Button* button){
 // Override methods from FileBrowserListener
 void MainComponent::selectionChanged ()
 {
-    
+    Logger::writeToLog("Selection changed!");
     updateFilePropertyPanel();
+    fileVisualiser.setFile (sourceFilePanel -> getCurrentFile());
+    
 }
 
 void MainComponent::fileClicked(const File &file, const MouseEvent &e)
