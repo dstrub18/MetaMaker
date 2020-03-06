@@ -10,8 +10,6 @@
 #include "Defines.h"
 //==============================================================================
 MainComponent::MainComponent()
-                : thumbnailCache (512),
-                fileVisualiser(512, formatManager, thumbnailCache)
 #if JUCE_PROJUCER_LIVE_BUILD
 #endif
 {
@@ -59,14 +57,13 @@ MainComponent::MainComponent()
     destinationPanel -> setRoot (initialDestinationDirectoryPath);
     
     // FileVisualiser
-    fileVisualiser.setBounds (0, GUIDefines::fileBrowserHeight, GUIDefines::universalWidth, 200);
     
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
     addAndMakeVisible (*propertyPanel);
     addAndMakeVisible (*destinationPanel);
     addAndMakeVisible (*buttonPanel);
-    addAndMakeVisible (&fileVisualiser);
+    
     
     
     // LISTENERS
@@ -162,7 +159,6 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
@@ -268,9 +264,21 @@ void MainComponent::buttonClicked(Button* button){
 // Override methods from FileBrowserListener
 void MainComponent::selectionChanged ()
 {
-    Logger::writeToLog("Selection changed!");
+    
     updateFilePropertyPanel();
-    fileVisualiser.setFile (sourceFilePanel -> getCurrentFile());
+    File file = sourceFilePanel -> getCurrentFile();
+    if (file.existsAsFile())
+    {
+        
+        auto* reader = formatManager.createReaderFor (file);
+        
+        if (reader != nullptr)
+        {
+            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
+            
+            readerSource.reset (newSource.release());
+        }
+    }
     
 }
 

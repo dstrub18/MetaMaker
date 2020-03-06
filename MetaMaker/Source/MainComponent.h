@@ -52,20 +52,23 @@ private:
     
     // FileBrowser and accompanying variables;
     int fileChooserFlag;
+    
+    // Source files folder
     std::unique_ptr<FileBrowserPanel> sourceFilePanel;
     
-    // EditingPanel
+    // This displays the actual fields of the source file
     std::unique_ptr<FileInfoPanel> propertyPanel;
     
-    // This displays the information of the file.
+    // Destination folder.
     std::unique_ptr<FileBrowserPanel> destinationPanel;
     
     // Buttons
     std::unique_ptr<ButtonPanel> buttonPanel;
     
+    
     // FileVisualiser
-    FileVisualiser fileVisualiser;
-    AudioThumbnailCache thumbnailCache;
+    
+    
     
     String initialSourceDirectoryPath;
     String initialDestinationDirectoryPath;

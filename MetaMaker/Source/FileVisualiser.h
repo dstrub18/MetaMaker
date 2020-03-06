@@ -36,29 +36,49 @@ public:
     void setFile (const File& file)
     {
         thumbnail.setSource (new FileInputSource (file));
+        Logger::writeToLog(file.getFileName());
     }
 
     void paint (Graphics& g) override
     {
-        if (thumbnail.getNumChannels() == 0)
-            paintIfNoFileLoaded (g);
-        else
-            paintIfFileLoaded (g);
-    }
-    
-    void paintIfNoFileLoaded (Graphics& g)
-    {
-        g.fillAll (Colours::white);
-        g.setColour (Colours::darkgrey);
-        g.drawFittedText ("No File Loaded", getLocalBounds(), Justification::centred, 1);
-    }
-    
-    void paintIfFileLoaded (Graphics& g)
-    {
-        g.fillAll(Colours::white);
+        Rectangle<int> thumbnailBounds (0, 0, getWidth(), getHeight());
         
-        g.setColour (Colours::red);
-        thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), 1.0f);
+        
+        if (thumbnail.getNumChannels() == 0)
+        {
+            paintIfNoFileLoaded (g, thumbnailBounds);
+            Logger::writeToLog(String (thumbnailBounds.getWidth()));
+            Logger::writeToLog("Nothing loaded");
+        }
+        
+        else
+        {
+            paintIfFileLoaded (g, thumbnailBounds);
+            Logger::writeToLog(String (thumbnailBounds.getWidth()));
+            Logger::writeToLog("File loaded");
+        }
+        
+    }
+    
+    void paintIfNoFileLoaded (Graphics& g, Rectangle<int> thumbnailBounds)
+    {
+        g.setColour (Colours::darkgrey);
+        g.fillRect(thumbnailBounds);
+        g.setColour (Colours::white);
+        g.drawFittedText ("No File Loaded", thumbnailBounds, Justification::centred, 1);
+    }
+    
+    void paintIfFileLoaded (Graphics& g, Rectangle<int> thumbnailBounds)
+    {
+        g.setColour (Colours::white);
+        g.fillRect(thumbnailBounds);
+        g.setColour (Colours::green);
+        g.drawFittedText ("File Loaded", thumbnailBounds, Justification::centred, 1);
+//        thumbnail.drawChannels (g,
+//                                thumbnailBounds,
+//                                0.0,                                    // start time
+//                                thumbnail.getTotalLength(),             // end time
+//                                1.0f);                                  // vertical zoom
     }
     
     void changeListenerCallback (ChangeBroadcaster* source) override
@@ -73,6 +93,11 @@ public:
         // components that your component contains..
 
     }
+    
+    void setSource (File file)
+    {
+        this -> thumbnail.setSource(new FileInputSource(file));
+    }
 
 private:
     
@@ -80,6 +105,8 @@ private:
     {
         repaint();
     }
+    
+    
     
     AudioThumbnail thumbnail;
     
