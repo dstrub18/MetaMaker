@@ -1912,6 +1912,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\FileVisualiser.h"/>
+    <ClInclude Include="..\..\Source\WaveformPanel.h"/>
     <ClInclude Include="..\..\Source\MetadataManager.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\Source\ButtonPanel.h"/>

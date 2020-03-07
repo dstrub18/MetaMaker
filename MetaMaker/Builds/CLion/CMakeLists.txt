@@ -17,6 +17,7 @@ project ("MetaMaker" C CXX)
 
 add_executable (APP
     "../../Source/FileVisualiser.h"
+    "../../Source/WaveformPanel.h"
     "../../Source/MetadataManager.cpp"
     "../../Source/MetadataManager.h"
     "../../Source/MainComponent.h"
@@ -1368,6 +1369,7 @@ add_executable (APP
 )
 
 set_source_files_properties ("../../Source/FileVisualiser.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../Source/WaveformPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/MetadataManager.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/MainComponent.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/ButtonPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)

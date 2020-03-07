@@ -10,12 +10,15 @@
 #include "Defines.h"
 //==============================================================================
 MainComponent::MainComponent()
+
 #if JUCE_PROJUCER_LIVE_BUILD
 #endif
 {
 
     // Make sure you set the size of the component after
     // you add any child components.
+    
+    fs = deviceManager.getAudioDeviceSetup().sampleRate;
     
     setSize (GUIDefines::universalWidth, GUIDefines::universalHeight);
     
@@ -52,6 +55,9 @@ MainComponent::MainComponent()
     
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::propertyPanelHeight - GUIDefines::initialButtonPanelHeight);
     
+    waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
+    waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
+    
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
     destinationPanel -> setRoot (initialDestinationDirectoryPath);
@@ -63,7 +69,7 @@ MainComponent::MainComponent()
     addAndMakeVisible (*propertyPanel);
     addAndMakeVisible (*destinationPanel);
     addAndMakeVisible (*buttonPanel);
-    
+    addAndMakeVisible (*waveformPanel);
     
     
     // LISTENERS
@@ -79,6 +85,7 @@ MainComponent::MainComponent()
     propertyPanel   -> getFileNameLabel () -> addListener(this);
     propertyPanel   -> getDescriptionLabel () -> addListener(this);
     propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
+    
     
     
         // Initial Refresh for the Filebrowsers
@@ -127,7 +134,7 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 }
 
 void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
-{
+{ 
     // Your audio-processing code goes here!
 
     // For more details, see the help for AudioProcessor::getNextAudioBlock()
@@ -274,10 +281,15 @@ void MainComponent::selectionChanged ()
         
         if (reader != nullptr)
         {
+            waveformPanel -> thumbnail.clear();
             std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
-            
+            waveformPanel -> thumbnail.setSource(new FileInputSource(file));
             readerSource.reset (newSource.release());
         }
+    }
+    
+    if (file.isDirectory()) {
+        waveformPanel -> thumbnail.clear();
     }
     
 }
@@ -296,9 +308,6 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
 {
 
 }
-
-
-
 
 // Override functions from LabelListener
 

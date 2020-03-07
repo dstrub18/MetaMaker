@@ -298,6 +298,13 @@
 			path = System/Library/Frameworks/Cocoa.framework;
 			sourceTree = SDKROOT;
 		};
+		5DCF10BC9BFAC3DC4E0B8938 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = WaveformPanel.h;
+			path = ../../Source/WaveformPanel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		606BE3E8F9D4D891C6821258 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -540,6 +547,7 @@
 			isa = PBXGroup;
 			children = (
 				38BE4AC0ADA84A59CADF1977,
+				5DCF10BC9BFAC3DC4E0B8938,
 				EA48B318057E83FAFB4E9E45,
 				666E8EE8AB14E9E34F40EEBE,
 				843BB4D6D1C07ADAF33FC787,

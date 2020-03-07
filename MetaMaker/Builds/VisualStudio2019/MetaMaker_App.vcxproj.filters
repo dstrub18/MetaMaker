@@ -2343,6 +2343,9 @@
     <ClInclude Include="..\..\Source\FileVisualiser.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\WaveformPanel.h">
+      <Filter>MetaMaker\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MetadataManager.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>

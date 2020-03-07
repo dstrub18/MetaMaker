@@ -14,6 +14,7 @@
 #include "ButtonPanel.h"
 #include "MetadataManager.h"
 #include "FileVisualiser.h"
+#include "WaveformPanel.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -67,7 +68,7 @@ private:
     
     
     // FileVisualiser
-    
+    std::unique_ptr<WaveformPanel> waveformPanel;
     
     
     String initialSourceDirectoryPath;
@@ -76,26 +77,30 @@ private:
     // array that stores all changes on the central property panel
     StringPairArray metadataInPanel;
     
-    
+    double fs;
     
     /*
      =====================
         LISTENER FUNCTIONS
      =====================
      */ 
-    // ButtonListener overrides
+        // ButtonListener overrides
     void buttonClicked(Button* button) override;
     
-    // FileBrowserListener overrides
+        // FileBrowserListener overrides
     void selectionChanged () override;
     void fileClicked (const File &file, const MouseEvent &e) override;
     void fileDoubleClicked (const File &file) override;
     void browserRootChanged (const File & newBrowserRoot) override;
     
-    // LabelListener overrides
+        // LabelListener overrides
     void labelTextChanged (Label* labelThatHasChanged) override;
     void editorShown (Label* ,TextEditor &) override;
     void editorHidden (Label *,TextEditor &) override;
+    
+    // Thumbnail Drawing
+    Rectangle<int> waveFormArea;
+    
     
     // File Copy / Move Functionality
     const void copyFromSourceToDestination();
@@ -106,6 +111,8 @@ private:
     
     // Retrieves the MetaData from the file in the fileBrowser.
     StringPairArray getMetadataFromFile();
+    
+    
     //==============================================================================
     // Your private member variables go here...
 
