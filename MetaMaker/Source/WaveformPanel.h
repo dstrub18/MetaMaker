@@ -60,10 +60,10 @@ public:
         */
 
         if (thumbnail.getNumChannels() != 0) {
-            g.setColour(Colours::white);
+            g.setColour(GUIDefines::waveFormPanelBackGroundColour);
             g.fillRect (getLocalBounds());
             repaint ();
-            g.setColour (Colours::red);
+            g.setColour (GUIDefines::waveFormPanelWaveFormColour);
             thumbnail.drawChannels(g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), 1.0f);
         }
         else
