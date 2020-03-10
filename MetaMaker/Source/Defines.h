@@ -13,7 +13,7 @@
 
 namespace GUIDefines
 {
-    // Definitions of GUI-related variables that make the code more verbose and accessible.
+    // Definitions of GUI-related variables that make the code more readable and organized.
     
     static const unsigned int marginBetweenComponents = 10;
     static const unsigned int buttonHeight = 20;
