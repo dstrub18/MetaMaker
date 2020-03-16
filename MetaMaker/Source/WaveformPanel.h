@@ -60,6 +60,7 @@ public:
         */
 
         if (thumbnail.getNumChannels() != 0) {
+            repaint();
             g.setColour(Colours::white);
             g.fillRect (getLocalBounds());
             repaint ();
@@ -69,16 +70,10 @@ public:
         else
         {
             repaint ();
-        
-            g.fillAll (Colours::green);   // clear the background
+            g.fillAll (Colours::white);   // clear the background
+            
+            //g.drawRect (getLocalBounds(), 4);   // draw an outline around the component
 
-            g.setColour (Colours::blue);
-            g.drawRect (getLocalBounds(), 4);   // draw an outline around the component
-
-            g.setColour (Colours::white);
-            g.setFont (14.0f);
-            g.drawText ("WaveformPanel", getLocalBounds(),
-                        Justification::centred, true);   // draw some placeholder text
         }
     }
 
