@@ -53,6 +53,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
+         BundleIdentifier = "com.yourcompany.MetaMaker"
          FilePath = "/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/MacOSX/build/Debug/MetaMaker.app">
       </PathRunnable>
       <MacroExpansion>

@@ -281,10 +281,13 @@ void MainComponent::selectionChanged ()
         
         if (reader != nullptr)
         {
-            waveformPanel -> thumbnail.clear();
+            
             std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
+            waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
+            
             readerSource.reset (newSource.release());
+            
         }
     }
     
