@@ -17,7 +17,8 @@
 /*
 */
 class WaveformPanel    : public Component,
-                         public ChangeListener
+                         public ChangeListener,
+                         public juce::Component::MouseListener
 {
 public:
     WaveformPanel(int sourceSamplesPerThumbnailSample,
@@ -30,7 +31,6 @@ public:
         
         
         thumbnail.addChangeListener(this);
-        
         
         setSize(width, height);
         
@@ -59,7 +59,10 @@ public:
         addAndMakeVisible (&amplitudeZoomSlider);
         amplitudeZoomSlider.setVisible(false);
         
-        //amplitudeZoomSlider.setNumDecimalPlacesToDisplay (10);
+        selectorRect.setSize(0, 100);
+        selectorRect.setPosition(0, 0);
+        
+        
         
     }
 
@@ -72,11 +75,25 @@ public:
     void changeListenerCallback (ChangeBroadcaster* source) override
     {
         if (source == &thumbnail) {
+            selectorRect.setSize(10, 10);
         }
     }
     
     AudioThumbnailCache thumbnailCache  {512};
     AudioThumbnail thumbnail;
+    
+    
+    // MouseListener inherited functions
+    void mouseDown(const MouseEvent &event) override
+    {
+        selectorStartPoint = event.getPosition();
+        //Logger::writeToLog ("x: " + (String) selectorStartPoint.getX () + "\t y: " + (String) selectorStartPoint.getY());
+    }
+    
+    void mouseDrag (const MouseEvent &event) override
+    {
+        selectorRect.setSize(selectorStartPoint.getX() + event.getDistanceFromDragStartX(), 100);
+    }
     
     
 //==================================================================================
@@ -105,6 +122,9 @@ public:
             g.setColour (Colours::red);
             thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), amplitudeZoomSlider.getValue());
             amplitudeZoomSlider.setVisible(true);
+            
+            g.setColour (Colours::turquoise);
+            g.fillRect (selectorRect);
         }
         else
         {
@@ -130,6 +150,13 @@ private:
     Slider amplitudeZoomSlider;
     
     Rectangle<int> waveFormArea;
+    
+    
+    // Waveform Slice Selector
+    bool isSelectorRectActive;
+    
+    Rectangle<int> selectorRect;
+    Point<int> selectorStartPoint;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

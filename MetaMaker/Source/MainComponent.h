@@ -71,6 +71,9 @@ private:
     std::unique_ptr<WaveformPanel> waveformPanel;
     
     
+    // Mac Menu
+    
+    
     String initialSourceDirectoryPath;
     String initialDestinationDirectoryPath;
     

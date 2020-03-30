@@ -55,6 +55,7 @@ MainComponent::MainComponent()
     
     buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::propertyPanelHeight - GUIDefines::initialButtonPanelHeight);
     
+    // Waveform Panel
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
@@ -62,7 +63,6 @@ MainComponent::MainComponent()
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
     destinationPanel -> setRoot (initialDestinationDirectoryPath);
     
-    // FileVisualiser
     
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
