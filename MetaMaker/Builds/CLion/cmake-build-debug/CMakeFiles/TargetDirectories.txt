@@ -1,2 +1,3 @@
-/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/CLion.dir

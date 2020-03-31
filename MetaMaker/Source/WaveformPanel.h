@@ -18,7 +18,8 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener
+                         public juce::Component::MouseListener,
+                         public KeyListener
 {
 public:
     WaveformPanel(int sourceSamplesPerThumbnailSample,
@@ -59,10 +60,11 @@ public:
         addAndMakeVisible (&amplitudeZoomSlider);
         amplitudeZoomSlider.setVisible(false);
         
-        selectorRect.setSize(0, 100);
+        selectorRect.setSize(0, getHeight());
         selectorRect.setPosition(0, 0);
         
-        
+        setWantsKeyboardFocus(true);
+        addKeyListener(this);
         
     }
 
@@ -75,7 +77,7 @@ public:
     void changeListenerCallback (ChangeBroadcaster* source) override
     {
         if (source == &thumbnail) {
-            selectorRect.setSize(10, 10);
+            //selectorRect.setSize(0, 0);
         }
     }
     
@@ -86,13 +88,37 @@ public:
     // MouseListener inherited functions
     void mouseDown(const MouseEvent &event) override
     {
-        selectorStartPoint = event.getPosition();
-        //Logger::writeToLog ("x: " + (String) selectorStartPoint.getX () + "\t y: " + (String) selectorStartPoint.getY());
+        if(event.mods == ModifierKeys::rightButtonModifier)
+        {
+            selectorRect.setWidth (0);
+            selectorRect.setPosition (0,0);
+            isRectangleActive = false;
+            Logger::writeToLog("rectangle not active anymore");
+        }
     }
     
     void mouseDrag (const MouseEvent &event) override
     {
-        selectorRect.setSize(selectorStartPoint.getX() + event.getDistanceFromDragStartX(), 100);
+        if (event.mods == ModifierKeys::leftButtonModifier)
+        {
+            isRectangleActive = true;
+            Logger::writeToLog("rectangle now active");
+            //selectorRect.setSize (0,0);
+            selectorRect.setPosition (event.getMouseDownPosition().getX(), 0);
+            selectorRect.setWidth (event.getDistanceFromDragStart());
+            Logger::writeToLog ((String) selectorRect.getWidth());
+        }
+        
+    }
+    
+    //KeyListener overrides
+    bool keyPressed (const KeyPress &key, Component *originatingComponent) override
+    {
+        if (key.isKeyCode(KeyPress::downKey))
+        {
+            Logger::writeToLog((String) selectorRect.getPosition().getX());
+        }
+        return true;
     }
     
     
@@ -123,8 +149,13 @@ public:
             thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), amplitudeZoomSlider.getValue());
             amplitudeZoomSlider.setVisible(true);
             
-            g.setColour (Colours::turquoise);
-            g.fillRect (selectorRect);
+            if (isRectangleActive)
+            {
+                g.setColour (Colours::turquoise);
+                g.setOpacity(0.4);
+                g.fillRect(selectorRect);
+            }
+            
         }
         else
         {
@@ -157,6 +188,8 @@ private:
     
     Rectangle<int> selectorRect;
     Point<int> selectorStartPoint;
+    bool isRectangleActive {false};
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

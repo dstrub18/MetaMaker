@@ -1,4 +1,4 @@
-# Install script for directory: /Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion
+# Install script for directory: /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

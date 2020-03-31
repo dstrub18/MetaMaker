@@ -1,4 +1,4 @@
-"/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion"
+"/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion
 -- The C compiler identification is AppleClang 10.0.0.10001145
 -- The CXX compiler identification is AppleClang 10.0.0.10001145
 -- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
@@ -14,5 +14,8 @@
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Configuring done
+CMake Error: Cannot determine link language for target "CLion".
+CMake Error: CMake can not determine linker language for target: CLion
 -- Generating done
--- Build files have been written to: /Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug
+-- Build files have been written to: /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug
+Unable to determine product file path for target CLion. Running and debugging will be unavailable.

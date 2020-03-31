@@ -50,19 +50,56 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
+RM = "/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion"
+CMAKE_SOURCE_DIR = /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug"
+CMAKE_BINARY_DIR = /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug
+
+#=============================================================================
+# Target rules for target CMakeFiles/CLion.dir
+
+# All Build rule for target.
+CMakeFiles/CLion.dir/all:
+	$(MAKE) -f CMakeFiles/CLion.dir/build.make CMakeFiles/CLion.dir/depend
+	$(MAKE) -f CMakeFiles/CLion.dir/build.make CMakeFiles/CLion.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles --progress-num= "Built target CLion"
+.PHONY : CMakeFiles/CLion.dir/all
+
+# Include target in all.
+all: CMakeFiles/CLion.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/CLion.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/CLion.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/CLion.dir/rule
+
+# Convenience name for target.
+CLion: CMakeFiles/CLion.dir/rule
+
+.PHONY : CLion
+
+# clean rule for target.
+CMakeFiles/CLion.dir/clean:
+	$(MAKE) -f CMakeFiles/CLion.dir/build.make CMakeFiles/CLion.dir/clean
+.PHONY : CMakeFiles/CLion.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/CLion.dir/clean
+
+.PHONY : clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

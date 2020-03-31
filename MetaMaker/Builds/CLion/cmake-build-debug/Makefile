@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake"
+CMAKE_COMMAND = "/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
+RM = "/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion"
+CMAKE_SOURCE_DIR = /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug"
+CMAKE_BINARY_DIR = /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMak
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"/Users/danielstrubig 1/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
+	"/Users/strue-audio/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/192.5728.100/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles" "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/danielstrubig 1/Documents/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/CLion/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,6 +110,19 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named CLion
+
+# Build rule for target.
+CLion: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 CLion
+.PHONY : CLion
+
+# fast build rule for target.
+CLion/fast:
+	$(MAKE) -f CMakeFiles/CLion.dir/build.make CMakeFiles/CLion.dir/build
+.PHONY : CLion/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -118,6 +131,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... CLion"
 .PHONY : help
 
 
