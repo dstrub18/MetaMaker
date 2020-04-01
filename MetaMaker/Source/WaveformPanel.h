@@ -77,7 +77,10 @@ public:
     void changeListenerCallback (ChangeBroadcaster* source) override
     {
         if (source == &thumbnail) {
-            //selectorRect.setSize(0, 0);
+            isRectangleActive = false;
+            selectorRect.setWidth (0);
+            selectorRect.setPosition (0,0);
+            repaint();
         }
     }
     
@@ -88,12 +91,13 @@ public:
     // MouseListener inherited functions
     void mouseDown(const MouseEvent &event) override
     {
-        if(event.mods == ModifierKeys::rightButtonModifier)
+        if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
         {
             selectorRect.setWidth (0);
             selectorRect.setPosition (0,0);
             isRectangleActive = false;
             Logger::writeToLog("rectangle not active anymore");
+            repaint();
         }
     }
     
@@ -103,10 +107,20 @@ public:
         {
             isRectangleActive = true;
             Logger::writeToLog("rectangle now active");
-            //selectorRect.setSize (0,0);
             selectorRect.setPosition (event.getMouseDownPosition().getX(), 0);
-            selectorRect.setWidth (event.getDistanceFromDragStart());
-            Logger::writeToLog ((String) selectorRect.getWidth());
+            
+            if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
+            {
+                selectorRect.setWidth (- event.getDistanceFromDragStart());
+            }
+            
+            else
+            {
+                selectorRect.setWidth (event.getDistanceFromDragStart());
+            }
+
+            
+            repaint();
         }
         
     }
@@ -181,7 +195,6 @@ private:
     Slider amplitudeZoomSlider;
     
     Rectangle<int> waveFormArea;
-    
     
     // Waveform Slice Selector
     bool isSelectorRectActive;
