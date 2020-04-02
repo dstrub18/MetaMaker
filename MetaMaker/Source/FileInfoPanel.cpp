@@ -83,6 +83,12 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 
 
     //[UserPreSize]
+    
+//    fileNameLabel           -> setEditable(false, false, false);
+//    artistLabel             -> setEditable(false, false, false);
+//    fileCreationDate        -> setEditable(false, false, false);
+//    descriptionLabel        -> setEditable(false, false, false);
+
     //[/UserPreSize]
 
     //setSize (1, 1);
@@ -139,7 +145,28 @@ void FileInfoPanel::resized()
 
 
 
+
+
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+
+const void FileInfoPanel::disableLabelEditing ()
+{
+    fileNameLabel           -> setEditable(false, false, false);
+    artistLabel             -> setEditable(false, false, false);
+    fileCreationDate        -> setEditable(false, false, false);
+    descriptionLabel        -> setEditable(false, false, false);
+
+}
+
+const void FileInfoPanel::ensableLabelEditing ()
+{
+    fileNameLabel           -> setEditable(false, true, false);
+    artistLabel             -> setEditable(false, true, false);
+    fileCreationDate        -> setEditable(false, true, false);
+    descriptionLabel        -> setEditable(false, true, false);
+}
+
+
 //[/MiscUserCode]
 
 

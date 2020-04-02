@@ -59,6 +59,10 @@ public:
     inline const String getFileCreationDateLabeltext (){   return this -> fileCreationDate -> getText (Defines::doNotreturnActiveEditorContents); }
     inline const String getDescriptionLabelText (){    return this -> descriptionLabel -> getText (Defines::doNotreturnActiveEditorContents ); }
     
+    
+    const void disableLabelEditing ();
+    const void ensableLabelEditing ();
+    
     //[/UserMethods]
 
     void paint (Graphics& g) override;

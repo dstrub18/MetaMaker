@@ -28,6 +28,8 @@ public:
     TextButton* getMoveButton ()                   { return this -> moveButton.get();             }
     TextButton* getWriteAndCopyButton ()           { return this -> writeAndCoppyButton.get();    }
     TextButton* getreplaceMetadataButton ()        { return this -> replaceMetadataButton.get();  }
+    
+    bool getOverWriteModeState ()                 { return this -> overWriteMode -> getToggleState();  }
 
 private:
     
@@ -35,6 +37,8 @@ private:
     std::unique_ptr<TextButton> moveButton;
     std::unique_ptr<TextButton> writeAndCoppyButton;
     std::unique_ptr<TextButton> replaceMetadataButton;
+    
+    std::unique_ptr<ToggleButton> overWriteMode;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)

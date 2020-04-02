@@ -37,6 +37,7 @@ MainComponent::MainComponent()
                                                            initialSourceDirectoryPath);
     sourceFilePanel -> setTopLeftPosition (0, GUIDefines::mainWindowTopYCoordinate);
     sourceFilePanel -> setColour (FileBrowserComponent::ColourIds::filenameBoxBackgroundColourId, Colours::yellow);
+    sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
     
     // FileProperty Creation
     propertyPanel = std::make_unique<FileInfoPanel> (GUIDefines::initialFileInfoWidth,
@@ -274,6 +275,18 @@ void MainComponent::selectionChanged ()
     
     updateFilePropertyPanel();
     File file = sourceFilePanel -> getCurrentFile();
+    
+    Logger::writeToLog((String) sourceFilePanel -> getNumSelectedFiles());
+    
+    if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
+    {
+        propertyPanel -> disableLabelEditing();
+    }
+    else
+    {
+        propertyPanel -> ensableLabelEditing();
+    }
+    
     if (file.existsAsFile())
     {
         
@@ -309,7 +322,7 @@ void MainComponent::fileDoubleClicked(const File &file)
 
 void MainComponent::browserRootChanged(const File &newBrowserRoot)
 {
-
+    sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
 }
 
 // Override functions from LabelListener
@@ -330,7 +343,37 @@ void MainComponent::editorShown (Label* , TextEditor &)
 
 void MainComponent::editorHidden (Label *, TextEditor &)
 {
-    metadataInPanel.set(Defines::descriptionKey, propertyPanel ->getDescriptionLabelText());
+    Logger::writeToLog ("Editor Hidden! \n");
+    metadataInPanel.set(Defines::descriptionKey, propertyPanel -> getDescriptionLabelText());
+    metadataInPanel.set(Defines::originatorKey, propertyPanel -> getArtistLabelText());
+    metadataInPanel.set(Defines::originationDateKey, propertyPanel -> getFileCreationDateLabeltext());
+    
+    
+    for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++)
+    {
+        
+        File fileToEdit = sourceFilePanel -> getCurrentFile(i);
+        
+        AudioFormatReader* reader = formatManager.createReaderFor ( fileToEdit );
+        
+        if (reader != nullptr)
+        {
+            
+            //File file  = sourceFilePanel -> getCurrentFile();
+            std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
+            // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
+            wavAudioFormat -> replaceMetadataInFile(fileToEdit, metadataInPanel);
+            Logger::writeToLog("Worked!");
+            delete reader;
+            updateFilePropertyPanel();
+            
+            
+            
+        }
+    }
+    
+    
+    
 }
 
 // Custom Methods
@@ -346,7 +389,7 @@ void MainComponent::updateFilePropertyPanel()
         propertyPanel -> setDescriptionLabelText         (metaDataValues.getValue (Defines::descriptionKey, ""));
         propertyPanel -> setArtistLabelText              (metaDataValues.getValue (Defines::originatorKey, ""));
         propertyPanel -> setFileCreationDateLabelText    (metaDataValues.getValue (Defines::originationDateKey, ""));
-        propertyPanel -> setFileNameLabelText            (sourceFilePanel->getCurrentFileName());
+        propertyPanel -> setFileNameLabelText            (sourceFilePanel -> getCurrentFileName());
     }
     else
     {

@@ -45,8 +45,10 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
     File getCurrentFile()                           {   return this -> fileBrowser -> getHighlightedFile();     }
+    
     //Overload for case when multiple files are selected
     File getCurrentFile (int& index)                {   return this -> fileBrowser -> getSelectedFile (index);  }
+    
     
     const int getNumSelectedFiles () const      {   return this -> fileBrowser -> getNumSelectedFiles();        }
 
@@ -61,8 +63,9 @@ public:
     
     const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile ().getFileName ();   }
     
-    const bool isCurrentlySelectedFileDirectory()   {   return this -> getCurrentFile ().isDirectory ();  }
+    const bool isCurrentlySelectedFileDirectory ()   {   return this -> getCurrentFile ().isDirectory ();  }
     
+    const int getNumSelectedFiles ()    {   return this -> fileBrowser -> getNumSelectedFiles();   }
     
     
     //[/UserMethods]

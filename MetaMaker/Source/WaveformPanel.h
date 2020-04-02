@@ -96,7 +96,7 @@ public:
             selectorRect.setWidth (0);
             selectorRect.setPosition (0,0);
             isRectangleActive = false;
-            Logger::writeToLog("rectangle not active anymore");
+            
             repaint();
         }
     }
@@ -106,7 +106,7 @@ public:
         if (event.mods == ModifierKeys::leftButtonModifier)
         {
             isRectangleActive = true;
-            Logger::writeToLog("rectangle now active");
+            
             selectorRect.setPosition (event.getMouseDownPosition().getX(), 0);
             
             if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
@@ -130,7 +130,7 @@ public:
     {
         if (key.isKeyCode(KeyPress::downKey))
         {
-            Logger::writeToLog((String) selectorRect.getPosition().getX());
+
         }
         return true;
     }
