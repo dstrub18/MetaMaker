@@ -60,6 +60,9 @@ MainComponent::MainComponent()
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
+    settingsWindow = std::make_unique<SettingsWindow>(100, 200, "Settings");
+    
+    
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
     destinationPanel -> setRoot (initialDestinationDirectoryPath);
@@ -73,6 +76,7 @@ MainComponent::MainComponent()
     addAndMakeVisible (*waveformPanel);
     
     
+    
     // LISTENERS
         // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser () -> addListener(this);
@@ -81,6 +85,8 @@ MainComponent::MainComponent()
     buttonPanel     -> getMoveButton ()  -> addListener(this);
     buttonPanel     -> getWriteAndCopyButton() -> addListener(this);
     buttonPanel     -> getreplaceMetadataButton() -> addListener(this);
+    buttonPanel     -> getOpenSettingsButton()    -> addListener(this);
+    
     
     propertyPanel   -> getArtistLabel () -> addListener(this);
     propertyPanel   -> getFileNameLabel () -> addListener(this);
@@ -89,7 +95,7 @@ MainComponent::MainComponent()
     
     
     
-        // Initial Refresh for the Filebrowsers
+    // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();
     destinationPanel -> getFileBrowser () -> refresh();
     
@@ -174,7 +180,8 @@ void MainComponent::resized()
 
 
 // Override methods from ButtonListener
-void MainComponent::buttonClicked(Button* button){
+void MainComponent::buttonClicked(Button* button)
+{
     
     if (button -> getButtonText() == "CopyButton") {
         copyFromSourceToDestination();
@@ -264,6 +271,23 @@ void MainComponent::buttonClicked(Button* button){
                 
             }
         }
+    }
+    
+    
+    
+    if (button -> getButtonText() == "Open Settings")
+    {
+        if (settingsWindow -> getVisibilityState() == false)
+        {
+            settingsWindow -> setVisible(true);
+            settingsWindow -> setVisibiltyState(true);
+        }
+        else
+        {
+            settingsWindow -> setVisible(false);
+            settingsWindow -> setVisibiltyState(false);
+        }
+        
     }
     
     

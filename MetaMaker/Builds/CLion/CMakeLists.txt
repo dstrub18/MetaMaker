@@ -16,6 +16,8 @@ if (APPLE)
 project ("MetaMaker" C CXX)
 
 add_executable (APP
+    "../../Source/SettingsWindow.cpp"
+    "../../Source/SettingsWindow.h"
     "../../Source/FileVisualiser.h"
     "../../Source/WaveformPanel.h"
     "../../Source/MetadataManager.cpp"
@@ -1368,6 +1370,7 @@ add_executable (APP
     "../../JuceLibraryCode/JuceHeader.h"
 )
 
+set_source_files_properties ("../../Source/SettingsWindow.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/FileVisualiser.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/WaveformPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/MetadataManager.h" PROPERTIES HEADER_FILE_ONLY TRUE)

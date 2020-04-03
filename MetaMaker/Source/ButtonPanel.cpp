@@ -49,16 +49,16 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     replaceMetadataButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::green);
     
     
-    overWriteMode = std::make_unique<ToggleButton>("DestructiveMode");
-    overWriteMode -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
-    overWriteMode -> changeWidthToFitText();
-    overWriteMode-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 4, GUIDefines::initialButtonPanelHeight - GUIDefines::buttonHeight);
+    openSettingsButton = std::make_unique<TextButton>("Open Settings");
+    openSettingsButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    openSettingsButton -> changeWidthToFitText();
+    openSettingsButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 4, GUIDefines::initialButtonPanelHeight - GUIDefines::buttonHeight);
     
     addAndMakeVisible (*copyButton);
     addAndMakeVisible (*moveButton);
     addAndMakeVisible (*writeAndCoppyButton);
     addAndMakeVisible (*replaceMetadataButton);
-    addAndMakeVisible(*overWriteMode);
+    addAndMakeVisible(*openSettingsButton);
 }
 
 ButtonPanel::~ButtonPanel()

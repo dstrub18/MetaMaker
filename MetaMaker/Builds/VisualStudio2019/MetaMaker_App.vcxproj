@@ -138,6 +138,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\SettingsWindow.cpp"/>
     <ClCompile Include="..\..\Source\MetadataManager.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\ButtonPanel.cpp"/>
@@ -1911,6 +1912,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\SettingsWindow.h"/>
     <ClInclude Include="..\..\Source\FileVisualiser.h"/>
     <ClInclude Include="..\..\Source\WaveformPanel.h"/>
     <ClInclude Include="..\..\Source\MetadataManager.h"/>

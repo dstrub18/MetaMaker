@@ -4,6 +4,10 @@
               cppLanguageStandard="14">
   <MAINGROUP id="wjIBQh" name="MetaMaker">
     <GROUP id="{6D2151D4-0EFF-A9DE-B4A0-F8403FA505FA}" name="Source">
+      <FILE id="tM7Aq2" name="SettingsWindow.cpp" compile="1" resource="0"
+            file="Source/SettingsWindow.cpp"/>
+      <FILE id="EOzUDH" name="SettingsWindow.h" compile="0" resource="0"
+            file="Source/SettingsWindow.h"/>
       <FILE id="iXDj4J" name="FileVisualiser.h" compile="0" resource="0"
             file="Source/FileVisualiser.h"/>
       <FILE id="R1Ttom" name="WaveformPanel.h" compile="0" resource="0" file="Source/WaveformPanel.h"/>

@@ -412,6 +412,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\SettingsWindow.cpp">
+      <Filter>MetaMaker\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MetadataManager.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
@@ -2340,6 +2343,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\SettingsWindow.h">
+      <Filter>MetaMaker\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\FileVisualiser.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>

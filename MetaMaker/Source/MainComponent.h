@@ -15,6 +15,7 @@
 #include "MetadataManager.h"
 #include "FileVisualiser.h"
 #include "WaveformPanel.h"
+#include "SettingsWindow.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -72,6 +73,9 @@ private:
     
     
     // Mac Menu
+    
+    // Settings Window
+    std::unique_ptr<SettingsWindow> settingsWindow;
     
     
     String initialSourceDirectoryPath;
