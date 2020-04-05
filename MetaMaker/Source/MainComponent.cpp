@@ -60,7 +60,7 @@ MainComponent::MainComponent()
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
-    settingsWindow = std::make_unique<SettingsWindow>(100, 200, "Settings");
+    settingsWindow = std::make_unique<SettingsWindow>(300, 400, "Settings");
     
     
     // Set initial Directories

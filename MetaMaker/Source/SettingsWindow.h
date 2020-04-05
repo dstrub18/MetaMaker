@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "SettingsWindowPanel.h"
 
 //==============================================================================
 /*
@@ -26,7 +27,11 @@ public:
 
 private:
     
+    // DocumentWindow override
     void closeButtonPressed() override;
+    
+    // ButtonListener override
+    //void buttonClicked(Button* button) override;
     
     const int m_styleFlags =    ComponentPeer::StyleFlags::windowIsResizable +
                                 ComponentPeer::StyleFlags::windowHasTitleBar +
@@ -35,6 +40,11 @@ private:
                                 ComponentPeer::StyleFlags::windowHasMaximiseButton;
     
     bool m_isVisible {false};
+    
+    Component contentComponent;
+    
+    std::unique_ptr<Label> sourceDirectoryLabel;
+    std::unique_ptr<TextButton> chooseDirectoryButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsWindow)

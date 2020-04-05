@@ -46,6 +46,11 @@ namespace GUIDefines
     
     static const unsigned int marginBetweenButtons = 5;
     
+    
+    //Settings Window
+    static const unsigned int settingsWindowWidth = 300;
+    static const unsigned int settingsWindowHeight = 200;
+    
 }
 
 namespace Defines
@@ -81,4 +86,5 @@ namespace Utilites
         Logger::writeToLog (Defines::originatorKey + "\t\t\t\t" + array [Defines::originatorKey]);
         Logger::writeToLog (Defines::descriptionKey + "\t\t\t" + array [Defines::descriptionKey]);
     }
+    
 }

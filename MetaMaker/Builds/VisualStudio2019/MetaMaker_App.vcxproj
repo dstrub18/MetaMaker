@@ -144,6 +144,7 @@
     <ClCompile Include="..\..\Source\ButtonPanel.cpp"/>
     <ClCompile Include="..\..\Source\FileBrowserPanel.cpp"/>
     <ClCompile Include="..\..\Source\FileInfoPanel.cpp"/>
+    <ClCompile Include="..\..\Source\SettingsWindowPanel.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1921,6 +1922,7 @@
     <ClInclude Include="..\..\Source\FileBrowserPanel.h"/>
     <ClInclude Include="..\..\Source\Defines.h"/>
     <ClInclude Include="..\..\Source\FileInfoPanel.h"/>
+    <ClInclude Include="..\..\Source\SettingsWindowPanel.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

@@ -13,29 +13,34 @@
 
 //==============================================================================
 SettingsWindow::SettingsWindow(int width, int height, String name)
-                                                : DocumentWindow (name,
-                                                    Colours::grey,
-                                                    DocumentWindow::allButtons)
+                                                : DocumentWindow (name, Colours::turquoise, DocumentWindow::allButtons)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
+    
+    sourceDirectoryLabel = std::make_unique<Label>();
+    chooseDirectoryButton = std::make_unique<TextButton>("Choose Directory");
+    
     centreWithSize (width, height);
     setVisible (false);
+    m_isVisible = false;
+    
+    setContentOwned(new SettingsWindowPanel(width, height), true);
+    
+    
 }
 
 SettingsWindow::~SettingsWindow()
 {
 }
 
-// DocumentWindow overrides
-
+    // DocumentWindow override
 void SettingsWindow::closeButtonPressed()
 {
     setVisible(false);
     m_isVisible = false;
 }
 
-// Custom functions
 
 const void SettingsWindow::setVisibiltyState (bool newState)
 {

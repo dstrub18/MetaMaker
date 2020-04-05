@@ -430,6 +430,9 @@
     <ClCompile Include="..\..\Source\FileInfoPanel.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SettingsWindowPanel.cpp">
+      <Filter>MetaMaker\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
@@ -2368,6 +2371,9 @@
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FileInfoPanel.h">
+      <Filter>MetaMaker\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SettingsWindowPanel.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
