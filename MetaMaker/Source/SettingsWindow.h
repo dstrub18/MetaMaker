@@ -19,7 +19,7 @@
 class SettingsWindow    : public DocumentWindow
 {
 public:
-    SettingsWindow (int width, int height, String name);
+    SettingsWindow (int width, int height, String name, std::unique_ptr<SettingsWindowPanel> contentComponent);
     ~SettingsWindow();
     
     const void setVisibiltyState (bool newState);
@@ -41,7 +41,7 @@ private:
     
     bool m_isVisible {false};
     
-    Component contentComponent;
+    SettingsWindowPanel contentComponent;
     
     std::unique_ptr<Label> sourceDirectoryLabel;
     std::unique_ptr<TextButton> chooseDirectoryButton;

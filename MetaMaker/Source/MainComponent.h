@@ -16,6 +16,7 @@
 #include "FileVisualiser.h"
 #include "WaveformPanel.h"
 #include "SettingsWindow.h"
+#include "SettingsWindowPanel.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -76,6 +77,8 @@ private:
     
     // Settings Window
     std::unique_ptr<SettingsWindow> settingsWindow;
+    
+    std::unique_ptr<SettingsWindowPanel> settingsWindowPanel;
     
     
     String initialSourceDirectoryPath;

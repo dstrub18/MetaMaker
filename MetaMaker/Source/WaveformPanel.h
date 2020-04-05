@@ -18,8 +18,7 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener,
-                         public KeyListener
+                         public juce::Component::MouseListener
 {
 public:
     WaveformPanel(int sourceSamplesPerThumbnailSample,
@@ -62,9 +61,6 @@ public:
         
         selectorRect.setSize(0, getHeight());
         selectorRect.setPosition(0, 0);
-        
-        setWantsKeyboardFocus(true);
-        addKeyListener(this);
         
     }
 
@@ -123,16 +119,6 @@ public:
             repaint();
         }
         
-    }
-    
-    //KeyListener overrides
-    bool keyPressed (const KeyPress &key, Component *originatingComponent) override
-    {
-        if (key.isKeyCode(KeyPress::downKey))
-        {
-
-        }
-        return true;
     }
     
     

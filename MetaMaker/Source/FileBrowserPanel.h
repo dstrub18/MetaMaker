@@ -34,7 +34,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class FileBrowserPanel  : public Component
+class FileBrowserPanel  : public Component,
+                          public Label::Listener
 {
 public:
     //==============================================================================
@@ -66,6 +67,10 @@ public:
     const bool isCurrentlySelectedFileDirectory ()   {   return this -> getCurrentFile ().isDirectory ();  }
     
     const int getNumSelectedFiles ()    {   return this -> fileBrowser -> getNumSelectedFiles();   }
+    
+    
+    void labelTextChanged (Label *labelThatHasChanged) override;
+    
     
     
     //[/UserMethods]

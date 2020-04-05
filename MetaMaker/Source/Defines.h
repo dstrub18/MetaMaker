@@ -76,6 +76,9 @@ namespace Defines
     static const bool DISCARD_CHANGES_ON_LOSS = false;
     
     
+    static const String allFiletypesAllowed = "";
+    
+    
 }
 
 namespace Utilites

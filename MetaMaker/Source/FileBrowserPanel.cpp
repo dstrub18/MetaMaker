@@ -75,6 +75,13 @@ FileBrowserPanel::~FileBrowserPanel()
     //[/Destructor]
 }
 
+
+void FileBrowserPanel::labelTextChanged (Label *labelThatHasChanged)
+{
+    fileBrowser -> setRoot(labelThatHasChanged -> getText());
+}
+
+
 //==============================================================================
 void FileBrowserPanel::paint (Graphics& g)
 {

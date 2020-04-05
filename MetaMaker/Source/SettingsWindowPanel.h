@@ -16,12 +16,26 @@
 //==============================================================================
 /*
 */
-class SettingsWindowPanel    : public Component
+class SettingsWindowPanel    : public Component,
+                               public Button::Listener,
+                               public ChangeBroadcaster
 {
 public:
+    SettingsWindowPanel() = default;
     SettingsWindowPanel(int width, int height);
     ~SettingsWindowPanel();
-
+    
+    
+    // Button Listener overrides
+    void buttonClicked (Button* button) override;
+    
+    // Getters / Setters
+    inline const String getLabelText() const {  return this -> sourcePathLabel -> getText();    }
+    
+    
+    inline const void addLabelListener (Label::Listener newLabelListener) {    this -> sourcePathLabel -> addListener (&newLabelListener); }
+    
+    // Graphics
     void paint (Graphics&) override;
     void resized() override;
 

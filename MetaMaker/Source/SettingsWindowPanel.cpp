@@ -38,6 +38,11 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     sourcePathLabel -> setColour(Label::backgroundColourId, Colours::blue);
     sourcePathLabel -> setText("Label Label Label", Defines::noNotification);
     
+    // Listener assignments
+    
+    chooseFileButton -> addListener(this);
+    
+    // and and make visibles
     addAndMakeVisible(*sourcePathLabel);
     addAndMakeVisible(*chooseFileButton);
     addAndMakeVisible(*showOnStartToggle);
@@ -47,7 +52,32 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
 
 SettingsWindowPanel::~SettingsWindowPanel()
 {
+    
+    
 }
+
+
+
+void SettingsWindowPanel::buttonClicked (Button* button)
+{
+    if (button -> getButtonText() == "Choose Directory")
+    {
+        FileChooser chooser ("Choose Start Directory", File(), Defines::allFiletypesAllowed, true, false, nullptr);
+        
+        if (chooser.browseForDirectory())
+        {
+            sourcePathLabel -> setText(chooser.getResult().getFullPathName(), Defines::noNotification);
+        }
+    }
+    
+}
+
+
+//void SettingsWindowPanel::sendChangeMessage()
+//{
+//    //Logger::writeToLog("Zingy zingy zingy");
+//}
+
 
 void SettingsWindowPanel::paint (Graphics& g)
 {
@@ -62,11 +92,6 @@ void SettingsWindowPanel::paint (Graphics& g)
 
     g.setColour (Colours::grey);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("SettingsWindowPanel", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
 }
 
 void SettingsWindowPanel::resized()

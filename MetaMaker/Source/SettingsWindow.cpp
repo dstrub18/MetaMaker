@@ -12,7 +12,7 @@
 #include "SettingsWindow.h"
 
 //==============================================================================
-SettingsWindow::SettingsWindow(int width, int height, String name)
+SettingsWindow::SettingsWindow(int width, int height, String name, std::unique_ptr<SettingsWindowPanel> contentComponent)
                                                 : DocumentWindow (name, Colours::turquoise, DocumentWindow::allButtons)
 {
     // In your constructor, you should add any child components, and
@@ -25,7 +25,7 @@ SettingsWindow::SettingsWindow(int width, int height, String name)
     setVisible (false);
     m_isVisible = false;
     
-    setContentOwned(new SettingsWindowPanel(width, height), true);
+    setContentOwned(contentComponent.get(), true);
     
     
 }
