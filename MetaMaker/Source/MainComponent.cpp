@@ -62,10 +62,9 @@ MainComponent::MainComponent()
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
     
-    settingsWindowPanel = std::make_unique<SettingsWindowPanel>(100, 200);
+    settingsWindowPanel = new SettingsWindowPanel(100, 200);
     
     settingsWindow = std::make_unique<SettingsWindow>(300, 400, "Settings", settingsWindowPanel);
-    
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
@@ -96,6 +95,8 @@ MainComponent::MainComponent()
     propertyPanel   -> getFileNameLabel () -> addListener(this);
     propertyPanel   -> getDescriptionLabel () -> addListener(this);
     propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
+
+    settingsWindowPanel -> addLabelListener (sourceFilePanel.get());
     
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();

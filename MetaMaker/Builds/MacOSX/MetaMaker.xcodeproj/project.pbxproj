@@ -232,12 +232,16 @@
 		EEE42443086007FF536B08CD /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D6DD67A361A2E4ACF7D79B10 /* SettingsWindow.cpp */,
+				1DA1C65768787D5908819657 /* SettingsWindow.h */,
+				69B34C8A89E5B251292AE3F2 /* SettingsWindowPanel.cpp */,
+				CFE1B985C8D8977EB11553AF /* SettingsWindowPanel.h */,
 				38BE4AC0ADA84A59CADF1977 /* FileVisualiser.h */,
 				5DCF10BC9BFAC3DC4E0B8938 /* WaveformPanel.h */,
 				EA48B318057E83FAFB4E9E45 /* MetadataManager.cpp */,
 				666E8EE8AB14E9E34F40EEBE /* MetadataManager.h */,
-				843BB4D6D1C07ADAF33FC787 /* MainComponent.h */,
 				9E5A61649A92ADDBC9678E90 /* MainComponent.cpp */,
+				843BB4D6D1C07ADAF33FC787 /* MainComponent.h */,
 				7AEFEC4C9AF46CA22CB1EC65 /* ButtonPanel.cpp */,
 				45E281BEEE6253A735DEAB4D /* ButtonPanel.h */,
 				37577BA9E8937188D45C3906 /* FileBrowserPanel.cpp */,
@@ -245,10 +249,6 @@
 				AAA04D8882C3DAD48C92E8EC /* Defines.h */,
 				0D74E0760E36D4827E85FFC8 /* FileInfoPanel.cpp */,
 				0149A5C68C283D8C913EF77B /* FileInfoPanel.h */,
-				D6DD67A361A2E4ACF7D79B10 /* SettingsWindow.cpp */,
-				1DA1C65768787D5908819657 /* SettingsWindow.h */,
-				69B34C8A89E5B251292AE3F2 /* SettingsWindowPanel.cpp */,
-				CFE1B985C8D8977EB11553AF /* SettingsWindowPanel.h */,
 				E6418E280832B35D3456A309 /* Main.cpp */,
 			);
 			name = Source;

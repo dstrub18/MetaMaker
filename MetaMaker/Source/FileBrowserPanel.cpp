@@ -30,28 +30,29 @@
 FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialHeight, const String& initialPath)
 {
     //[Constructor_pre] You can add your own custom stuff here..
-    //[/Constructor_pre]
-
-
-    //[UserPreSize]
     const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
     const juce::String fileFilterDirPatterns = "*";
     const juce::String fileFilterDescription = "File Filter";
     wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
-
+    
     // Handles the file restrictions and permissions of the File Browser
     fileBrowserTypeFlags =  FileBrowserComponent::FileChooserFlags::openMode +
-                            FileBrowserComponent::FileChooserFlags::canSelectFiles +
-                            FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
-
-
-
+    FileBrowserComponent::FileChooserFlags::canSelectFiles +
+    FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
+    
+    
+    
     // Make the File Browser
     fileBrowser = new FileBrowserComponent(fileBrowserTypeFlags, File (initialPath), &*wildCardFileFilter, nullptr);
-
+    
     fileBrowser->setSize(initialWidth, initialHeight);
-
+    
     addAndMakeVisible(*fileBrowser);
+    //[/Constructor_pre]
+
+
+    //[UserPreSize]
+
     //[/UserPreSize]
 
     setSize (initialWidth, initialHeight);
@@ -69,8 +70,6 @@ FileBrowserPanel::~FileBrowserPanel()
     std::cout << "FileBrowser deleted \n";
     //[/Destructor_pre]
 
-
-
     //[Destructor]. You can add your own custom destruction code here..
     //[/Destructor]
 }
@@ -78,7 +77,9 @@ FileBrowserPanel::~FileBrowserPanel()
 
 void FileBrowserPanel::labelTextChanged (Label *labelThatHasChanged)
 {
+    fileBrowser -> deselectAllFiles();
     fileBrowser -> setRoot(labelThatHasChanged -> getText());
+    Logger::writeToLog("labelTextChanged called!");
 }
 
 

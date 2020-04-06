@@ -59,6 +59,7 @@ namespace Defines
     
     
     static const auto noNotification = juce::NotificationType::dontSendNotification;
+    static const auto sendNotification = juce::NotificationType::sendNotification;
     
     static const bool doNotreturnActiveEditorContents = false;
     static const bool returnActiveEditorContents = true;

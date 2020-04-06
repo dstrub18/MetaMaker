@@ -12,6 +12,7 @@
 #include "SettingsWindowPanel.h"
 
 //==============================================================================
+
 SettingsWindowPanel::SettingsWindowPanel(int width, int height)
 {
     // In your constructor, you should add any child components, and
@@ -20,6 +21,8 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     setSize (width, height);
     
     sourcePathLabel = std::make_unique<Label>();
+    sourcePathLabel -> setEditable(true);
+    
     chooseFileButton = std::make_unique<TextButton>("Choose Directory");
     showOnStartToggle = std::make_unique<ToggleButton>("Show on Start");
     
@@ -66,7 +69,7 @@ void SettingsWindowPanel::buttonClicked (Button* button)
         
         if (chooser.browseForDirectory())
         {
-            sourcePathLabel -> setText(chooser.getResult().getFullPathName(), Defines::noNotification);
+            sourcePathLabel -> setText(chooser.getResult().getFullPathName(), sendNotification);
         }
     }
     

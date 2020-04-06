@@ -47,15 +47,11 @@ public:
         if (thumbnail.getNumChannels() == 0)
         {
             paintIfNoFileLoaded (g, thumbnailBounds);
-            Logger::writeToLog(String (thumbnailBounds.getWidth()));
-            Logger::writeToLog("Nothing loaded");
         }
         
         else
         {
             paintIfFileLoaded (g, thumbnailBounds);
-            Logger::writeToLog(String (thumbnailBounds.getWidth()));
-            Logger::writeToLog("File loaded");
         }
         
     }

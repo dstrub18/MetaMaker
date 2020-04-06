@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Defines.h"
+#include "FileBrowserPanel.h"
 
 //==============================================================================
 /*
@@ -23,6 +24,16 @@ class SettingsWindowPanel    : public Component,
 public:
     SettingsWindowPanel() = default;
     SettingsWindowPanel(int width, int height);
+    
+    
+    SettingsWindowPanel (SettingsWindowPanel&);
+    SettingsWindowPanel& operator=(const SettingsWindowPanel&);
+   
+    SettingsWindowPanel (SettingsWindowPanel&&);
+    SettingsWindowPanel& operator=(const SettingsWindowPanel&&);
+    
+    
+    
     ~SettingsWindowPanel();
     
     
@@ -33,7 +44,7 @@ public:
     inline const String getLabelText() const {  return this -> sourcePathLabel -> getText();    }
     
     
-    inline const void addLabelListener (Label::Listener newLabelListener) {    this -> sourcePathLabel -> addListener (&newLabelListener); }
+    inline const void addLabelListener (FileBrowserPanel* newLabelListener) {    this -> sourcePathLabel -> addListener (newLabelListener); }
     
     // Graphics
     void paint (Graphics&) override;
@@ -45,5 +56,5 @@ private:
     std::unique_ptr<TextButton> chooseFileButton;
     std::unique_ptr<ToggleButton> showOnStartToggle;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsWindowPanel)
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsWindowPanel)
 };

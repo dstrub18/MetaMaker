@@ -19,7 +19,7 @@
 class SettingsWindow    : public DocumentWindow
 {
 public:
-    SettingsWindow (int width, int height, String name, std::unique_ptr<SettingsWindowPanel> contentComponent);
+    SettingsWindow (int width, int height, String name, Component* contentComponent);
     ~SettingsWindow();
     
     const void setVisibiltyState (bool newState);

@@ -78,7 +78,7 @@ private:
     // Settings Window
     std::unique_ptr<SettingsWindow> settingsWindow;
     
-    std::unique_ptr<SettingsWindowPanel> settingsWindowPanel;
+    SettingsWindowPanel* settingsWindowPanel;
     
     
     String initialSourceDirectoryPath;
