@@ -53,7 +53,7 @@ public:
     
     const int getNumSelectedFiles () const      {   return this -> fileBrowser -> getNumSelectedFiles();        }
 
-    FileBrowserComponent* getFileBrowser ()         {   return this -> fileBrowser;  }
+    FileBrowserComponent* getFileBrowser ()         {   return this -> fileBrowser.get();  }
 
     const File getRoot ()                           {   return this -> fileBrowser -> getRoot ();  }
     void setRoot (const File& newRootDirectory )    {   this -> fileBrowser -> setRoot (newRootDirectory);   }
@@ -84,11 +84,12 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 
     std::unique_ptr<WildcardFileFilter> wildCardFileFilter; // Makes sure that only Wav files are displayed
+    
     int fileBrowserTypeFlags;
 
     File initialFilePath;
 
-    FileBrowserComponent* fileBrowser;
+    std::unique_ptr<FileBrowserComponent> fileBrowser;
     
     Colour backgroundColour;
 

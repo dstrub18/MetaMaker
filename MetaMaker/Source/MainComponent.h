@@ -12,8 +12,6 @@
 #include "FileInfoPanel.h"
 #include "FileBrowserPanel.h"
 #include "ButtonPanel.h"
-#include "MetadataManager.h"
-#include "FileVisualiser.h"
 #include "WaveformPanel.h"
 #include "SettingsWindow.h"
 #include "SettingsWindowPanel.h"
@@ -25,7 +23,7 @@
 class MainComponent   : public AudioAppComponent,
                         public Button::Listener,
                         public FileBrowserListener,
-                        public Label::Listener
+                        public Label::Listener,
 
 {
 public:
@@ -89,6 +87,15 @@ private:
     
     double fs;
     
+    
+    
+        // ValueTree
+    Identifier storeInitialPath_ID {"Store Initial Path"};
+    Identifier storeInitialPath_String_ID {"name"};
+    ValueTree storeInitialPathNode {storeInitialPath_ID};
+    
+    
+    
     /*
      =====================
         LISTENER FUNCTIONS
@@ -107,9 +114,6 @@ private:
     void labelTextChanged (Label* labelThatHasChanged) override;
     void editorShown (Label* ,TextEditor &) override;
     void editorHidden (Label *,TextEditor &) override;
-    
-    // Thumbnail Drawing
-    Rectangle<int> waveFormArea;
     
     
     // File Copy / Move Functionality

@@ -415,9 +415,6 @@
     <ClCompile Include="..\..\Source\SettingsWindow.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MetadataManager.cpp">
-      <Filter>MetaMaker\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
@@ -2349,13 +2346,7 @@
     <ClInclude Include="..\..\Source\SettingsWindow.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\FileVisualiser.h">
-      <Filter>MetaMaker\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\WaveformPanel.h">
-      <Filter>MetaMaker\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MetadataManager.h">
       <Filter>MetaMaker\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">

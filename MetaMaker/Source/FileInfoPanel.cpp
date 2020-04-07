@@ -84,23 +84,13 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
 
     //[UserPreSize]
     
-//    fileNameLabel           -> setEditable(false, false, false);
-//    artistLabel             -> setEditable(false, false, false);
-//    fileCreationDate        -> setEditable(false, false, false);
-//    descriptionLabel        -> setEditable(false, false, false);
 
     //[/UserPreSize]
-
-    //setSize (1, 1);
 
 
     //[Constructor] You can add your own custom stuff here..
     setSize (panelWidth, panelHeight);
     
-//    completer = std::make_unique<CodeEditorComponent>();
-//    completer -> setSize(30, 100);
-//    completer -> setTopLeftPosition(0, 400);
-//    addAndMakeVisible(*completer);
     //[/Constructor]
 }
 

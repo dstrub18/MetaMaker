@@ -8,13 +8,7 @@
             file="Source/SettingsWindow.cpp"/>
       <FILE id="EOzUDH" name="SettingsWindow.h" compile="0" resource="0"
             file="Source/SettingsWindow.h"/>
-      <FILE id="iXDj4J" name="FileVisualiser.h" compile="0" resource="0"
-            file="Source/FileVisualiser.h"/>
       <FILE id="R1Ttom" name="WaveformPanel.h" compile="0" resource="0" file="Source/WaveformPanel.h"/>
-      <FILE id="grYGSS" name="MetadataManager.cpp" compile="1" resource="0"
-            file="Source/MetadataManager.cpp"/>
-      <FILE id="JWldiX" name="MetadataManager.h" compile="0" resource="0"
-            file="Source/MetadataManager.h"/>
       <FILE id="XLYYPb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="aBJGe1" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>

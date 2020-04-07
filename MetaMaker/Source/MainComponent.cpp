@@ -20,8 +20,6 @@ MainComponent::MainComponent()
     
     fs = deviceManager.getAudioDeviceSetup().sampleRate;
     
-    setSize (GUIDefines::universalWidth, GUIDefines::universalHeight);
-    
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
@@ -78,6 +76,8 @@ MainComponent::MainComponent()
     addAndMakeVisible (*buttonPanel);
     addAndMakeVisible (*waveformPanel);
     
+    // Set Size
+    setSize (GUIDefines::universalWidth, GUIDefines::universalHeight);
     
     
     // LISTENERS
@@ -95,7 +95,13 @@ MainComponent::MainComponent()
     propertyPanel   -> getFileNameLabel () -> addListener(this);
     propertyPanel   -> getDescriptionLabel () -> addListener(this);
     propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
-
+    
+    settingsWindowPanel -> getSourcePathLabel () -> addListener(this);
+    
+    
+    // Value Tree Initialisations
+    storeInitialPathNode.setProperty(storeInitialPath_String_ID, settingsWindowPanel -> getSourcePathLabel(), nullptr);
+    
     settingsWindowPanel -> addLabelListener (sourceFilePanel.get());
     
     // Initial Refresh for the Filebrowsers
@@ -179,6 +185,13 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
+}
+
+
+// Value Tree Overrides
+void valueTreePropertyChanged (ValueTree &treeWhosePropertyHasChanged, const Identifier &property)
+{
+    Logger::writeToLog("Something chaned");
 }
 
 
@@ -356,11 +369,25 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
 
 void MainComponent::labelTextChanged(Label *labelThatHasChanged)
 {
-    metadataInPanel.set(Defines::originatorKey, propertyPanel -> getArtistLabelText());
-    metadataInPanel.set(Defines::originationDateKey, propertyPanel -> getFileCreationDateLabeltext());
-    metadataInPanel.set(Defines::descriptionKey, propertyPanel -> getDescriptionLabelText());
+    if (labelThatHasChanged == propertyPanel -> getArtistLabel() ||
+        labelThatHasChanged == propertyPanel -> getFileNameLabel() ||
+        labelThatHasChanged == propertyPanel -> getFileCreationDateLabel() ||
+        labelThatHasChanged == propertyPanel -> getDescriptionLabel())
+    {
+        metadataInPanel.set(Defines::originatorKey, propertyPanel -> getArtistLabelText());
+        metadataInPanel.set(Defines::originationDateKey, propertyPanel -> getFileCreationDateLabeltext());
+        metadataInPanel.set(Defines::descriptionKey, propertyPanel -> getDescriptionLabelText());
+        Utilites::printMetadata(metadataInPanel);
+    }
     
-    Utilites::printMetadata(metadataInPanel);
+    if (labelThatHasChanged == settingsWindowPanel -> getSourcePathLabel())
+    {
+        storeInitialPathNode.setProperty(storeInitialPath_String_ID, settingsWindowPanel -> getSourcePathLabel(), nullptr);
+        
+        Logger::writeToLog("SettingsWindow panel source path Changed!");
+    }
+    
+    
 }
 
 void MainComponent::editorShown (Label* , TextEditor &)

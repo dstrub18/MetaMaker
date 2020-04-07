@@ -30,20 +30,15 @@
 FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialHeight, const String& initialPath)
 {
     //[Constructor_pre] You can add your own custom stuff here..
-    const juce::String  fileFilterFilePatterns = "*.wav; *.aiff";
-    const juce::String fileFilterDirPatterns = "*";
-    const juce::String fileFilterDescription = "File Filter";
-    wildCardFileFilter = std::make_unique<WildcardFileFilter>(fileFilterFilePatterns,fileFilterDirPatterns,fileFilterDescription);
-    
+    wildCardFileFilter = std::make_unique<WildcardFileFilter> (Defines::fileFilterAllowForAudioFiles, Defines::fileFilterDirPatterns, Defines::fileFilterDescription);
+    Logger::writeToLog(Defines::fileFilterDirPatterns);
     // Handles the file restrictions and permissions of the File Browser
     fileBrowserTypeFlags =  FileBrowserComponent::FileChooserFlags::openMode +
     FileBrowserComponent::FileChooserFlags::canSelectFiles +
     FileBrowserComponent::FileChooserFlags::canSelectMultipleItems;
-    
-    
-    
+
     // Make the File Browser
-    fileBrowser = new FileBrowserComponent(fileBrowserTypeFlags, File (initialPath), &*wildCardFileFilter, nullptr);
+    fileBrowser = std::make_unique<FileBrowserComponent> (fileBrowserTypeFlags, File (initialPath), wildCardFileFilter.get(), nullptr);
     
     fileBrowser->setSize(initialWidth, initialHeight);
     
@@ -66,8 +61,7 @@ FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialH
 FileBrowserPanel::~FileBrowserPanel()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
-    delete fileBrowser;
-    std::cout << "FileBrowser deleted \n";
+    //delete fileBrowser;
     //[/Destructor_pre]
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -79,7 +73,6 @@ void FileBrowserPanel::labelTextChanged (Label *labelThatHasChanged)
 {
     fileBrowser -> deselectAllFiles();
     fileBrowser -> setRoot(labelThatHasChanged -> getText());
-    Logger::writeToLog("labelTextChanged called!");
 }
 
 

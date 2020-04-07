@@ -39,7 +39,7 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     showOnStartToggle -> setTopLeftPosition(100, 750);
     
     sourcePathLabel -> setColour(Label::backgroundColourId, Colours::blue);
-    sourcePathLabel -> setText("Label Label Label", Defines::noNotification);
+    sourcePathLabel -> setText("", Defines::noNotification);
     
     // Listener assignments
     

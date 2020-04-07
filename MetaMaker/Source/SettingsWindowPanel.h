@@ -25,7 +25,6 @@ public:
     SettingsWindowPanel() = default;
     SettingsWindowPanel(int width, int height);
     
-    
     SettingsWindowPanel (SettingsWindowPanel&);
     SettingsWindowPanel& operator=(const SettingsWindowPanel&);
    
@@ -45,6 +44,8 @@ public:
     
     
     inline const void addLabelListener (FileBrowserPanel* newLabelListener) {    this -> sourcePathLabel -> addListener (newLabelListener); }
+    
+    inline Label* getSourcePathLabel () const {    return this -> sourcePathLabel.get();   }
     
     // Graphics
     void paint (Graphics&) override;

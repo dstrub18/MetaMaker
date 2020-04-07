@@ -79,6 +79,9 @@ namespace Defines
     
     static const String allFiletypesAllowed = "";
     
+    static const juce::String fileFilterAllowForAudioFiles = "*.wav; *.aiff";
+    static const juce::String fileFilterDirPatterns = "*";
+    static const juce::String fileFilterDescription = "Audio Files";
     
 }
 
