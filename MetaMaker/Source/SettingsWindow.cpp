@@ -12,7 +12,7 @@
 #include "SettingsWindow.h"
 
 //==============================================================================
-SettingsWindow::SettingsWindow(int width, int height, String name, Component* contentComponent)
+SettingsWindow::SettingsWindow(const int& width, const int& height, String&& name, Component* contentComponent)
                                                 : DocumentWindow (name, Colours::turquoise, DocumentWindow::allButtons)
 {
     // In your constructor, you should add any child components, and

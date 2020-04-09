@@ -23,7 +23,7 @@
 class MainComponent   : public AudioAppComponent,
                         public Button::Listener,
                         public FileBrowserListener,
-                        public Label::Listener,
+                        public Label::Listener
 
 {
 public:
@@ -76,7 +76,7 @@ private:
     // Settings Window
     std::unique_ptr<SettingsWindow> settingsWindow;
     
-    SettingsWindowPanel* settingsWindowPanel;
+    std::unique_ptr<SettingsWindowPanel> settingsWindowPanel;
     
     
     String initialSourceDirectoryPath;
@@ -90,10 +90,9 @@ private:
     
     
         // ValueTree
-    Identifier storeInitialPath_ID {"Store Initial Path"};
-    Identifier storeInitialPath_String_ID {"name"};
-    ValueTree storeInitialPathNode {storeInitialPath_ID};
-    
+    Identifier startupPath_ID {"Startup_Path"};
+    ValueTree startupPathNode {startupPath_ID};
+    XmlElement startupPath_XML {startupPath_ID};
     
     
     /*
@@ -125,6 +124,12 @@ private:
     
     // Retrieves the MetaData from the file in the fileBrowser.
     StringPairArray getMetadataFromFile();
+    
+    
+    // Value tree functions from Dave Rowland
+    inline ValueTree loadValueTree (const File& file, bool asXml);
+    inline bool saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml);
+    
     
     
     //==============================================================================

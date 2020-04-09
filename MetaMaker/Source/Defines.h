@@ -47,7 +47,7 @@ namespace GUIDefines
     static const unsigned int marginBetweenButtons = 5;
     
     
-    //Settings Window
+    //Settings Window 
     static const unsigned int settingsWindowWidth = 300;
     static const unsigned int settingsWindowHeight = 200;
     
@@ -79,9 +79,11 @@ namespace Defines
     
     static const String allFiletypesAllowed = "";
     
-    static const juce::String fileFilterAllowForAudioFiles = "*.wav; *.aiff";
-    static const juce::String fileFilterDirPatterns = "*";
-    static const juce::String fileFilterDescription = "Audio Files";
+    static const String fileFilterAllowForAudioFiles = "*.wav; *.aiff";
+    static const String fileFilterDirPatterns = "*";
+    static const String fileFilterDescription = "Audio Files";
+    
+    static const String settingsWindowName = "Settings";
     
 }
 

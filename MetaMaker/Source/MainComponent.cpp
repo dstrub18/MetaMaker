@@ -59,10 +59,26 @@ MainComponent::MainComponent()
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
+    settingsWindowPanel = std::make_unique<SettingsWindowPanel>(GUIDefines::settingsWindowWidth, GUIDefines::settingsWindowHeight);
     
-    settingsWindowPanel = new SettingsWindowPanel(100, 200);
+    settingsWindow = std::make_unique<SettingsWindow>(GUIDefines::settingsWindowWidth, GUIDefines::settingsWindowHeight, "Settings", settingsWindowPanel.get());
     
-    settingsWindow = std::make_unique<SettingsWindow>(300, 400, "Settings", settingsWindowPanel);
+    
+    
+    
+    
+    
+    // Log settings label in Value Tree
+    startupPathNode.setProperty(startupPath_ID, "~/Desktop/metamakerWavs/Source", nullptr);
+    settingsWindowPanel -> setLabeltext("~/Desktop/metamakerWavs/Source");
+    Logger::writeToLog(startupPath_XML.toString());
+    startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty(startupPath_ID).toString());
+    Logger::writeToLog(startupPath_XML.toString());
+    
+    
+    
+    
+    
     
     // Set initial Directories
     sourceFilePanel -> setRoot (initialSourceDirectoryPath);
@@ -97,12 +113,9 @@ MainComponent::MainComponent()
     propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
     
     settingsWindowPanel -> getSourcePathLabel () -> addListener(this);
+    settingsWindowPanel -> getSourcePathLabel () -> addListener (sourceFilePanel.get());
     
     
-    // Value Tree Initialisations
-    storeInitialPathNode.setProperty(storeInitialPath_String_ID, settingsWindowPanel -> getSourcePathLabel(), nullptr);
-    
-    settingsWindowPanel -> addLabelListener (sourceFilePanel.get());
     
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();
@@ -188,13 +201,6 @@ void MainComponent::resized()
 }
 
 
-// Value Tree Overrides
-void valueTreePropertyChanged (ValueTree &treeWhosePropertyHasChanged, const Identifier &property)
-{
-    Logger::writeToLog("Something chaned");
-}
-
-
 // Override methods from ButtonListener
 void MainComponent::buttonClicked(Button* button)
 {
@@ -243,10 +249,7 @@ void MainComponent::buttonClicked(Button* button)
                 }
                 destinationPanel -> refreshFileBrowser();
                 wavAudioFormat -> replaceMetadataInFile(destinationFile, *metaDataValues);
-                
-                
-                
-                
+
             }
             
             else
@@ -382,9 +385,9 @@ void MainComponent::labelTextChanged(Label *labelThatHasChanged)
     
     if (labelThatHasChanged == settingsWindowPanel -> getSourcePathLabel())
     {
-        storeInitialPathNode.setProperty(storeInitialPath_String_ID, settingsWindowPanel -> getSourcePathLabel(), nullptr);
-        
         Logger::writeToLog("SettingsWindow panel source path Changed!");
+        startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
+        Logger::writeToLog(startupPathNode.getProperty(startupPath_ID).toString());
     }
     
     
@@ -520,3 +523,48 @@ const void MainComponent::moveFromSourceToDestination()
 }
 
 
+
+inline ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
+{
+    if (asXml)
+    {
+        if (auto xml = std::unique_ptr<juce::XmlElement> (juce::XmlDocument::parse (file)))
+            return juce::ValueTree::fromXml (*xml);
+    }
+    else
+    {
+        juce::FileInputStream is (file);
+        
+        if (is.openedOk())
+            return juce::ValueTree::readFromStream (is);
+    }
+    
+    return {};
+}
+
+inline bool MainComponent::saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml)
+{
+    const juce::TemporaryFile temp (file);
+    
+    {
+        juce::FileOutputStream os (temp.getFile());
+        
+        if (! os.getStatus().wasOk())
+            return false;
+        
+        if (asXml)
+        {
+            if (auto xml = std::unique_ptr<juce::XmlElement> (v.createXml()))
+                xml->writeTo (os);
+        }
+        else
+        {
+            v.writeToStream (os);
+        }
+    }
+    
+    if (temp.getFile().existsAsFile())
+        return temp.overwriteTargetFileWithTemporary();
+    
+    return false;
+}

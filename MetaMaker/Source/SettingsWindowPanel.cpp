@@ -21,7 +21,7 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     setSize (width, height);
     
     sourcePathLabel = std::make_unique<Label>();
-    sourcePathLabel -> setEditable(true);
+    sourcePathLabel -> setEditable(false);
     
     chooseFileButton = std::make_unique<TextButton>("Choose Directory");
     showOnStartToggle = std::make_unique<ToggleButton>("Show on Start");

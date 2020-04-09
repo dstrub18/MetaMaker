@@ -41,7 +41,7 @@ public:
     
     // Getters / Setters
     inline const String getLabelText() const {  return this -> sourcePathLabel -> getText();    }
-    
+    inline void setLabeltext (const String& newText) {   this -> sourcePathLabel -> setText(newText, Defines::noNotification);   }
     
     inline const void addLabelListener (FileBrowserPanel* newLabelListener) {    this -> sourcePathLabel -> addListener (newLabelListener); }
     

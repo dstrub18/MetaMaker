@@ -19,7 +19,7 @@
 class SettingsWindow    : public DocumentWindow
 {
 public:
-    SettingsWindow (int width, int height, String name, Component* contentComponent);
+    SettingsWindow (const int& width, const int& height, String&& name, Component* contentComponent);
     ~SettingsWindow();
     
     const void setVisibiltyState (bool newState);
