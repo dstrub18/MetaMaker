@@ -93,6 +93,8 @@ private:
     Identifier startupPath_ID {"Startup_Path"};
     ValueTree startupPathNode {startupPath_ID};
     XmlElement startupPath_XML {startupPath_ID};
+    File getSaveFile();
+    ValueTree loadOrCreateDefaultEdit();
     
     
     /*
@@ -130,7 +132,8 @@ private:
     inline ValueTree loadValueTree (const File& file, bool asXml);
     inline bool saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml);
     
-    
+    // Save Data
+    void createSaveDataIfNecessary();
     
     //==============================================================================
     // Your private member variables go here...

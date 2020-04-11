@@ -27,7 +27,7 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     showOnStartToggle = std::make_unique<ToggleButton>("Show on Start");
     
     
-    sourcePathLabel -> setSize(100, 20 );
+    sourcePathLabel -> setSize(200, 20 );
     sourcePathLabel -> setTopLeftPosition(100, 20);
     
     chooseFileButton -> setSize(50, 20);

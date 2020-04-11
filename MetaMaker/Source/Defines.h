@@ -31,7 +31,6 @@ namespace GUIDefines
     static const unsigned int propertyPanelHeight = 600;
     static const unsigned int buttonPanelHeight = 600;
     
-    
     static const int mainWindowTopYCoordinate = 0;
     
     static const String metadataButtonText = "Write Metadata";
@@ -84,6 +83,9 @@ namespace Defines
     static const String fileFilterDescription = "Audio Files";
     
     static const String settingsWindowName = "Settings";
+    
+    static const String saveDataDirectoryPath = "~/Documents/MetamakerSaves/";
+    static const String saveDataFilename = "~/Documents/MetamakerSaves/saveState.xml";
     
 }
 

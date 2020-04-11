@@ -8,6 +8,7 @@
 
 #include "MainComponent.h"
 #include "Defines.h"
+
 //==============================================================================
 MainComponent::MainComponent()
 
@@ -63,27 +64,19 @@ MainComponent::MainComponent()
     
     settingsWindow = std::make_unique<SettingsWindow>(GUIDefines::settingsWindowWidth, GUIDefines::settingsWindowHeight, "Settings", settingsWindowPanel.get());
     
-    
-    
-    
-    
+    createSaveDataIfNecessary();
+    startupPathNode = loadValueTree(getSaveFile(), true);
     
     // Log settings label in Value Tree
-    startupPathNode.setProperty(startupPath_ID, "~/Desktop/metamakerWavs/Source", nullptr);
-    settingsWindowPanel -> setLabeltext("~/Desktop/metamakerWavs/Source");
+    settingsWindowPanel -> setLabeltext(startupPathNode.getProperty(startupPath_ID).toString());
+    
     Logger::writeToLog(startupPath_XML.toString());
     startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty(startupPath_ID).toString());
+    
     Logger::writeToLog(startupPath_XML.toString());
     
-    
-    
-    
-    
-    
     // Set initial Directories
-    sourceFilePanel -> setRoot (initialSourceDirectoryPath);
-    destinationPanel -> setRoot (initialDestinationDirectoryPath);
-    
+    sourceFilePanel -> setRoot (File (settingsWindowPanel -> getLabelText ()));
     
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
@@ -147,6 +140,10 @@ MainComponent::MainComponent()
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
+    
+    startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
+    saveValueTree(startupPathNode, getSaveFile(), true);
+    
     shutdownAudio();
 }
 
@@ -389,8 +386,6 @@ void MainComponent::labelTextChanged(Label *labelThatHasChanged)
         startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
         Logger::writeToLog(startupPathNode.getProperty(startupPath_ID).toString());
     }
-    
-    
 }
 
 void MainComponent::editorShown (Label* , TextEditor &)
@@ -526,20 +521,27 @@ const void MainComponent::moveFromSourceToDestination()
 
 inline ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
 {
-    if (asXml)
-    {
-        if (auto xml = std::unique_ptr<juce::XmlElement> (juce::XmlDocument::parse (file)))
-            return juce::ValueTree::fromXml (*xml);
-    }
-    else
-    {
-        juce::FileInputStream is (file);
-        
-        if (is.openedOk())
-            return juce::ValueTree::readFromStream (is);
-    }
+    File saveFile = File (Defines::saveDataFilename);
     
-    return {};
+    if (saveFile.exists())
+    {
+
+        if (asXml)
+        {
+            if (auto xml = std::unique_ptr<juce::XmlElement> (juce::XmlDocument::parse (file)))
+                return juce::ValueTree::fromXml (*xml);
+        }
+        else
+        {
+            juce::FileInputStream is (file);
+            
+            if (is.openedOk())
+                return juce::ValueTree::readFromStream (is);
+        }
+        
+        return {};
+        
+    }
 }
 
 inline bool MainComponent::saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml)
@@ -567,4 +569,37 @@ inline bool MainComponent::saveValueTree (const juce::ValueTree& v, const juce::
         return temp.overwriteTargetFileWithTemporary();
     
     return false;
+}
+
+
+File MainComponent::getSaveFile()
+{
+    return File ("~/Documents/MetamakerSaves/saveState.xml");
+}
+
+
+ValueTree MainComponent::loadOrCreateDefaultEdit()
+{
+    ValueTree v (loadValueTree (getSaveFile(), true));
+    
+    if (! v.isValid())
+        //v =  Helpers::createDefaultEdit();
+    
+    return v;
+}
+
+
+
+void MainComponent::createSaveDataIfNecessary() {
+    File initialDirectory = File (Defines::saveDataDirectoryPath);
+    
+    if (initialDirectory.exists() == false)
+    {
+        Result rDirectory = initialDirectory.createDirectory();
+        
+        if (rDirectory.wasOk())
+        {
+            saveValueTree(startupPathNode, getSaveFile(), true);
+        }
+    }
 }
