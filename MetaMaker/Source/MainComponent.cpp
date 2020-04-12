@@ -21,6 +21,8 @@ MainComponent::MainComponent()
     
     fs = deviceManager.getAudioDeviceSetup().sampleRate;
     
+    transportState = TransportState::Stopped;
+    
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
     
@@ -99,6 +101,8 @@ MainComponent::MainComponent()
     buttonPanel     -> getreplaceMetadataButton() -> addListener(this);
     buttonPanel     -> getOpenSettingsButton()    -> addListener(this);
     
+    buttonPanel     -> getTransportPlayButton()   -> addListener(this);
+    buttonPanel     -> getTransportStopButton()   -> addListener(this);
     
     propertyPanel   -> getArtistLabel () -> addListener(this);
     propertyPanel   -> getFileNameLabel () -> addListener(this);
@@ -108,6 +112,7 @@ MainComponent::MainComponent()
     settingsWindowPanel -> getSourcePathLabel () -> addListener(this);
     settingsWindowPanel -> getSourcePathLabel () -> addListener (sourceFilePanel.get());
     
+    transportSource.addChangeListener(this);
     
     
     // Initial Refresh for the Filebrowsers
@@ -157,6 +162,10 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
     // but be careful - it will be called on the audio thread, not the GUI thread.
 
     // For more details, see the help for AudioProcessor::prepareToPlay()
+    
+    
+    transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
+    
 }
 
 void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
@@ -167,7 +176,14 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
 
     // Right now we are not producing any data, in which case we need to clear the buffer
     // (to prevent the output of random noise)
-    bufferToFill.clearActiveBufferRegion();
+    
+    if (readerSource.get() == nullptr)
+    {
+        bufferToFill.clearActiveBufferRegion();
+        return;
+    }
+    
+    transportSource.getNextAudioBlock (bufferToFill);
 }
 
 void MainComponent::releaseResources()
@@ -175,6 +191,9 @@ void MainComponent::releaseResources()
     // This will be called when the audio device stops, or when it is being
     // restarted due to a setting change.
 
+        transportSource.releaseResources();
+    
+    
     // For more details, see the help for AudioProcessor::releaseResources()
 }
 
@@ -307,6 +326,17 @@ void MainComponent::buttonClicked(Button* button)
     }
     
     
+    if (button -> getButtonText() == "Play")
+    {
+        changeState (TransportState::Starting);
+    }
+    
+    if (button -> getButtonText() == "Stop")
+    {
+        changeState (TransportState::Stopping);
+    }
+    
+    
 }
 
 // Override methods from FileBrowserListener
@@ -324,7 +354,7 @@ void MainComponent::selectionChanged ()
     }
     else
     {
-        propertyPanel -> ensableLabelEditing();
+        propertyPanel -> enableLabelEditing();
     }
     
     if (file.existsAsFile())
@@ -338,6 +368,9 @@ void MainComponent::selectionChanged ()
             std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
             waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
+            
+            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);
+            buttonPanel -> getTransportPlayButton() -> setEnabled (true);
             
             readerSource.reset (newSource.release());
             
@@ -423,10 +456,57 @@ void MainComponent::editorHidden (Label *, TextEditor &)
             
         }
     }
-    
-    
-    
 }
+
+
+void MainComponent::changeListenerCallback(juce::ChangeBroadcaster *source)
+{
+    if (source == &transportSource) {
+        
+        if (transportSource.isPlaying())
+        {
+            changeState (TransportState::Playing);
+        }
+        
+        else
+        {
+            changeState (TransportState::Playing);
+        }
+        
+        
+    }
+}
+
+void MainComponent::changeState (TransportState newState)
+{
+    if (transportState != newState)
+    {
+        transportState = newState;
+        
+        switch (transportState)
+        {
+            case TransportState::Stopped:                           // [3]
+                buttonPanel ->getTransportStopButton() -> setEnabled (false);
+                buttonPanel ->getTransportPlayButton() -> setEnabled (true);
+                transportSource.setPosition (0.0);
+                break;
+                
+            case TransportState::Starting:                          // [4]
+                buttonPanel -> getTransportPlayButton() ->setEnabled (false);
+                transportSource.start();
+                break;
+                
+            case TransportState::Playing:                           // [5]
+                buttonPanel -> getTransportStopButton() ->setEnabled (true);
+                break;
+                
+            case TransportState::Stopping:                          // [6]
+                transportSource.stop();
+                break;
+        }
+    }
+}
+
 
 // Custom Methods
 
@@ -518,8 +598,7 @@ const void MainComponent::moveFromSourceToDestination()
 }
 
 
-
-inline ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
+ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
 {
     File saveFile = File (Defines::saveDataFilename);
     
@@ -544,7 +623,7 @@ inline ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
     }
 }
 
-inline bool MainComponent::saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml)
+bool MainComponent::saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml)
 {
     const juce::TemporaryFile temp (file);
     

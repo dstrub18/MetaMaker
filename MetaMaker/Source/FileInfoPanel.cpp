@@ -148,7 +148,7 @@ const void FileInfoPanel::disableLabelEditing ()
 
 }
 
-const void FileInfoPanel::ensableLabelEditing ()
+const void FileInfoPanel::enableLabelEditing ()
 {
     fileNameLabel           -> setEditable(false, true, false);
     artistLabel             -> setEditable(false, true, false);

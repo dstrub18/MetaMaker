@@ -61,7 +61,7 @@ public:
     
     
     const void disableLabelEditing ();
-    const void ensableLabelEditing ();
+    const void enableLabelEditing ();
     
     //[/UserMethods]
 

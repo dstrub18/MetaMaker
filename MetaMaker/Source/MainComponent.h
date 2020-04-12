@@ -23,7 +23,8 @@
 class MainComponent   : public AudioAppComponent,
                         public Button::Listener,
                         public FileBrowserListener,
-                        public Label::Listener
+                        public Label::Listener,
+                        public ChangeListener
 
 {
 public:
@@ -87,6 +88,17 @@ private:
     
     double fs;
     
+    enum class TransportState
+    {
+        Stopped,
+        Starting,
+        Playing,
+        Stopping
+    };
+    
+    AudioTransportSource transportSource;
+    TransportState transportState;
+    void changeState (TransportState newState);
     
     
         // ValueTree
@@ -116,6 +128,9 @@ private:
     void editorShown (Label* ,TextEditor &) override;
     void editorHidden (Label *,TextEditor &) override;
     
+        // ChangeListener
+    void changeListenerCallback(juce::ChangeBroadcaster *source) override;
+    
     
     // File Copy / Move Functionality
     const void copyFromSourceToDestination();
@@ -129,8 +144,8 @@ private:
     
     
     // Value tree functions from Dave Rowland
-    inline ValueTree loadValueTree (const File& file, bool asXml);
-    inline bool saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml);
+    ValueTree loadValueTree (const File& file, bool asXml);
+    bool saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml);
     
     // Save Data
     void createSaveDataIfNecessary();
@@ -140,4 +155,5 @@ private:
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+
 };

@@ -54,11 +54,29 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     openSettingsButton -> changeWidthToFitText();
     openSettingsButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 4, GUIDefines::initialButtonPanelHeight - GUIDefines::buttonHeight);
     
+    
+    transportPlayButton = std::make_unique<TextButton>("Play");
+    transportPlayButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    transportPlayButton -> changeWidthToFitText();
+    transportPlayButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 4, 0);
+    transportPlayButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::green);
+    
+    transportStopButton = std::make_unique<TextButton>("Stop");
+    transportStopButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    transportStopButton -> changeWidthToFitText();
+    transportStopButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 4, 0 + GUIDefines::buttonHeight);
+    transportStopButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::red);
+    
+    
     addAndMakeVisible (*copyButton);
     addAndMakeVisible (*moveButton);
     addAndMakeVisible (*writeAndCoppyButton);
     addAndMakeVisible (*replaceMetadataButton);
+    
     addAndMakeVisible(*openSettingsButton);
+    
+    addAndMakeVisible(*transportPlayButton);
+    addAndMakeVisible(*transportStopButton);
 }
 
 ButtonPanel::~ButtonPanel()

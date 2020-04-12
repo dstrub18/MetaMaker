@@ -24,12 +24,15 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    TextButton* getCopyButton ()                   { return this -> copyButton.get();             }
-    TextButton* getMoveButton ()                   { return this -> moveButton.get();             }
-    TextButton* getWriteAndCopyButton ()           { return this -> writeAndCoppyButton.get();    }
-    TextButton* getreplaceMetadataButton ()        { return this -> replaceMetadataButton.get();  }
+    inline TextButton* getCopyButton ()             const        { return this -> copyButton.get();             }
+    inline TextButton* getMoveButton ()             const        { return this -> moveButton.get();             }
+    inline TextButton* getWriteAndCopyButton ()     const        { return this -> writeAndCoppyButton.get();    }
+    inline TextButton* getreplaceMetadataButton ()  const        { return this -> replaceMetadataButton.get();  }
     
-    TextButton* getOpenSettingsButton ()                 { return this -> openSettingsButton.get();  }
+    inline TextButton* getOpenSettingsButton ()     const        { return this -> openSettingsButton.get();  }
+    
+    inline TextButton* getTransportPlayButton ()            const         {return this -> transportPlayButton.get();}
+    inline TextButton* getTransportStopButton ()            const         {return this -> transportStopButton.get();}
 
 private:
     
@@ -39,6 +42,9 @@ private:
     std::unique_ptr<TextButton> replaceMetadataButton;
     
     std::unique_ptr<TextButton> openSettingsButton;
+    
+    std::unique_ptr<TextButton> transportPlayButton;
+    std::unique_ptr<TextButton> transportStopButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)
