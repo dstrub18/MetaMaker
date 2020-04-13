@@ -24,13 +24,17 @@ class MainComponent   : public AudioAppComponent,
                         public Button::Listener,
                         public FileBrowserListener,
                         public Label::Listener,
-                        public ChangeListener
+                        public ChangeListener,
+                        public Timer
 
 {
 public:
     //==============================================================================
     MainComponent();
     ~MainComponent();
+    
+    void timerCallback() override;
+
 
     //==============================================================================
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;

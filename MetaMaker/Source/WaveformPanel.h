@@ -121,6 +121,23 @@ public:
         
     }
     
+    void mouseUp (const MouseEvent &event) override
+    {
+        if (event.mods == ModifierKeys::leftButtonModifier)
+        {
+            if (isRectangleActive)
+            {
+                if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
+                {
+                    selectorRect.setPosition (event.getMouseDownPosition ().getX () - event.getDistanceFromDragStart(), 0);
+                    selectorRect.setWidth (event.getDistanceFromDragStart ());
+                }
+                
+                
+            }
+        }
+    }
+    
     
 //==================================================================================
     
@@ -161,7 +178,7 @@ public:
         {
             repaint ();
             g.fillAll (Colours::white);   // clear the background
-            amplitudeZoomSlider.setVisible(false);
+            amplitudeZoomSlider.setVisible (false);
             g.drawRect (getLocalBounds(), 4);   // draw an outline around the component
 
         }
@@ -173,6 +190,11 @@ public:
         // components that your component contains..
 
     }
+    
+    int getRectangleSize ()             const noexcept  {   return this -> selectorRect.getWidth (); }
+    int getRectangleStartPosition ()    const noexcept  {   return this -> selectorRect.getX ();     }
+    
+    int getComponentWidth ()            const noexcept  {   return this -> waveFormArea.getWidth ();               }
 
 private:
     double progress;
@@ -182,8 +204,7 @@ private:
     
     Rectangle<int> waveFormArea;
     
-    // Waveform Slice Selector
-    bool isSelectorRectActive;
+    // Waveform SelectEditor
     
     Rectangle<int> selectorRect;
     Point<int> selectorStartPoint;

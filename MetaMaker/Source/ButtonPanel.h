@@ -24,15 +24,18 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    inline TextButton* getCopyButton ()             const        { return this -> copyButton.get();             }
-    inline TextButton* getMoveButton ()             const        { return this -> moveButton.get();             }
-    inline TextButton* getWriteAndCopyButton ()     const        { return this -> writeAndCoppyButton.get();    }
-    inline TextButton* getreplaceMetadataButton ()  const        { return this -> replaceMetadataButton.get();  }
+    inline TextButton* getCopyButton ()             const    noexcept    { return this -> copyButton.get();             }
+    inline TextButton* getMoveButton ()             const    noexcept    { return this -> moveButton.get();             }
+    inline TextButton* getWriteAndCopyButton ()     const    noexcept    { return this -> writeAndCoppyButton.get();    }
+    inline TextButton* getreplaceMetadataButton ()  const    noexcept    { return this -> replaceMetadataButton.get();  }
     
-    inline TextButton* getOpenSettingsButton ()     const        { return this -> openSettingsButton.get();  }
+    inline TextButton* getOpenSettingsButton ()     const    noexcept    { return this -> openSettingsButton.get();     }
     
-    inline TextButton* getTransportPlayButton ()            const         {return this -> transportPlayButton.get();}
-    inline TextButton* getTransportStopButton ()            const         {return this -> transportStopButton.get();}
+    inline TextButton* getTransportPlayButton ()    const    noexcept    {  return this -> transportPlayButton.get();   }
+    inline TextButton* getTransportStopButton ()    const    noexcept    {  return this -> transportStopButton.get();   }
+    
+    inline TextButton* getTimerStartButton ()       const    noexcept    {  return this -> timerStartButton.get();      }
+    inline TextButton* getTimerStopButton ()        const    noexcept    {  return this -> timerStopButton.get();        }
 
 private:
     
@@ -45,6 +48,9 @@ private:
     
     std::unique_ptr<TextButton> transportPlayButton;
     std::unique_ptr<TextButton> transportStopButton;
+    
+    std::unique_ptr<TextButton> timerStartButton;
+    std::unique_ptr<TextButton> timerStopButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)

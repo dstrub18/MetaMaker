@@ -112,6 +112,9 @@ MainComponent::MainComponent()
     settingsWindowPanel -> getSourcePathLabel () -> addListener(this);
     settingsWindowPanel -> getSourcePathLabel () -> addListener (sourceFilePanel.get());
     
+    buttonPanel -> getTimerStartButton() -> addListener(this);
+    buttonPanel -> getTimerStopButton() -> addListener(this);
+    
     transportSource.addChangeListener(this);
     
     
@@ -336,13 +339,42 @@ void MainComponent::buttonClicked(Button* button)
         changeState (TransportState::Stopping);
     }
     
+    if (button -> getButtonText() == "Start Timer")
+    {
+        if (! Timer::isTimerRunning()) {
+            startTimer(1000);
+        }
+        
+        Logger::writeToLog("Timer started");
+    }
+    
+    if (button -> getButtonText() == "Stop Timer")
+    {
+        stopTimer();
+        
+        
+        Logger::writeToLog("Timer stopped");
+    }
+    
+    
+    
     
 }
+
+
+
+// Timer Callback override
+void MainComponent::timerCallback()
+{
+    Logger::writeToLog("Timmer Running!");
+    Logger::writeToLog((String) waveformPanel -> getRectangleSize());
+}
+
+
 
 // Override methods from FileBrowserListener
 void MainComponent::selectionChanged ()
 {
-    
     updateFilePropertyPanel();
     File file = sourceFilePanel -> getCurrentFile();
     
@@ -472,7 +504,6 @@ void MainComponent::changeListenerCallback(juce::ChangeBroadcaster *source)
         {
             changeState (TransportState::Playing);
         }
-        
         
     }
 }

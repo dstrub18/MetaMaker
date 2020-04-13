@@ -45,28 +45,28 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    File getCurrentFile()                           {   return this -> fileBrowser -> getHighlightedFile();     }
+    File getCurrentFile() const noexcept                            {   return this -> fileBrowser -> getHighlightedFile();     }
     
     //Overload for case when multiple files are selected
-    File getCurrentFile (int& index)                {   return this -> fileBrowser -> getSelectedFile (index);  }
+    File getCurrentFile (int& index) const noexcept                 {   return this -> fileBrowser -> getSelectedFile (index);  }
     
     
-    const int getNumSelectedFiles () const      {   return this -> fileBrowser -> getNumSelectedFiles();        }
+    const int getNumSelectedFiles () const noexcept                 {   return this -> fileBrowser -> getNumSelectedFiles();        }
 
-    FileBrowserComponent* getFileBrowser ()         {   return this -> fileBrowser.get();  }
+    FileBrowserComponent* getFileBrowser () const noexcept          {   return this -> fileBrowser.get();  }
 
-    const File getRoot ()                           {   return this -> fileBrowser -> getRoot ();  }
-    void setRoot (const File& newRootDirectory )    {   this -> fileBrowser -> setRoot (newRootDirectory);   }
+    const File getRoot () const noexcept                            {   return this -> fileBrowser -> getRoot ();  }
+    void setRoot (const File& newRootDirectory )                    {   this -> fileBrowser -> setRoot (newRootDirectory);   }
     
-    const String getFullPath ()                     {   return this -> fileBrowser -> getRoot ().getFullPathName ();  }
+    const String getFullPath () const noexcept                      {   return this -> fileBrowser -> getRoot ().getFullPathName ();  }
 
-    const void refreshFileBrowser ()                {   this -> fileBrowser -> refresh ();}
+    const void refreshFileBrowser () const noexcept                 {   this -> fileBrowser -> refresh ();}
     
-    const String getCurrentFileName ()              {   return this -> fileBrowser -> getHighlightedFile ().getFileName ();   }
+    const String getCurrentFileName () const noexcept               {   return this -> fileBrowser -> getHighlightedFile ().getFileName ();   }
     
-    const bool isCurrentlySelectedFileDirectory ()   {   return this -> getCurrentFile ().isDirectory ();  }
+    const bool isCurrentlySelectedFileDirectory () const noexcept   {   return this -> getCurrentFile ().isDirectory ();  }
     
-    const int getNumSelectedFiles ()    {   return this -> fileBrowser -> getNumSelectedFiles();   }
+    const int getNumSelectedFiles ()                                {   return this -> fileBrowser -> getNumSelectedFiles();   }
     
     
     void labelTextChanged (Label *labelThatHasChanged) override;

@@ -68,6 +68,19 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     transportStopButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::red);
     
     
+    timerStartButton = std::make_unique<TextButton>("Start Timer");
+    timerStartButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    timerStartButton -> changeWidthToFitText();
+    timerStartButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 3 + timerStartButton -> getWidth(), 0 );
+    timerStartButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::orange);
+    
+    timerStopButton = std::make_unique<TextButton>("Stop Timer");
+    timerStopButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    timerStopButton -> changeWidthToFitText();
+    timerStopButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 3 + timerStopButton -> getWidth(), 0 + GUIDefines::buttonHeight);
+    timerStopButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::darkblue);
+    
+    
     addAndMakeVisible (*copyButton);
     addAndMakeVisible (*moveButton);
     addAndMakeVisible (*writeAndCoppyButton);
@@ -77,6 +90,9 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     
     addAndMakeVisible(*transportPlayButton);
     addAndMakeVisible(*transportStopButton);
+    
+    addAndMakeVisible(*timerStartButton);
+    addAndMakeVisible(*timerStopButton);
 }
 
 ButtonPanel::~ButtonPanel()
