@@ -191,10 +191,10 @@ public:
 
     }
     
-    int getRectangleSize ()             const noexcept  {   return this -> selectorRect.getWidth (); }
+    int getRectangleWidth ()            const noexcept  {   return this -> selectorRect.getWidth (); }
     int getRectangleStartPosition ()    const noexcept  {   return this -> selectorRect.getX ();     }
     
-    int getComponentWidth ()            const noexcept  {   return this -> waveFormArea.getWidth ();               }
+    int getComponentWidth ()            const noexcept  {   return this -> getWidth (); }
 
 private:
     double progress;

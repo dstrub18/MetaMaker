@@ -75,13 +75,6 @@ void SettingsWindowPanel::buttonClicked (Button* button)
     
 }
 
-
-//void SettingsWindowPanel::sendChangeMessage()
-//{
-//    //Logger::writeToLog("Zingy zingy zingy");
-//}
-
-
 void SettingsWindowPanel::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and

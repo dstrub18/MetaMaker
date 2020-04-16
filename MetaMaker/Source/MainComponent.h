@@ -51,6 +51,7 @@ private:
     AudioFormatManager formatManager;
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     
+    
     StringPairArray newMetaData;
     
     // helper object to replace the metadata.
@@ -99,6 +100,9 @@ private:
         Playing,
         Stopping
     };
+    
+    int playbackStartPosition {0};
+    int playbackTimeSelectionRange {0};
     
     AudioTransportSource transportSource;
     TransportState transportState;

@@ -31,7 +31,7 @@ FileBrowserPanel::FileBrowserPanel (const int& initialWidth, const int& initialH
 {
     //[Constructor_pre] You can add your own custom stuff here..
     wildCardFileFilter = std::make_unique<WildcardFileFilter> (Defines::fileFilterAllowForAudioFiles, Defines::fileFilterDirPatterns, Defines::fileFilterDescription);
-    Logger::writeToLog(Defines::fileFilterDirPatterns);
+    
     // Handles the file restrictions and permissions of the File Browser
     fileBrowserTypeFlags =  FileBrowserComponent::FileChooserFlags::openMode +
     FileBrowserComponent::FileChooserFlags::canSelectFiles +

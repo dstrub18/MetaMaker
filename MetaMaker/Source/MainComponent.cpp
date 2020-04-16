@@ -243,18 +243,16 @@ void MainComponent::buttonClicked(Button* button)
             
             File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
             
-            AudioFormatReader* reader = formatManager.createReaderFor ( fileToCopy );
+            std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor (fileToCopy));
             
             if (reader != nullptr)
             {
-                
                 //File file  = sourceFilePanel -> getCurrentFile();
                 std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
                 // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
                 metaDataValues -> set("bwav description", "Did it work ? ");
                 
                 
-                delete reader;
                 updateFilePropertyPanel();
                 
                 bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
@@ -286,7 +284,7 @@ void MainComponent::buttonClicked(Button* button)
             
             File fileToEdit = sourceFilePanel -> getCurrentFile(i);
             
-            AudioFormatReader* reader = formatManager.createReaderFor ( fileToEdit );
+            std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor ( fileToEdit ));
             
             if (reader != nullptr)
             {
@@ -296,7 +294,7 @@ void MainComponent::buttonClicked(Button* button)
                 // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
                 wavAudioFormat -> replaceMetadataInFile(fileToEdit, metadataInPanel);
                 Logger::writeToLog("Worked!");
-                delete reader;
+                
                 updateFilePropertyPanel();
                 
                 
@@ -312,7 +310,7 @@ void MainComponent::buttonClicked(Button* button)
     }
     
     
-    
+#pragma mark OpenSettings
     if (button -> getButtonText() == "Open Settings")
     {
         if (settingsWindow -> getVisibilityState() == false)
@@ -328,11 +326,51 @@ void MainComponent::buttonClicked(Button* button)
         
     }
     
-    
+#pragma mark PlayButton
+    //on play
     if (button -> getButtonText() == "Play")
     {
+
+        File file = sourceFilePanel -> getCurrentFile();
+        auto* reader = formatManager.createReaderFor(file);
+        
+        if (reader != nullptr) {
+            
+            std::unique_ptr<AudioFormatReaderSource> newSource = std::make_unique<AudioFormatReaderSource>(reader, true);
+            
+            if (waveformPanel -> getRectangleWidth() != 0)
+            {
+                Logger::writeToLog((String) reader -> lengthInSamples);
+                
+                float rectangleWidth = waveformPanel -> getRectangleWidth();
+                float totalWidth = waveformPanel -> getWidth();
+                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
+                
+                auto lengthInSamples = reader -> lengthInSamples;
+                
+                Logger::writeToLog((String)rectangleWidth);
+                Logger::writeToLog((String)totalWidth);
+                Logger::writeToLog((String)lengthInSamples);
+                
+                playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
+                playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
+                
+                // Continue here, use timeslice thread and bufferedAudioSource!
+                // transportSource.setSource (newSource.get(), playbackStartPosition, nullptr, reader->sampleRate);
+                
+                
+            }
+            
+            
+        }
+        
+        
+        delete reader;
         changeState (TransportState::Starting);
+        
     }
+    
+#pragma mark StopButton
     
     if (button -> getButtonText() == "Stop")
     {
@@ -367,7 +405,8 @@ void MainComponent::buttonClicked(Button* button)
 void MainComponent::timerCallback()
 {
     Logger::writeToLog("Timmer Running!");
-    Logger::writeToLog((String) waveformPanel -> getRectangleSize());
+    Logger::writeToLog("Rectangle Size: " + (String) waveformPanel -> getRectangleWidth());
+    
 }
 
 
@@ -378,7 +417,7 @@ void MainComponent::selectionChanged ()
     updateFilePropertyPanel();
     File file = sourceFilePanel -> getCurrentFile();
     
-    Logger::writeToLog((String) sourceFilePanel -> getNumSelectedFiles());
+    
     
     if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
     {
@@ -471,7 +510,7 @@ void MainComponent::editorHidden (Label *, TextEditor &)
         
         File fileToEdit = sourceFilePanel -> getCurrentFile(i);
         
-        AudioFormatReader* reader = formatManager.createReaderFor ( fileToEdit );
+        std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor ( fileToEdit ));
         
         if (reader != nullptr)
         {
@@ -481,7 +520,7 @@ void MainComponent::editorHidden (Label *, TextEditor &)
             // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
             wavAudioFormat -> replaceMetadataInFile(fileToEdit, metadataInPanel);
             Logger::writeToLog("Worked!");
-            delete reader;
+            
             updateFilePropertyPanel();
             
             
@@ -520,11 +559,14 @@ void MainComponent::changeState (TransportState newState)
                 buttonPanel ->getTransportStopButton() -> setEnabled (false);
                 buttonPanel ->getTransportPlayButton() -> setEnabled (true);
                 transportSource.setPosition (0.0);
+                
                 break;
                 
             case TransportState::Starting:                          // [4]
-                buttonPanel -> getTransportPlayButton() ->setEnabled (false);
+                buttonPanel -> getTransportPlayButton() -> setEnabled (false);
                 transportSource.start();
+                
+                
                 break;
                 
             case TransportState::Playing:                           // [5]
@@ -569,11 +611,11 @@ StringPairArray MainComponent::getMetadataFromFile()
      Retrieves the metadata from the file that's currently selected in the fileBrowser.
      */
     
-    AudioFormatReader* reader = formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() );
+    std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor ( sourceFilePanel -> getCurrentFile() ));
     if (reader != nullptr)
     {
         StringPairArray metaDataValues = StringPairArray (reader -> metadataValues);
-        delete reader;
+        
         return metaDataValues;
     }
     else
