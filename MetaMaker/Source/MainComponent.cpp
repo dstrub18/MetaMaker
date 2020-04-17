@@ -186,7 +186,9 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
         return;
     }
     
-    transportSource.getNextAudioBlock (bufferToFill);
+    // @TODO: Error here! Bad access! Look at this: https://docs.juce.com/master/tutorial_looping_audio_sample_buffer_advanced.html
+    
+    //transportSource.getNextAudioBlock (bufferToFill);
 }
 
 void MainComponent::releaseResources()
@@ -336,7 +338,7 @@ void MainComponent::buttonClicked(Button* button)
         
         if (reader != nullptr) {
             
-            std::unique_ptr<AudioFormatReaderSource> newSource = std::make_unique<AudioFormatReaderSource>(reader, true);
+            
             
             if (waveformPanel -> getRectangleWidth() != 0)
             {
@@ -354,18 +356,24 @@ void MainComponent::buttonClicked(Button* button)
                 
                 playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
                 playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
-                
-                // Continue here, use timeslice thread and bufferedAudioSource!
-                // transportSource.setSource (newSource.get(), playbackStartPosition, nullptr, reader->sampleRate);
-                
+
+                subsectionReader = std::make_unique<AudioSubsectionReader>(reader, (int) playbackStartPosition, (int) playbackTimeSelectionRange, false);
+
+                std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (subsectionReader.get(), false));
+
+                transportSource.setSource (newSource.get());
+                Logger::writeToLog((String) transportSource.getTotalLength());
+                readerSource.reset (newSource.release());
+                Logger::writeToLog((String) transportSource.getTotalLength());
+                delete reader;
                 
             }
-            
+
             
         }
         
         
-        delete reader;
+        Logger::writeToLog((String) transportSource.getTotalLength());
         changeState (TransportState::Starting);
         
     }
