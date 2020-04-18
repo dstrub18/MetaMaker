@@ -109,6 +109,9 @@ private:
     TransportState transportState;
     void changeState (TransportState newState);
     
+    const int filePreviewThreadPriority {3};
+    TimeSliceThread filePreviewThread {"Audio File Preview"};
+    
     
         // ValueTree
     Identifier startupPath_ID {"Startup_Path"};

@@ -117,7 +117,8 @@ MainComponent::MainComponent()
     
     transportSource.addChangeListener(this);
     
-    
+    filePreviewThread.startThread(filePreviewThreadPriority);
+
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();
     destinationPanel -> getFileBrowser () -> refresh();
@@ -187,6 +188,7 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     }
     
     // @TODO: Error here! Bad access! Look at this: https://docs.juce.com/master/tutorial_looping_audio_sample_buffer_advanced.html
+    Logger::writeToLog((String) transportSource.getTotalLength());
     
     //transportSource.getNextAudioBlock (bufferToFill);
 }
@@ -334,22 +336,21 @@ void MainComponent::buttonClicked(Button* button)
     {
 
         File file = sourceFilePanel -> getCurrentFile();
-        auto* reader = formatManager.createReaderFor(file);
-        
-        if (reader != nullptr) {
-            
-            
-            
+        std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor(file));
+
+        if (reader.get() != nullptr)
+        {
+
             if (waveformPanel -> getRectangleWidth() != 0)
             {
                 Logger::writeToLog((String) reader -> lengthInSamples);
-                
+
                 float rectangleWidth = waveformPanel -> getRectangleWidth();
                 float totalWidth = waveformPanel -> getWidth();
                 float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
-                
+
                 auto lengthInSamples = reader -> lengthInSamples;
-                
+
                 Logger::writeToLog((String)rectangleWidth);
                 Logger::writeToLog((String)totalWidth);
                 Logger::writeToLog((String)lengthInSamples);
@@ -357,24 +358,22 @@ void MainComponent::buttonClicked(Button* button)
                 playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
                 playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
 
-                subsectionReader = std::make_unique<AudioSubsectionReader>(reader, (int) playbackStartPosition, (int) playbackTimeSelectionRange, false);
+                subsectionReader = std::make_unique<AudioSubsectionReader>(reader.get(), (int) playbackStartPosition, (int) playbackTimeSelectionRange, false);
 
-                std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (subsectionReader.get(), false));
+                readerSource.reset(new AudioFormatReaderSource (subsectionReader.get(), false));
 
-                transportSource.setSource (newSource.get());
-                Logger::writeToLog((String) transportSource.getTotalLength());
-                readerSource.reset (newSource.release());
-                Logger::writeToLog((String) transportSource.getTotalLength());
-                delete reader;
-                
+                //transportSource.setSource (readerSource.get(), playbackTimeSelectionRange, &filePreviewThread, 0.0, reader-> sampleRate);
+//                Logger::writeToLog((String) transportSource.getTotalLength());
+//
+//                Logger::writeToLog((String) transportSource.getTotalLength());
             }
 
-            
+
         }
         
         
         Logger::writeToLog((String) transportSource.getTotalLength());
-        changeState (TransportState::Starting);
+        //changeState (TransportState::Starting);
         
     }
     
@@ -443,17 +442,12 @@ void MainComponent::selectionChanged ()
         
         if (reader != nullptr)
         {
-            
-            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
             waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
             
-            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);
             buttonPanel -> getTransportPlayButton() -> setEnabled (true);
-            
-            readerSource.reset (newSource.release());
-            
         }
+    delete reader;
     }
     
     if (file.isDirectory()) {
