@@ -49,9 +49,9 @@ private:
     
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
-    std::unique_ptr<AudioFormatReaderSource> readerSource;
-    std::unique_ptr<AudioSubsectionReader> subsectionReader;
+    AudioFormatReader* reader;
     
+    std::unique_ptr<AudioFormatReaderSource> readerSource;
     
     StringPairArray newMetaData;
     
@@ -101,13 +101,14 @@ private:
         Playing,
         Stopping
     };
-    
     int playbackStartPosition {0};
     int playbackTimeSelectionRange {0};
     
     AudioTransportSource transportSource;
-    TransportState transportState;
-    void changeState (TransportState newState);
+    TransportState state;
+    void changeState(TransportState newState);
+    
+    
     
     const int filePreviewThreadPriority {3};
     TimeSliceThread filePreviewThread {"Audio File Preview"};
@@ -141,7 +142,7 @@ private:
     void editorHidden (Label *,TextEditor &) override;
     
         // ChangeListener
-    void changeListenerCallback(juce::ChangeBroadcaster *source) override;
+    void changeListenerCallback (ChangeBroadcaster* source) override;
     
     
     // File Copy / Move Functionality

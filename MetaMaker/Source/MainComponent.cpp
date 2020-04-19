@@ -11,6 +11,7 @@
 
 //==============================================================================
 MainComponent::MainComponent()
+                            : state (TransportState::Stopped)
 
 #if JUCE_PROJUCER_LIVE_BUILD
 #endif
@@ -20,8 +21,7 @@ MainComponent::MainComponent()
     // you add any child components.
     
     fs = deviceManager.getAudioDeviceSetup().sampleRate;
-    
-    transportState = TransportState::Stopped;
+
     
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
@@ -117,7 +117,7 @@ MainComponent::MainComponent()
     
     transportSource.addChangeListener(this);
     
-    filePreviewThread.startThread(filePreviewThreadPriority);
+    //filePreviewThread.startThread(filePreviewThreadPriority);
 
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();
@@ -167,8 +167,8 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 
     // For more details, see the help for AudioProcessor::prepareToPlay()
     
-    
     transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
+    
     
 }
 
@@ -184,13 +184,11 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     if (readerSource.get() == nullptr)
     {
         bufferToFill.clearActiveBufferRegion();
-    }
-    else
-    {
-        transportSource.getNextAudioBlock(bufferToFill);
+        return;
     }
     
-    // @TODO: Error here! Bad access! Look at this: https://docs.juce.com/master/tutorial_looping_audio_sample_buffer_advanced.html
+    transportSource.getNextAudioBlock (bufferToFill);
+    
 }
 
 void MainComponent::releaseResources()
@@ -198,8 +196,7 @@ void MainComponent::releaseResources()
     // This will be called when the audio device stops, or when it is being
     // restarted due to a setting change.
 
-        transportSource.releaseResources();
-    
+    transportSource.releaseResources();
     
     // For more details, see the help for AudioProcessor::releaseResources()
 }
@@ -314,7 +311,6 @@ void MainComponent::buttonClicked(Button* button)
     }
     
     
-#pragma mark OpenSettings
     if (button -> getButtonText() == "Open Settings")
     {
         if (settingsWindow -> getVisibilityState() == false)
@@ -329,53 +325,19 @@ void MainComponent::buttonClicked(Button* button)
         }
         
     }
-    
-#pragma mark PlayButton
+
     //on play
     if (button -> getButtonText() == "Play")
     {
-
-//        File file = sourceFilePanel -> getCurrentFile();
-//        std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor(file));
-//
-//        if (reader.get() != nullptr)
-//        {
-//
-//            if (waveformPanel -> getRectangleWidth() != 0)
-//            {
-//                Logger::writeToLog((String) reader -> lengthInSamples);
-//
-//                float rectangleWidth = waveformPanel -> getRectangleWidth();
-//                float totalWidth = waveformPanel -> getWidth();
-//                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
-//
-//                auto lengthInSamples = reader -> lengthInSamples;
-//
-//                Logger::writeToLog((String)rectangleWidth);
-//                Logger::writeToLog((String)totalWidth);
-//                Logger::writeToLog((String)lengthInSamples);
-//
-//                playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
-//                playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
-//
-//                std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader.get(), false));
-//
-//                transportSource.setSource (newSource.get());
-//
-//            }
-//
-//
-//        }
         changeState (TransportState::Starting);
-        
     }
-    
-#pragma mark StopButton
     
     if (button -> getButtonText() == "Stop")
     {
         changeState (TransportState::Stopping);
     }
+    
+    
     
     if (button -> getButtonText() == "Start Timer")
     {
@@ -393,9 +355,49 @@ void MainComponent::buttonClicked(Button* button)
         
         Logger::writeToLog("Timer stopped");
     }
-    
-    
-    
+}
+
+
+// ChangeListener
+void MainComponent::changeListenerCallback (ChangeBroadcaster* source)
+{
+    if (source == &transportSource)
+    {
+        if (transportSource.isPlaying())
+            changeState (TransportState::Playing);
+        else
+            changeState (TransportState::Stopped);
+    }
+}
+
+void MainComponent::changeState (TransportState newState)
+{
+    if (state != newState)
+    {
+        state = newState;
+        
+        switch (state)
+        {
+            case TransportState::Stopped:                           // [3]
+                buttonPanel-> getTransportStopButton() -> setEnabled (false);
+                buttonPanel-> getTransportPlayButton() -> setEnabled (true);
+                transportSource.setPosition (0.0);
+                break;
+                
+            case TransportState::Starting:                          // [4]
+                buttonPanel-> getTransportPlayButton() -> setEnabled(false);
+                transportSource.start();
+                break;
+                
+            case TransportState::Playing:                           // [5]
+                buttonPanel-> getTransportStopButton() -> setEnabled (true);
+                break;
+                
+            case TransportState::Stopping:                          // [6]
+                transportSource.stop();
+                break;
+        }
+    }
     
 }
 
@@ -431,22 +433,20 @@ void MainComponent::selectionChanged ()
     if (file.existsAsFile())
     {
         
-        auto* reader = formatManager.createReaderFor (file);
+        reader = formatManager.createReaderFor (file);
         
         if (reader != nullptr)
         {
             waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
             
-            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
-            
-            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);
-
-            buttonPanel -> getTransportPlayButton() -> setEnabled (true);
+            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true)); // [11]
+            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);                     // [12]
+            buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                    // [13]
             readerSource.reset (newSource.release());
             
+            
         }
-    delete reader;
     }
     
     if (file.isDirectory()) {
@@ -526,57 +526,6 @@ void MainComponent::editorHidden (Label *, TextEditor &)
             
             
             
-        }
-    }
-}
-
-
-void MainComponent::changeListenerCallback(juce::ChangeBroadcaster *source)
-{
-    if (source == &transportSource) {
-        
-        if (transportSource.isPlaying())
-        {
-            changeState (TransportState::Playing);
-        }
-        
-        else
-        {
-            changeState (TransportState::Stopped);
-        }
-        
-    }
-}
-
-void MainComponent::changeState (TransportState newState)
-{
-    if (transportState != newState)
-    {
-        transportState = newState;
-        
-        switch (transportState)
-        {
-            case TransportState::Stopped:                           // [3]
-                buttonPanel ->getTransportStopButton() -> setEnabled (false);
-                buttonPanel ->getTransportPlayButton() -> setEnabled (true);
-                transportSource.setPosition (0.0);
-                
-                break;
-                
-            case TransportState::Starting:                          // [4]
-                buttonPanel -> getTransportPlayButton() -> setEnabled (false);
-                transportSource.start();
-                
-                
-                break;
-                
-            case TransportState::Playing:                           // [5]
-                buttonPanel -> getTransportStopButton() ->setEnabled (true);
-                break;
-                
-            case TransportState::Stopping:                          // [6]
-                transportSource.stop();
-                break;
         }
     }
 }
