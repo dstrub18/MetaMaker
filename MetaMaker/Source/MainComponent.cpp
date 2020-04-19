@@ -184,13 +184,13 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     if (readerSource.get() == nullptr)
     {
         bufferToFill.clearActiveBufferRegion();
-        return;
+    }
+    else
+    {
+        transportSource.getNextAudioBlock(bufferToFill);
     }
     
     // @TODO: Error here! Bad access! Look at this: https://docs.juce.com/master/tutorial_looping_audio_sample_buffer_advanced.html
-    Logger::writeToLog((String) transportSource.getTotalLength());
-    
-    //transportSource.getNextAudioBlock (bufferToFill);
 }
 
 void MainComponent::releaseResources()
@@ -335,45 +335,38 @@ void MainComponent::buttonClicked(Button* button)
     if (button -> getButtonText() == "Play")
     {
 
-        File file = sourceFilePanel -> getCurrentFile();
-        std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor(file));
-
-        if (reader.get() != nullptr)
-        {
-
-            if (waveformPanel -> getRectangleWidth() != 0)
-            {
-                Logger::writeToLog((String) reader -> lengthInSamples);
-
-                float rectangleWidth = waveformPanel -> getRectangleWidth();
-                float totalWidth = waveformPanel -> getWidth();
-                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
-
-                auto lengthInSamples = reader -> lengthInSamples;
-
-                Logger::writeToLog((String)rectangleWidth);
-                Logger::writeToLog((String)totalWidth);
-                Logger::writeToLog((String)lengthInSamples);
-                
-                playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
-                playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
-
-                subsectionReader = std::make_unique<AudioSubsectionReader>(reader.get(), (int) playbackStartPosition, (int) playbackTimeSelectionRange, false);
-
-                readerSource.reset(new AudioFormatReaderSource (subsectionReader.get(), false));
-
-                //transportSource.setSource (readerSource.get(), playbackTimeSelectionRange, &filePreviewThread, 0.0, reader-> sampleRate);
-//                Logger::writeToLog((String) transportSource.getTotalLength());
+//        File file = sourceFilePanel -> getCurrentFile();
+//        std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor(file));
 //
-//                Logger::writeToLog((String) transportSource.getTotalLength());
-            }
-
-
-        }
-        
-        
-        Logger::writeToLog((String) transportSource.getTotalLength());
-        //changeState (TransportState::Starting);
+//        if (reader.get() != nullptr)
+//        {
+//
+//            if (waveformPanel -> getRectangleWidth() != 0)
+//            {
+//                Logger::writeToLog((String) reader -> lengthInSamples);
+//
+//                float rectangleWidth = waveformPanel -> getRectangleWidth();
+//                float totalWidth = waveformPanel -> getWidth();
+//                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
+//
+//                auto lengthInSamples = reader -> lengthInSamples;
+//
+//                Logger::writeToLog((String)rectangleWidth);
+//                Logger::writeToLog((String)totalWidth);
+//                Logger::writeToLog((String)lengthInSamples);
+//
+//                playbackTimeSelectionRange = (rectangleWidth / totalWidth) * lengthInSamples;
+//                playbackStartPosition = (rectangleStartPosition / totalWidth) * lengthInSamples;
+//
+//                std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader.get(), false));
+//
+//                transportSource.setSource (newSource.get());
+//
+//            }
+//
+//
+//        }
+        changeState (TransportState::Starting);
         
     }
     
@@ -445,7 +438,13 @@ void MainComponent::selectionChanged ()
             waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
             
+            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
+            
+            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);
+
             buttonPanel -> getTransportPlayButton() -> setEnabled (true);
+            readerSource.reset (newSource.release());
+            
         }
     delete reader;
     }
@@ -543,7 +542,7 @@ void MainComponent::changeListenerCallback(juce::ChangeBroadcaster *source)
         
         else
         {
-            changeState (TransportState::Playing);
+            changeState (TransportState::Stopped);
         }
         
     }
