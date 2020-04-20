@@ -368,7 +368,7 @@ void MainComponent::buttonClicked(Button* button)
                 
                 if (rectangleWidth > 0)
                 {
-                    AudioSubsectionReader* subsectionReader = new AudioSubsectionReader(reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, true);
+                    subsectionReader = new AudioSubsectionReader(reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, true);
                     
                     std::unique_ptr<AudioFormatReaderSource> partialSource (new AudioFormatReaderSource (subsectionReader, true));  // [11]
                     transportSource.setSource (partialSource.get(), 0, nullptr, reader->sampleRate);                                // [12]

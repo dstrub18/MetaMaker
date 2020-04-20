@@ -50,6 +50,7 @@ private:
     // This handles the reading of the .wav files and the metadata.
     AudioFormatManager formatManager;
     AudioFormatReader* reader;
+    AudioSubsectionReader* subsectionReader;
     
     std::unique_ptr<AudioFormatReaderSource> readerSource;
     
