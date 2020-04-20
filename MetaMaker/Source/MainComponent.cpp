@@ -326,17 +326,6 @@ void MainComponent::buttonClicked(Button* button)
         
     }
 
-    //on play
-    if (button -> getButtonText() == "Play")
-    {
-        changeState (TransportState::Starting);
-    }
-    
-    if (button -> getButtonText() == "Stop")
-    {
-        changeState (TransportState::Stopping);
-    }
-    
     
     
     if (button -> getButtonText() == "Start Timer")
@@ -355,7 +344,116 @@ void MainComponent::buttonClicked(Button* button)
         
         Logger::writeToLog("Timer stopped");
     }
+    
+    
+    
+    //on play
+    if (button -> getButtonText() == "Play")
+    {
+        
+        
+        File file = sourceFilePanel -> getCurrentFile();
+        
+        if (file.existsAsFile())
+        {
+            
+            reader = formatManager.createReaderFor (file);
+            
+            if (reader != nullptr)
+            {
+        
+                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
+                float totalWaveformWidth = waveformPanel -> getWidth();
+                float rectangleWidth = waveformPanel -> getRectangleWidth();
+                
+                if (rectangleWidth > 0)
+                {
+                    AudioSubsectionReader* subsectionReader = new AudioSubsectionReader(reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, true);
+                    
+                    std::unique_ptr<AudioFormatReaderSource> partialSource (new AudioFormatReaderSource (subsectionReader, true));  // [11]
+                    transportSource.setSource (partialSource.get(), 0, nullptr, reader->sampleRate);                                // [12]
+                    buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                                   // [13]
+                    readerSource.reset (partialSource.release());
+                }
+                
+                else
+                {
+                    std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true)); // [11]
+                    transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);                     // [12]
+                    buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                    // [13]
+                    readerSource.reset (newSource.release());
+                }
+                
+                
+                
+            }
+        }
+        
+        changeState (TransportState::Starting);
+        
+    }
+    
+    if (button -> getButtonText() == "Stop")
+    {
+        changeState (TransportState::Stopping);
+    }
+    
+    
 }
+
+
+// Override methods from FileBrowserListener
+void MainComponent::selectionChanged ()
+{
+    updateFilePropertyPanel();
+    File file = sourceFilePanel -> getCurrentFile();
+    
+    
+    
+    if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
+    {
+        propertyPanel -> disableLabelEditing();
+    }
+    else
+    {
+        propertyPanel -> enableLabelEditing();
+    }
+    
+    if (file.existsAsFile())
+    {
+        
+        reader = formatManager.createReaderFor (file);
+        
+        if (reader != nullptr)
+        {
+            waveformPanel -> thumbnail.clear();
+            waveformPanel -> thumbnail.setSource(new FileInputSource(file));
+        }
+    }
+    
+    if (file.isDirectory()) {
+        waveformPanel -> thumbnail.clear();
+    }
+    delete reader;
+}
+
+void MainComponent::fileClicked(const File &file, const MouseEvent &e)
+{
+
+}
+
+void MainComponent::fileDoubleClicked(const File &file)
+{
+
+}
+
+void MainComponent::browserRootChanged(const File &newBrowserRoot)
+{
+    sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
+}
+
+// Override functions from LabelListener
+
 
 
 // ChangeListener
@@ -410,67 +508,6 @@ void MainComponent::timerCallback()
     Logger::writeToLog("Rectangle Size: " + (String) waveformPanel -> getRectangleWidth());
     
 }
-
-
-
-// Override methods from FileBrowserListener
-void MainComponent::selectionChanged ()
-{
-    updateFilePropertyPanel();
-    File file = sourceFilePanel -> getCurrentFile();
-    
-    
-    
-    if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
-    {
-        propertyPanel -> disableLabelEditing();
-    }
-    else
-    {
-        propertyPanel -> enableLabelEditing();
-    }
-    
-    if (file.existsAsFile())
-    {
-        
-        reader = formatManager.createReaderFor (file);
-        
-        if (reader != nullptr)
-        {
-            waveformPanel -> thumbnail.clear();
-            waveformPanel -> thumbnail.setSource(new FileInputSource(file));
-            
-            std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true)); // [11]
-            transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);                     // [12]
-            buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                    // [13]
-            readerSource.reset (newSource.release());
-            
-            
-        }
-    }
-    
-    if (file.isDirectory()) {
-        waveformPanel -> thumbnail.clear();
-    }
-    
-}
-
-void MainComponent::fileClicked(const File &file, const MouseEvent &e)
-{
-
-}
-
-void MainComponent::fileDoubleClicked(const File &file)
-{
-
-}
-
-void MainComponent::browserRootChanged(const File &newBrowserRoot)
-{
-    sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
-}
-
-// Override functions from LabelListener
 
 void MainComponent::labelTextChanged(Label *labelThatHasChanged)
 {
