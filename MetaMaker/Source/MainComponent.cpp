@@ -167,6 +167,8 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRat
 
     // For more details, see the help for AudioProcessor::prepareToPlay()
     
+    fs = sampleRate;
+    
     transportSource.prepareToPlay (samplesPerBlockExpected, sampleRate);
     
     
@@ -207,10 +209,6 @@ void MainComponent::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     // You can add your drawing code here!
-
-    
-    
-    
 }
 
 void MainComponent::resized()
@@ -225,19 +223,22 @@ void MainComponent::resized()
 void MainComponent::buttonClicked(Button* button)
 {
     
+#pragma mark Copy
     if (button == buttonPanel -> getCopyButton() ) {
         copyFromSourceToDestination();
     }
     
+#pragma mark Move
     if (button == buttonPanel -> getMoveButton()) {
         moveFromSourceToDestination();
     }
     
+#pragma mark WriteAndCopy
     if (button == buttonPanel -> getWriteAndCopyButton()) {
         Logger::writeToLog("Write and Copy!");
         
-        for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
-            
+        for (int i = 0; i < sourceFilePanel -> getFileBrowser() ->getNumSelectedFiles(); i++)
+        {
             File fileToCopy = sourceFilePanel -> getCurrentFile(i);
             
             File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
@@ -265,18 +266,15 @@ void MainComponent::buttonClicked(Button* button)
                 }
                 destinationPanel -> refreshFileBrowser();
                 wavAudioFormat -> replaceMetadataInFile(destinationFile, *metaDataValues);
-
             }
-            
             else
             {
                 Logger::writeToLog("Error");
-                
             }
         }
-       
     }
     
+#pragma mark Replace
     if (button == buttonPanel -> getReplaceMetadataButton())
     {
         for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
@@ -305,6 +303,7 @@ void MainComponent::buttonClicked(Button* button)
     }
     
     
+#pragma mark OpenSettings
     if (button == buttonPanel -> getOpenSettingsButton())
     {
         if (settingsWindow -> getVisibilityState() == false)
@@ -321,27 +320,29 @@ void MainComponent::buttonClicked(Button* button)
     }
 
     
-    
+#pragma mark StartTimer
     if (button == buttonPanel -> getTimerStartButton())
     {
-        if (! Timer::isTimerRunning()) {
+        if (! Timer::isTimerRunning())
+        {
             startTimer(1000);
         }
         
         Logger::writeToLog("Timer started");
     }
     
+#pragma mark StopTimer
     if (button == buttonPanel -> getTimerStopButton())
     {
-        stopTimer();
-        
-        
-        Logger::writeToLog("Timer stopped");
+        if (Timer::isTimerRunning ())
+        {
+            stopTimer();
+            Logger::writeToLog("Timer stopped");
+        }
+
     }
-    
-    
-    
-    //on play
+
+#pragma mark Play
     if (button == buttonPanel -> getTransportPlayButton())
     {
         
@@ -386,14 +387,32 @@ void MainComponent::buttonClicked(Button* button)
         
     }
     
+#pragma mark Stop
     if (button == buttonPanel -> getTransportStopButton())
     {
         changeState (TransportState::Stopping);
     }
     
+#pragma mark Export
     if (button -> getButtonText() == "Export")
     {
         Logger::writeToLog("Export pressed");
+        
+        File inputFile = sourceFilePanel -> getCurrentFile();
+        
+        if (! inputFile.isDirectory())
+        {
+            File outputFile ("~/Desktop/zingy.wav");
+            auto fileStream = std::unique_ptr<FileOutputStream> (outputFile.createOutputStream());
+            
+            if (auto writer = wavAudioFormat -> createWriterFor (fileStream.get(), fs, 1, 16, {}, 0))
+            {
+            }
+            
+        }
+        
+        
+        
     }
     
 }

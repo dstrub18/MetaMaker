@@ -56,7 +56,7 @@ private:
     
     StringPairArray newMetaData;
     
-    // helper object to replace the metadata.
+    // helper object to replace the metadata and exporting.
     std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
     // FileBrowser and accompanying variables;
