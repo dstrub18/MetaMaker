@@ -80,6 +80,12 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     timerStopButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 3 + timerStopButton -> getWidth(), 0 + GUIDefines::buttonHeight);
     timerStopButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::darkblue);
     
+    exportButton = std::make_unique<TextButton>("Export");
+    exportButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
+    exportButton -> changeWidthToFitText();
+    exportButton-> setTopLeftPosition(GUIDefines::initialButtonPanelWidth / 3 + timerStopButton -> getWidth(), 0 + 2 * GUIDefines::buttonHeight);
+    exportButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::deeppink);
+    
     
     addAndMakeVisible (*copyButton);
     addAndMakeVisible (*moveButton);
@@ -93,6 +99,8 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     
     addAndMakeVisible(*timerStartButton);
     addAndMakeVisible(*timerStopButton);
+    
+    addAndMakeVisible(*exportButton);
 }
 
 ButtonPanel::~ButtonPanel()

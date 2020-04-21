@@ -35,7 +35,9 @@ public:
     inline TextButton* getTransportStopButton ()    const    noexcept    {  return this -> transportStopButton.get();   }
     
     inline TextButton* getTimerStartButton ()       const    noexcept    {  return this -> timerStartButton.get();      }
-    inline TextButton* getTimerStopButton ()        const    noexcept    {  return this -> timerStopButton.get();        }
+    inline TextButton* getTimerStopButton ()        const    noexcept    {  return this -> timerStopButton.get();       }
+    
+    inline TextButton* getExportButton ()           const    noexcept    {  return this -> exportButton.get();          }
 
 private:
     
@@ -51,6 +53,8 @@ private:
     
     std::unique_ptr<TextButton> timerStartButton;
     std::unique_ptr<TextButton> timerStopButton;
+    
+    std::unique_ptr<TextButton> exportButton;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ButtonPanel)
