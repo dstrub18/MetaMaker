@@ -36,7 +36,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     //[/Constructor_pre]
 
     fileNameLabel.reset (new Label ("fileNameLabel",
-                                    TRANS("File Name")));
+                                    TRANS("")));
     addAndMakeVisible (fileNameLabel.get());
     fileNameLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileNameLabel->setJustificationType (Justification::centredLeft);
@@ -48,7 +48,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     fileNameLabel->setBounds (panelWidth / 2 - 150 / 2, 72, 150, 24);
 
     artistLabel.reset (new Label ("artistLabel",
-                                  TRANS("Artist label")));
+                                  TRANS("")));
     addAndMakeVisible (artistLabel.get());
     artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     artistLabel->setJustificationType (Justification::centredLeft);
@@ -59,7 +59,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     artistLabel->setBounds (panelWidth / 2 - 150 / 2, 104, 150, 24);
 
     fileCreationDate.reset (new Label ("fileCreationDate",
-                                       TRANS("File Creation Date")));
+                                       TRANS("")));
     addAndMakeVisible (fileCreationDate.get());
     fileCreationDate->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileCreationDate->setJustificationType (Justification::centredLeft);
@@ -71,7 +71,7 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     fileCreationDate->setBounds (panelWidth / 2 - 150 / 2, 136, 150, 24);
 
     descriptionLabel.reset (new Label ("descriptionLabel",
-                                       TRANS("Description Label")));
+                                       TRANS("")));
     addAndMakeVisible (descriptionLabel.get());
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
@@ -80,7 +80,6 @@ FileInfoPanel::FileInfoPanel (int panelWidth, int panelHeight)
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
 
     descriptionLabel->setBounds (panelWidth / 2 - 150 / 2, 168, 150, 24);
-
 
     //[UserPreSize]
     

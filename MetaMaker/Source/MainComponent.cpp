@@ -93,32 +93,32 @@ MainComponent::MainComponent()
     
     // LISTENERS
         // Add the listening functionality for the button.
-    sourceFilePanel -> getFileBrowser () -> addListener(this);
+    sourceFilePanel -> getFileBrowser () -> addListener (this);
     
-    buttonPanel     -> getCopyButton ()  -> addListener(this);
-    buttonPanel     -> getMoveButton ()  -> addListener(this);
-    buttonPanel     -> getWriteAndCopyButton() -> addListener(this);
-    buttonPanel     -> getreplaceMetadataButton() -> addListener(this);
-    buttonPanel     -> getOpenSettingsButton()    -> addListener(this);
+    buttonPanel     -> getCopyButton ()  -> addListener (this);
+    buttonPanel     -> getMoveButton ()  -> addListener (this);
+    buttonPanel     -> getWriteAndCopyButton() -> addListener (this);
+    buttonPanel     -> getReplaceMetadataButton() -> addListener (this);
+    buttonPanel     -> getOpenSettingsButton()    -> addListener (this);
     
-    buttonPanel     -> getTransportPlayButton()   -> addListener(this);
-    buttonPanel     -> getTransportStopButton()   -> addListener(this);
+    buttonPanel     -> getTransportPlayButton()   -> addListener (this);
+    buttonPanel     -> getTransportStopButton()   -> addListener (this);
     
-    propertyPanel   -> getArtistLabel () -> addListener(this);
-    propertyPanel   -> getFileNameLabel () -> addListener(this);
-    propertyPanel   -> getDescriptionLabel () -> addListener(this);
-    propertyPanel   -> getFileCreationDateLabel () -> addListener(this);
+    propertyPanel   -> getArtistLabel () -> addListener (this);
+    propertyPanel   -> getFileNameLabel () -> addListener (this);
+    propertyPanel   -> getDescriptionLabel () -> addListener (this);
+    propertyPanel   -> getFileCreationDateLabel () -> addListener (this);
     
-    settingsWindowPanel -> getSourcePathLabel () -> addListener(this);
+    settingsWindowPanel -> getSourcePathLabel () -> addListener (this);
     settingsWindowPanel -> getSourcePathLabel () -> addListener (sourceFilePanel.get());
     
-    buttonPanel -> getTimerStartButton() -> addListener(this);
-    buttonPanel -> getTimerStopButton() -> addListener(this);
+    buttonPanel -> getTimerStartButton() -> addListener (this);
+    buttonPanel -> getTimerStopButton() -> addListener (this);
     
-    transportSource.addChangeListener(this);
+    buttonPanel -> getExportButton()    -> addListener (this);
     
-    //filePreviewThread.startThread(filePreviewThreadPriority);
-
+    transportSource.addChangeListener (this);
+    
     // Initial Refresh for the Filebrowsers
     sourceFilePanel -> getFileBrowser () -> refresh();
     destinationPanel -> getFileBrowser () -> refresh();
@@ -225,17 +225,15 @@ void MainComponent::resized()
 void MainComponent::buttonClicked(Button* button)
 {
     
-    if (button -> getButtonText() == "CopyButton") {
+    if (button == buttonPanel -> getCopyButton() ) {
         copyFromSourceToDestination();
     }
     
-    if (button -> getButtonText() == "MoveButton") {
-        Logger::writeToLog("MoveButton Clicked! \n");
+    if (button == buttonPanel -> getMoveButton()) {
         moveFromSourceToDestination();
-        
     }
     
-    if (button -> getButtonText() == "WriteAndCopy") {
+    if (button == buttonPanel -> getWriteAndCopyButton()) {
         Logger::writeToLog("Write and Copy!");
         
         for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
@@ -279,7 +277,7 @@ void MainComponent::buttonClicked(Button* button)
        
     }
     
-    if (button -> getButtonText() == "Replace")
+    if (button == buttonPanel -> getReplaceMetadataButton())
     {
         for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
             
@@ -297,21 +295,17 @@ void MainComponent::buttonClicked(Button* button)
                 Logger::writeToLog("Worked!");
                 
                 updateFilePropertyPanel();
-                
-                
-                
             }
             
             else
             {
                 Logger::writeToLog("Error");
-                
             }
         }
     }
     
     
-    if (button -> getButtonText() == "Open Settings")
+    if (button == buttonPanel -> getOpenSettingsButton())
     {
         if (settingsWindow -> getVisibilityState() == false)
         {
@@ -328,7 +322,7 @@ void MainComponent::buttonClicked(Button* button)
 
     
     
-    if (button -> getButtonText() == "Start Timer")
+    if (button == buttonPanel -> getTimerStartButton())
     {
         if (! Timer::isTimerRunning()) {
             startTimer(1000);
@@ -337,7 +331,7 @@ void MainComponent::buttonClicked(Button* button)
         Logger::writeToLog("Timer started");
     }
     
-    if (button -> getButtonText() == "Stop Timer")
+    if (button == buttonPanel -> getTimerStopButton())
     {
         stopTimer();
         
@@ -348,7 +342,7 @@ void MainComponent::buttonClicked(Button* button)
     
     
     //on play
-    if (button -> getButtonText() == "Play")
+    if (button == buttonPanel -> getTransportPlayButton())
     {
         
         
@@ -370,17 +364,16 @@ void MainComponent::buttonClicked(Button* button)
                 {
                     subsectionReader = new AudioSubsectionReader(reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, true);
                     
-                    std::unique_ptr<AudioFormatReaderSource> partialSource (new AudioFormatReaderSource (subsectionReader, true));  // [11]
-                    transportSource.setSource (partialSource.get(), 0, nullptr, reader->sampleRate);                                // [12]
-                    buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                                   // [13]
+                    std::unique_ptr<AudioFormatReaderSource> partialSource (new AudioFormatReaderSource (subsectionReader, true));
+                    transportSource.setSource (partialSource.get(), 0, nullptr, reader->sampleRate);
                     readerSource.reset (partialSource.release());
                 }
                 
                 else
                 {
-                    std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true)); // [11]
-                    transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);                     // [12]
-                    buttonPanel -> getTransportPlayButton() -> setEnabled (true);                                    // [13]
+                    std::unique_ptr<AudioFormatReaderSource> newSource (new AudioFormatReaderSource (reader, true));
+                    transportSource.setSource (newSource.get(), 0, nullptr, reader->sampleRate);
+                    buttonPanel -> getTransportPlayButton() -> setEnabled (true);
                     readerSource.reset (newSource.release());
                 }
                 
@@ -393,11 +386,15 @@ void MainComponent::buttonClicked(Button* button)
         
     }
     
-    if (button -> getButtonText() == "Stop")
+    if (button == buttonPanel -> getTransportStopButton())
     {
         changeState (TransportState::Stopping);
     }
     
+    if (button -> getButtonText() == "Export")
+    {
+        Logger::writeToLog("Export pressed");
+    }
     
 }
 
@@ -407,9 +404,7 @@ void MainComponent::selectionChanged ()
 {
     updateFilePropertyPanel();
     File file = sourceFilePanel -> getCurrentFile();
-    
-    
-    
+
     if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
     {
         propertyPanel -> disableLabelEditing();
@@ -421,20 +416,20 @@ void MainComponent::selectionChanged ()
     
     if (file.existsAsFile())
     {
-        
         reader = formatManager.createReaderFor (file);
         
         if (reader != nullptr)
         {
             waveformPanel -> thumbnail.clear();
             waveformPanel -> thumbnail.setSource(new FileInputSource(file));
+            delete reader;
         }
     }
     
     if (file.isDirectory()) {
         waveformPanel -> thumbnail.clear();
     }
-    delete reader;
+    
 }
 
 void MainComponent::fileClicked(const File &file, const MouseEvent &e)
@@ -452,19 +447,20 @@ void MainComponent::browserRootChanged(const File &newBrowserRoot)
     sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
 }
 
-// Override functions from LabelListener
-
-
-
 // ChangeListener
 void MainComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
     if (source == &transportSource)
     {
         if (transportSource.isPlaying())
+        {
             changeState (TransportState::Playing);
+        }
         else
+        {
             changeState (TransportState::Stopped);
+            
+        }
     }
 }
 
@@ -476,27 +472,26 @@ void MainComponent::changeState (TransportState newState)
         
         switch (state)
         {
-            case TransportState::Stopped:                           // [3]
+            case TransportState::Stopped:
                 buttonPanel-> getTransportStopButton() -> setEnabled (false);
                 buttonPanel-> getTransportPlayButton() -> setEnabled (true);
                 transportSource.setPosition (0.0);
                 break;
                 
-            case TransportState::Starting:                          // [4]
+            case TransportState::Starting:
                 buttonPanel-> getTransportPlayButton() -> setEnabled(false);
                 transportSource.start();
                 break;
                 
-            case TransportState::Playing:                           // [5]
+            case TransportState::Playing:
                 buttonPanel-> getTransportStopButton() -> setEnabled (true);
                 break;
                 
-            case TransportState::Stopping:                          // [6]
+            case TransportState::Stopping:
                 transportSource.stop();
                 break;
         }
     }
-    
 }
 
 

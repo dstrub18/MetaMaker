@@ -27,7 +27,7 @@ public:
     inline TextButton* getCopyButton ()             const    noexcept    { return this -> copyButton.get();             }
     inline TextButton* getMoveButton ()             const    noexcept    { return this -> moveButton.get();             }
     inline TextButton* getWriteAndCopyButton ()     const    noexcept    { return this -> writeAndCoppyButton.get();    }
-    inline TextButton* getreplaceMetadataButton ()  const    noexcept    { return this -> replaceMetadataButton.get();  }
+    inline TextButton* getReplaceMetadataButton ()  const    noexcept    { return this -> replaceMetadataButton.get();  }
     
     inline TextButton* getOpenSettingsButton ()     const    noexcept    { return this -> openSettingsButton.get();     }
     
