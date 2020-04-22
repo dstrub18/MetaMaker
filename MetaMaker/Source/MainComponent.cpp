@@ -399,19 +399,25 @@ void MainComponent::buttonClicked(Button* button)
         Logger::writeToLog("Export pressed");
         
         File inputFile = sourceFilePanel -> getCurrentFile();
-        
-        if (! inputFile.isDirectory())
+
+        if (inputFile.existsAsFile())
         {
+            reader = formatManager.createReaderFor(inputFile.createInputStream());
+
             File outputFile ("~/Desktop/zingy.wav");
-            auto fileStream = std::unique_ptr<FileOutputStream> (outputFile.createOutputStream());
             
-            if (auto writer = wavAudioFormat -> createWriterFor (fileStream.get(), fs, 1, 16, {}, 0))
-            {
+            std::unique_ptr<AudioFormatWriter> writer;
+            writer.reset(wavAudioFormat -> createWriterFor(new FileOutputStream (outputFile), reader -> sampleRate, reader -> numChannels, reader -> bitsPerSample, reader -> metadataValues, 0));
+            
+            if (writer != nullptr) {
+                writer -> writeFromAudioReader(*reader, 0, -1);
+                
+                delete reader;
             }
-            
+
         }
         
-        
+
         
     }
     
