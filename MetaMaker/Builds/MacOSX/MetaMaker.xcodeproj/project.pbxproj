@@ -65,6 +65,10 @@
 			isa = PBXBuildFile;
 			fileRef = D6DD67A361A2E4ACF7D79B10;
 		};
+		F879350DCECC90F384BAF0D9 = {
+			isa = PBXBuildFile;
+			fileRef = 53CCE3E67E44E8BAA0855A29;
+		};
 		24FE964556565D8499D9EEA7 = {
 			isa = PBXBuildFile;
 			fileRef = 9E5A61649A92ADDBC9678E90;
@@ -305,6 +309,13 @@
 			name = WebKit.framework;
 			path = System/Library/Frameworks/WebKit.framework;
 			sourceTree = SDKROOT;
+		};
+		53CCE3E67E44E8BAA0855A29 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = WaveformPanel.cpp;
+			path = ../../Source/WaveformPanel.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		5539A26BD08107D1AF4BFFE5 = {
 			isa = PBXFileReference;
@@ -577,6 +588,7 @@
 			children = (
 				D6DD67A361A2E4ACF7D79B10,
 				1DA1C65768787D5908819657,
+				53CCE3E67E44E8BAA0855A29,
 				5DCF10BC9BFAC3DC4E0B8938,
 				843BB4D6D1C07ADAF33FC787,
 				9E5A61649A92ADDBC9678E90,
@@ -910,6 +922,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA517CC31050B9FA991D4D8D,
+				F879350DCECC90F384BAF0D9,
 				24FE964556565D8499D9EEA7,
 				CD14792FD694110108AE7550,
 				DE62DAEFBAD2E5D28883DA4D,

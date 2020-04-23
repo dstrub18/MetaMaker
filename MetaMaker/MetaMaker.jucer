@@ -8,6 +8,8 @@
             file="Source/SettingsWindow.cpp"/>
       <FILE id="EOzUDH" name="SettingsWindow.h" compile="0" resource="0"
             file="Source/SettingsWindow.h"/>
+      <FILE id="CGK5js" name="WaveformPanel.cpp" compile="1" resource="0"
+            file="Source/WaveformPanel.cpp"/>
       <FILE id="R1Ttom" name="WaveformPanel.h" compile="0" resource="0" file="Source/WaveformPanel.h"/>
       <FILE id="XLYYPb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="aBJGe1" name="MainComponent.cpp" compile="1" resource="0"

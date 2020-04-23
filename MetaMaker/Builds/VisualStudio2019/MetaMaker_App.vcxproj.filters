@@ -415,6 +415,9 @@
     <ClCompile Include="..\..\Source\SettingsWindow.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\WaveformPanel.cpp">
+      <Filter>MetaMaker\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>MetaMaker\Source</Filter>
     </ClCompile>

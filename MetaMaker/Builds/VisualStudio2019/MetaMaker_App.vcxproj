@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\SettingsWindow.cpp"/>
+    <ClCompile Include="..\..\Source\WaveformPanel.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\ButtonPanel.cpp"/>
     <ClCompile Include="..\..\Source\FileBrowserPanel.cpp"/>

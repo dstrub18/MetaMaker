@@ -18,6 +18,7 @@ project ("MetaMaker" C CXX)
 add_executable (APP
     "../../Source/SettingsWindow.cpp"
     "../../Source/SettingsWindow.h"
+    "../../Source/WaveformPanel.cpp"
     "../../Source/WaveformPanel.h"
     "../../Source/MainComponent.h"
     "../../Source/MainComponent.cpp"
