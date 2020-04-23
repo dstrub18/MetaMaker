@@ -297,12 +297,11 @@ void MainComponent::buttonClicked(Button* button)
             
             else
             {
-                Logger::writeToLog("Error");
+                Logger::writeToLog ("Error");
             }
         }
     }
-    
-    
+
 #pragma mark OpenSettings
     if (button == buttonPanel -> getOpenSettingsButton())
     {
@@ -321,7 +320,7 @@ void MainComponent::buttonClicked(Button* button)
 
     
 #pragma mark StartTimer
-    if (button == buttonPanel -> getTimerStartButton())
+    if (button == buttonPanel -> getTimerStartButton ())
     {
         if (! Timer::isTimerRunning())
         {
@@ -332,7 +331,7 @@ void MainComponent::buttonClicked(Button* button)
     }
     
 #pragma mark StopTimer
-    if (button == buttonPanel -> getTimerStopButton())
+    if (button == buttonPanel -> getTimerStopButton ())
     {
         if (Timer::isTimerRunning ())
         {
@@ -343,7 +342,7 @@ void MainComponent::buttonClicked(Button* button)
     }
 
 #pragma mark Play
-    if (button == buttonPanel -> getTransportPlayButton())
+    if (button == buttonPanel -> getTransportPlayButton ())
     {
         
         
@@ -388,37 +387,55 @@ void MainComponent::buttonClicked(Button* button)
     }
     
 #pragma mark Stop
-    if (button == buttonPanel -> getTransportStopButton())
+    if (button == buttonPanel -> getTransportStopButton ())
     {
         changeState (TransportState::Stopping);
     }
     
 #pragma mark Export
-    if (button -> getButtonText() == "Export")
+    if (button == buttonPanel -> getExportButton ())
     {
         Logger::writeToLog("Export pressed");
         
         File inputFile = sourceFilePanel -> getCurrentFile();
 
-        if (inputFile.existsAsFile())
+        if (inputFile.existsAsFile()) // is File not directory?
         {
             reader = formatManager.createReaderFor(inputFile.createInputStream());
-
-            File outputFile ("~/Desktop/zingy.wav");
             
-            std::unique_ptr<AudioFormatWriter> writer;
-            writer.reset(wavAudioFormat -> createWriterFor(new FileOutputStream (outputFile), reader -> sampleRate, reader -> numChannels, reader -> bitsPerSample, reader -> metadataValues, 0));
-            
-            if (writer != nullptr) {
-                writer -> writeFromAudioReader(*reader, 0, -1);
+            if (reader != nullptr) // Read correctly?
+            {
+                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
+                float totalWaveformWidth = waveformPanel -> getWidth();
+                float rectangleWidth = waveformPanel -> getRectangleWidth();
                 
+                File outputFile ("~/Desktop/" + inputFile.getFileName());
+                Logger::writeToLog(inputFile.getFileName());
+                Logger::writeToLog(outputFile.getFileName());
+                Logger::writeToLog(outputFile.getFullPathName());
+                std::unique_ptr<AudioFormatWriter> writer;
+                writer.reset(wavAudioFormat -> createWriterFor(new FileOutputStream (outputFile), reader -> sampleRate, reader -> numChannels, reader -> bitsPerSample, reader -> metadataValues, 0));
+                
+                if (writer != nullptr) // Writer created correctly?
+                {
+                    if (rectangleWidth > 0)
+                    {
+                        subsectionReader = new AudioSubsectionReader (reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, false);
+                        writer -> writeFromAudioReader(*subsectionReader, 0, -1);
+                        
+                    }
+                    else
+                    {
+                        writer -> writeFromAudioReader(*reader, 0, -1);
+                    }
+                }
+                
+                /// This can be done better!
+                delete subsectionReader;
                 delete reader;
+                
             }
-
         }
-        
-
-        
     }
     
 }
@@ -428,15 +445,15 @@ void MainComponent::buttonClicked(Button* button)
 void MainComponent::selectionChanged ()
 {
     updateFilePropertyPanel();
-    File file = sourceFilePanel -> getCurrentFile();
+    File file = sourceFilePanel -> getCurrentFile ();
 
-    if (sourceFilePanel -> getNumSelectedFiles() == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
+    if (sourceFilePanel -> getNumSelectedFiles () == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
     {
-        propertyPanel -> disableLabelEditing();
+        propertyPanel -> disableLabelEditing ();
     }
     else
     {
-        propertyPanel -> enableLabelEditing();
+        propertyPanel -> enableLabelEditing ();
     }
     
     if (file.existsAsFile())
@@ -445,8 +462,8 @@ void MainComponent::selectionChanged ()
         
         if (reader != nullptr)
         {
-            waveformPanel -> thumbnail.clear();
-            waveformPanel -> thumbnail.setSource(new FileInputSource(file));
+            waveformPanel -> thumbnail.clear ();
+            waveformPanel -> thumbnail.setSource (new FileInputSource (file));
             delete reader;
         }
     }

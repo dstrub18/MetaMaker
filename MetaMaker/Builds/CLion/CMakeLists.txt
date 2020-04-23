@@ -30,6 +30,8 @@ add_executable (APP
     "../../Source/FileInfoPanel.h"
     "../../Source/SettingsWindowPanel.cpp"
     "../../Source/SettingsWindowPanel.h"
+    "../../Source/WaveformRangeSelector.cpp"
+    "../../Source/WaveformRangeSelector.h"
     "../../Source/Main.cpp"
     "../../../../../../../../../Applications/JUCE/modules/juce_audio_basics/audio_play_head/juce_AudioPlayHead.h"
     "../../../../../../../../../Applications/JUCE/modules/juce_audio_basics/buffers/juce_AudioChannelSet.cpp"
@@ -1377,6 +1379,7 @@ set_source_files_properties ("../../Source/FileBrowserPanel.h" PROPERTIES HEADER
 set_source_files_properties ("../../Source/Defines.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/FileInfoPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../Source/SettingsWindowPanel.h" PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties ("../../Source/WaveformRangeSelector.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../../Applications/JUCE/modules/juce_audio_basics/audio_play_head/juce_AudioPlayHead.h" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../../Applications/JUCE/modules/juce_audio_basics/buffers/juce_AudioChannelSet.cpp" PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties ("../../../../../../../../../Applications/JUCE/modules/juce_audio_basics/buffers/juce_AudioChannelSet.h" PROPERTIES HEADER_FILE_ONLY TRUE)

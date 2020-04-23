@@ -85,6 +85,10 @@
 			isa = PBXBuildFile;
 			fileRef = 69B34C8A89E5B251292AE3F2;
 		};
+		04AD5232DA6061867A801C5E = {
+			isa = PBXBuildFile;
+			fileRef = 30A1633A278C91989B96191A;
+		};
 		35A01818016A1C80B3E7A2A1 = {
 			isa = PBXBuildFile;
 			fileRef = E6418E280832B35D3456A309;
@@ -216,6 +220,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = FileBrowserPanel.h;
 			path = ../../Source/FileBrowserPanel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		30A1633A278C91989B96191A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = WaveformRangeSelector.cpp;
+			path = ../../Source/WaveformRangeSelector.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		34E33F46F3AD94D0061D7F37 = {
@@ -371,6 +382,13 @@
 			name = "juce_opengl";
 			path = "/Applications/JUCE/modules/juce_opengl";
 			sourceTree = "<absolute>";
+		};
+		93E7F3366FF9E45CBD5EE38C = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = WaveformRangeSelector.h;
+			path = ../../Source/WaveformRangeSelector.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		98463A9B3C67ED111AF6E647 = {
 			isa = PBXFileReference;
@@ -571,6 +589,8 @@
 				0149A5C68C283D8C913EF77B,
 				69B34C8A89E5B251292AE3F2,
 				CFE1B985C8D8977EB11553AF,
+				30A1633A278C91989B96191A,
+				93E7F3366FF9E45CBD5EE38C,
 				E6418E280832B35D3456A309,
 			);
 			name = Source;
@@ -895,6 +915,7 @@
 				DE62DAEFBAD2E5D28883DA4D,
 				259F4FE2F6B51BB69A9A6582,
 				5010E07D889D7A4A019E8689,
+				04AD5232DA6061867A801C5E,
 				35A01818016A1C80B3E7A2A1,
 				99A1266BC32C28DD68A41185,
 				EF393009CDDAE76E37396113,

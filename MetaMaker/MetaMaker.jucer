@@ -26,6 +26,10 @@
             file="Source/SettingsWindowPanel.cpp"/>
       <FILE id="Fq7FSr" name="SettingsWindowPanel.h" compile="0" resource="0"
             file="Source/SettingsWindowPanel.h"/>
+      <FILE id="cRABWb" name="WaveformRangeSelector.cpp" compile="1" resource="0"
+            file="Source/WaveformRangeSelector.cpp"/>
+      <FILE id="xQWuaP" name="WaveformRangeSelector.h" compile="0" resource="0"
+            file="Source/WaveformRangeSelector.h"/>
       <FILE id="dBURuu" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>

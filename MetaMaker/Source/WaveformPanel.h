@@ -11,7 +11,10 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+
+#include "WaveformRangeSelector.h"
 #include "Defines.h"
+
 
 //==============================================================================
 /*
@@ -29,10 +32,12 @@ public:
         // In your constructor, you should add any child components, and
         // initialise any special settings that your component needs.
         
+        rangeSelector = std::make_unique<WaveformRangeSelector>(100, height);
         
-        thumbnail.addChangeListener(this);
         
         setSize(width, height);
+        
+        
         
         progress = thumbnail.getProportionComplete();
         progressbar = std::make_unique<ProgressBar>(progress);
@@ -61,6 +66,11 @@ public:
         
         selectorRect.setSize(0, getHeight());
         selectorRect.setPosition(0, 0);
+        
+        
+        addAndMakeVisible(rangeSelector.get());
+        
+        thumbnail.addChangeListener(this);
         
     }
 
@@ -197,6 +207,9 @@ public:
     int getComponentWidth ()            const noexcept  {   return this -> getWidth (); }
 
 private:
+    
+    
+    
     double progress;
     std::unique_ptr<ProgressBar> progressbar;
     
@@ -210,6 +223,6 @@ private:
     Point<int> selectorStartPoint;
     bool isRectangleActive {false};
     
-    
+    std::unique_ptr<WaveformRangeSelector> rangeSelector;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };
