@@ -105,7 +105,8 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
             // Case: Cursor is left of event down position
-            rangeSelector -> setSize (-event.getDistanceFromDragStartX(), getHeight ());
+            
+            rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight ());
             rangeSelector -> setTopRightPosition (event.getMouseDownPosition().getX(), 0);
         }
         else
@@ -124,11 +125,13 @@ void WaveformPanel::mouseUp (const MouseEvent &event)
     {
         if (isRectangleActive)
         {
+            
+            // Case: mouseUp occured left of mouseDown
             if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
             {
                 // Flip rectangle 
-                rangeSelector -> setTopLeftPosition (event.getMouseDownPosition ().getX () - event.getDistanceFromDragStart(), 0);
-                rangeSelector -> setSize (event.getDistanceFromDragStart (), getHeight());
+                rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight());
+                rangeSelector -> setTopLeftPosition (event.getMouseDownPosition ().getX () + event.getDistanceFromDragStartX(), 0);
             }
             
             

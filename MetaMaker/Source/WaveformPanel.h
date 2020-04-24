@@ -20,7 +20,8 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener
+                         public juce::Component::MouseListener,
+                         public DragAndDropContainer
 {
 public:
     WaveformPanel(int sourceSamplesPerThumbnailSample,
