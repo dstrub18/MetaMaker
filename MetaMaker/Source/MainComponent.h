@@ -48,11 +48,27 @@ public:
 private:
     
     // This handles the reading of the .wav files and the metadata.
+    
+#pragma mark Audio File Handling
     AudioFormatManager formatManager;
     AudioFormatReader* reader;
     AudioSubsectionReader* subsectionReader;
     
     std::unique_ptr<AudioFormatReaderSource> readerSource;
+    
+    enum class TransportState
+    {
+        Stopped,
+        Starting,
+        Playing,
+        Stopping
+    };
+    int playbackStartPosition {0};
+    int playbackTimeSelectionRange {0};
+    
+    AudioTransportSource transportSource;
+    TransportState state;
+    void changeState(TransportState newState);
     
     StringPairArray newMetaData;
     
@@ -62,6 +78,11 @@ private:
     // FileBrowser and accompanying variables;
     int fileChooserFlag;
     
+    
+    // Folder for storing temporary exported files
+    File tempFileDirectory;
+    
+#pragma mark Components
     // Source files folder
     std::unique_ptr<FileBrowserPanel> sourceFilePanel;
     
@@ -94,32 +115,28 @@ private:
     StringPairArray metadataInPanel;
     
     double fs;
-    
-    enum class TransportState
-    {
-        Stopped,
-        Starting,
-        Playing,
-        Stopping
-    };
-    int playbackStartPosition {0};
-    int playbackTimeSelectionRange {0};
-    
-    AudioTransportSource transportSource;
-    TransportState state;
-    void changeState(TransportState newState);
-    
-    
-    
+
     const int filePreviewThreadPriority {3};
     TimeSliceThread filePreviewThread {"Audio File Preview"};
     
     
+#pragma mark Value Tree
         // ValueTree
+    
+    
+    Identifier topNode_ID {"TopNode"};
+    ValueTree topNode;
+    XmlElement topNode_XML {topNode_ID};
+    
     Identifier startupPath_ID {"Startup_Path"};
     ValueTree startupPathNode {startupPath_ID};
     XmlElement startupPath_XML {startupPath_ID};
-    File getSaveFile();
+    
+    Identifier showSettingsOnStart_ID {"ShowSettingsOnStart"};
+    ValueTree showSettingsOnStartNode {showSettingsOnStart_ID};
+    XmlElement showSettingsOnStart_XML {showSettingsOnStart_ID};
+    
+    File getSaveFile ();
     ValueTree loadOrCreateDefaultEdit();
     
     
@@ -127,7 +144,9 @@ private:
      =====================
         LISTENER FUNCTIONS
      =====================
-     */ 
+     */
+    
+#pragma mark Listener overrides
         // ButtonListener overrides
     void buttonClicked(Button* button) override;
     
@@ -163,6 +182,7 @@ private:
     
     // Save Data
     void createSaveDataIfNecessary();
+    void createTempFilesDirectory();
     
     //==============================================================================
     // Your private member variables go here...

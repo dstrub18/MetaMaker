@@ -83,8 +83,10 @@ void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 
 void WaveformPanel::mouseDown(const MouseEvent &event)
 {
+    
     if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
     {
+        
         rangeSelector -> setSize (0, getHeight());
         rangeSelector -> setTopLeftPosition (0,0);
         isRectangleActive = false;
@@ -96,12 +98,18 @@ void WaveformPanel::mouseDown(const MouseEvent &event)
 void WaveformPanel::mouseDrag (const MouseEvent &event)
 {
     repaint();
+    
+    
+    
+    if (rangeSelector -> getWidth() != 0) {
+        const var sourceDescription = "zingy";
+        rangeSelector -> startDragging(sourceDescription, rangeSelector.get());
+    }
+    
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
-        isRectangleActive = true;
         
-        
-        
+  
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
             // Case: Cursor is left of event down position
@@ -119,13 +127,15 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
     
 }
 
+
+
+
+
 void WaveformPanel::mouseUp (const MouseEvent &event)
 {
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
-        if (isRectangleActive)
-        {
-            
+        isRectangleActive = true;
             // Case: mouseUp occured left of mouseDown
             if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
             {
@@ -133,9 +143,7 @@ void WaveformPanel::mouseUp (const MouseEvent &event)
                 rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight());
                 rangeSelector -> setTopLeftPosition (event.getMouseDownPosition ().getX () + event.getDistanceFromDragStartX(), 0);
             }
-            
-            
-        }
+
     }
 }
 

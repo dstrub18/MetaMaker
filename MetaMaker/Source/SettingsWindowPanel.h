@@ -47,6 +47,8 @@ public:
     
     inline Label* getSourcePathLabel () const {    return this -> sourcePathLabel.get();   }
     
+    inline bool getShowOnStartflag () const {    return this -> showOnStartToggle -> getToggleState();   }
+    
     // Graphics
     void paint (Graphics&) override;
     void resized() override;

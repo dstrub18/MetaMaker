@@ -15,7 +15,8 @@
 //==============================================================================
 /*
 */
-class WaveformRangeSelector    : public Component
+class WaveformRangeSelector    : public Component,
+                                 public DragAndDropContainer
 {
 public:
     WaveformRangeSelector();

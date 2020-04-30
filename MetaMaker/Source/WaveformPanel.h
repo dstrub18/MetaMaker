@@ -20,8 +20,8 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener,
-                         public DragAndDropContainer
+                         public juce::Component::MouseListener
+                         
 {
 public:
     WaveformPanel(int sourceSamplesPerThumbnailSample,
@@ -54,6 +54,7 @@ public:
 
     AudioThumbnailCache thumbnailCache  {512};
     AudioThumbnail thumbnail;
+    
     
 private:
     

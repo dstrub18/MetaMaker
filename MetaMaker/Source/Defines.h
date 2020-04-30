@@ -86,7 +86,7 @@ namespace Defines
     
     static const String saveDataDirectoryPath = "~/Documents/MetamakerSaves/";
     static const String saveDataFilename = "~/Documents/MetamakerSaves/saveState.xml";
-    
+    static const String tempFileDirectoryPath =  saveDataDirectoryPath + "tempFiles/";
 }
 
 namespace Utilites

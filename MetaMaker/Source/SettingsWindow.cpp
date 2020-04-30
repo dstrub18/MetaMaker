@@ -23,10 +23,8 @@ SettingsWindow::SettingsWindow(const int& width, const int& height, String&& nam
     
     centreWithSize (width, height);
     setVisible (false);
-    m_isVisible = false;
     
     setContentOwned (contentComponent, true);
-    
     
 }
 

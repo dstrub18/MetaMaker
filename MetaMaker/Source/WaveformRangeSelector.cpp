@@ -19,6 +19,7 @@ WaveformRangeSelector::WaveformRangeSelector()
 
 }
 
+
 WaveformRangeSelector::WaveformRangeSelector(const int& width, const int& height)
 {
     setSize(width, height);
@@ -28,6 +29,19 @@ WaveformRangeSelector::WaveformRangeSelector(const int& width, const int& height
 WaveformRangeSelector::~WaveformRangeSelector()
 {
 }
+
+
+void startDragging    (const var & sourceDescription,
+                       Component * sourceComponent,
+                       Image dragImage = Image(),
+                       bool allowDraggingToOtherJuceWindows = false,
+                       const Point< int >* imageOffsetFromMouse = nullptr,
+                       const MouseInputSource * inputSourceCausingDrag = nullptr
+                       )
+{
+    Logger::writeToLog("Dragging!");
+}
+
 
 void WaveformRangeSelector::paint (Graphics& g)
 {
@@ -41,6 +55,8 @@ void WaveformRangeSelector::paint (Graphics& g)
     g.setOpacity(0.4f);
     g.fillRect(getLocalBounds());
 }
+
+
 
 void WaveformRangeSelector::resized()
 {

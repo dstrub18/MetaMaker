@@ -36,7 +36,7 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     
     showOnStartToggle -> setSize(50, 20);
     showOnStartToggle -> changeWidthToFitText();
-    showOnStartToggle -> setTopLeftPosition(100, 750);
+    showOnStartToggle -> setTopLeftPosition(100, 75);
     
     sourcePathLabel -> setColour(Label::backgroundColourId, Colours::blue);
     sourcePathLabel -> setText("", Defines::noNotification);
@@ -50,7 +50,6 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     addAndMakeVisible(*chooseFileButton);
     addAndMakeVisible(*showOnStartToggle);
     
-
 }
 
 SettingsWindowPanel::~SettingsWindowPanel()
@@ -63,7 +62,7 @@ SettingsWindowPanel::~SettingsWindowPanel()
 
 void SettingsWindowPanel::buttonClicked (Button* button)
 {
-    if (button -> getButtonText() == "Choose Directory")
+    if (button == chooseFileButton.get())
     {
         FileChooser chooser ("Choose Start Directory", File(), Defines::allFiletypesAllowed, true, false, nullptr);
         

@@ -62,20 +62,26 @@ MainComponent::MainComponent()
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
     waveformPanel -> setTopLeftPosition(0, GUIDefines::fileBrowserHeight);
     
+    // Settings
     settingsWindowPanel = std::make_unique<SettingsWindowPanel>(GUIDefines::settingsWindowWidth, GUIDefines::settingsWindowHeight);
-    
     settingsWindow = std::make_unique<SettingsWindow>(GUIDefines::settingsWindowWidth, GUIDefines::settingsWindowHeight, "Settings", settingsWindowPanel.get());
     
+    
+#pragma mark Initialize Valuetree and Create Folder Infrastructure
     createSaveDataIfNecessary();
+    createTempFilesDirectory();
+    
+    topNode = ValueTree(topNode_ID);
+    
+    topNode.addChild(startupPathNode, 0, nullptr);
     startupPathNode = loadValueTree(getSaveFile(), true);
+    
     
     // Log settings label in Value Tree
     settingsWindowPanel -> setLabeltext(startupPathNode.getProperty(startupPath_ID).toString());
     
-    Logger::writeToLog(startupPath_XML.toString());
     startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty(startupPath_ID).toString());
     
-    Logger::writeToLog(startupPath_XML.toString());
     
     // Set initial Directories
     sourceFilePanel -> setRoot (File (settingsWindowPanel -> getLabelText ()));
@@ -152,7 +158,7 @@ MainComponent::~MainComponent()
     
     startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
     saveValueTree(startupPathNode, getSaveFile(), true);
-    
+    tempFileDirectory.deleteRecursively();
     shutdownAudio();
 }
 
@@ -768,14 +774,21 @@ ValueTree MainComponent::loadOrCreateDefaultEdit()
 
 void MainComponent::createSaveDataIfNecessary() {
     File initialDirectory = File (Defines::saveDataDirectoryPath);
-    
     if (initialDirectory.exists() == false)
     {
         Result rDirectory = initialDirectory.createDirectory();
+        
         
         if (rDirectory.wasOk())
         {
             saveValueTree(startupPathNode, getSaveFile(), true);
         }
     }
+}
+
+
+void MainComponent::createTempFilesDirectory()
+{
+    tempFileDirectory = File (Defines::tempFileDirectoryPath);
+    tempFileDirectory.createDirectory();
 }
