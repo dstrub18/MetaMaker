@@ -20,7 +20,8 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener
+                         public juce::Component::MouseListener,
+                         public DragAndDropContainer
                          
 {
 public:
@@ -72,5 +73,7 @@ private:
     bool isRectangleActive {false};
     
     std::unique_ptr<WaveformRangeSelector> rangeSelector;
+    
+    std::unique_ptr<Label> label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

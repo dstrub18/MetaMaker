@@ -30,11 +30,23 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     progressbar -> setColour(ProgressBar::backgroundColourId, Colours::aquamarine);
     progressbar -> setColour(ProgressBar::foregroundColourId, Colours::green);
     
+    
+    
     progressbar -> setSize(200, 20);
     progressbar -> setTopLeftPosition(0, 5);
     
+    
     addChildComponent(*progressbar);
     progressbar -> setVisible(false);
+    
+    
+    label = std::make_unique<Label>();
+    label -> setSize(100, 20);
+    label -> setTopRightPosition(100, 100);
+    label -> setColour(Label::backgroundColourId, Colours::blue);
+    
+    addAndMakeVisible(*label);
+    
     
     amplitudeZoomSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     amplitudeZoomSlider.setTopLeftPosition(GUIDefines::universalWidth - 30, 0);
@@ -67,8 +79,6 @@ WaveformPanel::~WaveformPanel()
 {
 }
 
-
-
 void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 {
     if (source == &thumbnail)
@@ -83,15 +93,37 @@ void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 
 void WaveformPanel::mouseDown(const MouseEvent &event)
 {
-    
+    /// Left click
+    if (event.mods == ModifierKeys::leftButtonModifier)
+    {
+        /// If size is 0, set top left position to mouse down event position
+        if (rangeSelector -> isMouseOver() == false)
+        {
+            rangeSelector -> setSize (0, getHeight());
+            rangeSelector -> setTopLeftPosition (event.getMouseDownX(),0);
+            isRectangleActive = false;
+            
+            repaint();
+        }
+        
+        if (rangeSelector -> isMouseOver() && event.mods == ModifierKeys::leftButtonModifier)
+        {
+            isRectangleActive = true;
+        }
+        else
+        {
+            
+        }
+    }
+    /// Right Click: Reset selector
     if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
     {
-        
+        label -> setText((String) rangeSelector -> getWidth(), Defines::noNotification);
         rangeSelector -> setSize (0, getHeight());
         rangeSelector -> setTopLeftPosition (0,0);
         isRectangleActive = false;
-        
         repaint();
+        
     }
 }
 
@@ -99,23 +131,20 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
 {
     repaint();
     
-    
-    
-    if (rangeSelector -> getWidth() != 0) {
-        const var sourceDescription = "zingy";
-        rangeSelector -> startDragging(sourceDescription, rangeSelector.get());
-    }
-    
-    if (event.mods == ModifierKeys::leftButtonModifier)
+    if (event.mods == ModifierKeys::leftButtonModifier && !isRectangleActive)
     {
-        
+
   
+        label -> setText((String) rangeSelector -> getWidth(), Defines::noNotification);
+        
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
             // Case: Cursor is left of event down position
             
             rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight ());
-            rangeSelector -> setTopRightPosition (event.getMouseDownPosition().getX(), 0);
+            rangeSelector -> setTopRightPosition (event.getMouseDownPosition ().getX (), 0);
+            
+            
         }
         else
         {
@@ -123,19 +152,25 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
             rangeSelector -> setTopLeftPosition (event.getMouseDownPosition().getX (), 0);
             rangeSelector -> setSize (event.getDistanceFromDragStartX (), getHeight ());
         }
+        
+        
+    }
+    
+    
+    
+    if (isRectangleActive && rangeSelector -> isMouseOver()) {
+        
+        label -> setText("AWAWAWAWA", Defines::noNotification);
+        var zingy = "AWAWAWAWA";
+        //startDragging(zingy, rangeSelector.get());
     }
     
 }
-
-
-
-
 
 void WaveformPanel::mouseUp (const MouseEvent &event)
 {
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
-        isRectangleActive = true;
             // Case: mouseUp occured left of mouseDown
             if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
             {
@@ -143,7 +178,11 @@ void WaveformPanel::mouseUp (const MouseEvent &event)
                 rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight());
                 rangeSelector -> setTopLeftPosition (event.getMouseDownPosition ().getX () + event.getDistanceFromDragStartX(), 0);
             }
-
+        if (rangeSelector -> getWidth() != 0) {
+            isRectangleActive = true;
+        }
+        
+        
     }
 }
 
@@ -156,6 +195,11 @@ void WaveformPanel::paint (Graphics& g)
      You should replace everything in this method with your own
      drawing code..
      */
+
+    if (isRectangleActive) {
+        label -> setText("active", Defines::noNotification);
+    }
+    else{label -> setText("active", Defines::noNotification);}
     
     if (thumbnail.getNumChannels() != 0) {
         
