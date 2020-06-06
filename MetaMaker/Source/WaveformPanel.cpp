@@ -30,18 +30,18 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     progressbar -> setColour(ProgressBar::backgroundColourId, Colours::aquamarine);
     progressbar -> setColour(ProgressBar::foregroundColourId, Colours::green);
     
-    
-    
     progressbar -> setSize(200, 20);
     progressbar -> setTopLeftPosition(0, 5);
-    
     
     addChildComponent(*progressbar);
     progressbar -> setVisible(false);
     
+<<<<<<< HEAD
     
     
     
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     amplitudeZoomSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     amplitudeZoomSlider.setTopLeftPosition(GUIDefines::universalWidth - 30, 0);
     amplitudeZoomSlider.setVisible (false);
@@ -73,6 +73,8 @@ WaveformPanel::~WaveformPanel()
 {
 }
 
+
+
 void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 {
     if (source == &thumbnail)
@@ -87,6 +89,7 @@ void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 
 void WaveformPanel::mouseDown(const MouseEvent &event)
 {
+<<<<<<< HEAD
     /// Left click
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
@@ -107,14 +110,17 @@ void WaveformPanel::mouseDown(const MouseEvent &event)
         
     }
     /// Right Click: Reset selector
+=======
+    
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
     {
         
         rangeSelector -> setSize (0, getHeight());
         rangeSelector -> setTopLeftPosition (0,0);
         isRectangleActive = false;
-        repaint();
         
+        repaint();
     }
 }
 
@@ -122,20 +128,29 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
 {
     repaint();
     
-    if (event.mods == ModifierKeys::leftButtonModifier && !isRectangleActive)
+    
+    
+    if (rangeSelector -> getWidth() != 0) {
+        const var sourceDescription = "zingy";
+        rangeSelector -> startDragging(sourceDescription, rangeSelector.get());
+    }
+    
+    if (event.mods == ModifierKeys::leftButtonModifier)
     {
+<<<<<<< HEAD
 
   
         
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
         
+  
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
             // Case: Cursor is left of event down position
             
             rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight ());
-            rangeSelector -> setTopRightPosition (event.getMouseDownPosition ().getX (), 0);
-            
-            
+            rangeSelector -> setTopRightPosition (event.getMouseDownPosition().getX(), 0);
         }
         else
         {
@@ -143,17 +158,27 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
             rangeSelector -> setTopLeftPosition (event.getMouseDownPosition().getX (), 0);
             rangeSelector -> setSize (event.getDistanceFromDragStartX (), getHeight ());
         }
+<<<<<<< HEAD
         
         
     }
     
     
+=======
+    }
+    
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 }
+
+
+
+
 
 void WaveformPanel::mouseUp (const MouseEvent &event)
 {
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
+        isRectangleActive = true;
             // Case: mouseUp occured left of mouseDown
             if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
             {
@@ -161,11 +186,7 @@ void WaveformPanel::mouseUp (const MouseEvent &event)
                 rangeSelector -> setSize (-event.getDistanceFromDragStartX (), getHeight());
                 rangeSelector -> setTopLeftPosition (event.getMouseDownPosition ().getX () + event.getDistanceFromDragStartX(), 0);
             }
-        if (rangeSelector -> getWidth() != 0) {
-            isRectangleActive = true;
-        }
-        
-        
+
     }
 }
 
@@ -178,7 +199,10 @@ void WaveformPanel::paint (Graphics& g)
      You should replace everything in this method with your own
      drawing code..
      */
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     
     if (thumbnail.getNumChannels() != 0) {
         

@@ -22,7 +22,6 @@ WaveformRangeSelector::WaveformRangeSelector()
 
 WaveformRangeSelector::WaveformRangeSelector(const int& width, const int& height)
 {
-    setRepaintsOnMouseActivity(true);
     setSize(width, height);
     setOpaque(false);
 }
@@ -31,27 +30,17 @@ WaveformRangeSelector::~WaveformRangeSelector()
 {
 }
 
-void WaveformRangeSelector::mouseDown  (const MouseEvent &event)
+
+void startDragging    (const var & sourceDescription,
+                       Component * sourceComponent,
+                       Image dragImage = Image(),
+                       bool allowDraggingToOtherJuceWindows = false,
+                       const Point< int >* imageOffsetFromMouse = nullptr,
+                       const MouseInputSource * inputSourceCausingDrag = nullptr
+                       )
 {
-    
+    Logger::writeToLog("Dragging!");
 }
-
-void WaveformRangeSelector::mouseDrag  (const MouseEvent &event)
-{
-    
-}
-
-void WaveformRangeSelector::mouseUp    (const MouseEvent &event)
-{
-    
-}
-void WaveformRangeSelector::mouseEnter  (const MouseEvent &event)
-{
-}
-
-
-
-
 
 
 void WaveformRangeSelector::paint (Graphics& g)
@@ -63,14 +52,6 @@ void WaveformRangeSelector::paint (Graphics& g)
        drawing code..
     */
     g.setColour(Colours::turquoise);
-    if (this -> isMouseOver()) {
-        g.setColour(Colours::red);
-        
-    }
-    if (this -> isMouseButtonDown())
-    {
-        g.setColour(Colours::black);
-    }
     g.setOpacity(0.4f);
     g.fillRect(getLocalBounds());
 }
