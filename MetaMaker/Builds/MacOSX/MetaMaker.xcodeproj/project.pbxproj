@@ -6,6 +6,7 @@
 	objectVersion = 46;
 	objects = {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		0E44B114B17A8619A41BA060 = {
 			isa = PBXBuildFile;
 			fileRef = 3EEA8E928ED891C9705631E3;
@@ -577,6 +578,8 @@
 			path = "../../JuceLibraryCode/include_juce_audio_utils.mm";
 			sourceTree = "SOURCE_ROOT";
 =======
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 
 /* Begin PBXBuildFile section */
 		04AD5232DA6061867A801C5E /* WaveformRangeSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30A1633A278C91989B96191A /* WaveformRangeSelector.cpp */; };
@@ -699,6 +702,9 @@
 				4C47AEF78427CDCFED500ACF /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+<<<<<<< HEAD
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
+=======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -1074,8 +1080,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				PRODUCT_NAME = "MetaMaker";
 				SDKROOT = macosx;
+=======
+				PRODUCT_NAME = MetaMaker;
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 =======
 				PRODUCT_NAME = MetaMaker;
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
@@ -1091,6 +1101,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_IDENTITY = "";
+<<<<<<< HEAD
 <<<<<<< HEAD
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1113,6 +1124,8 @@
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 =======
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
@@ -1146,6 +1159,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.MetaMaker;
 				PRODUCT_NAME = MetaMaker;
 				USE_HEADERMAP = NO;
+<<<<<<< HEAD
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
+=======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 			};
 			name = Debug;

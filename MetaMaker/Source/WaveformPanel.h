@@ -73,7 +73,10 @@ private:
     
     std::unique_ptr<WaveformRangeSelector> rangeSelector;
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 =======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)

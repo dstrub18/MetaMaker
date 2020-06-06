@@ -37,9 +37,12 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     progressbar -> setVisible(false);
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     
     
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 =======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     amplitudeZoomSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -90,6 +93,7 @@ void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
 void WaveformPanel::mouseDown(const MouseEvent &event)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     /// Left click
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
@@ -110,6 +114,9 @@ void WaveformPanel::mouseDown(const MouseEvent &event)
         
     }
     /// Right Click: Reset selector
+=======
+    
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 =======
     
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
@@ -138,12 +145,16 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
     if (event.mods == ModifierKeys::leftButtonModifier)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   
         
 =======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
         
+=======
+        
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
   
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
@@ -159,12 +170,15 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
             rangeSelector -> setSize (event.getDistanceFromDragStartX (), getHeight ());
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         
         
     }
     
     
 =======
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     }
     
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
@@ -200,7 +214,10 @@ void WaveformPanel::paint (Graphics& g)
      drawing code..
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
 =======
 >>>>>>> parent of 0e8b27b... Detection works but not flawlessly. Work on logic and figure out drag and drop inheritance
     
