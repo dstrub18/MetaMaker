@@ -16,24 +16,15 @@
 /*
 */
 class WaveformRangeSelector    : public Component,
-                                 public juce::Component::MouseListener
-                                 
+                                 public DragAndDropContainer
 {
 public:
-    
     WaveformRangeSelector();
     
     WaveformRangeSelector(const int& width, const int& height);
     
     ~WaveformRangeSelector();
 
-    // MouseListener inherited functions
-    void mouseDown  (const MouseEvent &event) override;
-    void mouseDrag  (const MouseEvent &event) override;
-    void mouseUp    (const MouseEvent &event) override;
-    void mouseEnter  (const MouseEvent &event) override;
-    
-    
     void paint (Graphics&) override;
     void resized() override;
 
