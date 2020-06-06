@@ -16,12 +16,10 @@ MainComponent::MainComponent()
 #if JUCE_PROJUCER_LIVE_BUILD
 #endif
 {
-
     // Make sure you set the size of the component after
     // you add any child components.
     
     fs = deviceManager.getAudioDeviceSetup().sampleRate;
-
     
     // Make sure that formatManager can read all basic audio file types.
     formatManager.registerBasicFormats();
@@ -43,20 +41,13 @@ MainComponent::MainComponent()
     // FileProperty Creation
     propertyPanel = std::make_unique<FileInfoPanel> (GUIDefines::initialFileInfoWidth,
                                                      GUIDefines::propertyPanelHeight);
-    propertyPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::mainWindowTopYCoordinate);
+    propertyPanel -> setTopLeftPosition (GUIDefines::universalWidth - GUIDefines::initialFileInfoWidth, GUIDefines::mainWindowTopYCoordinate);
     
-    // FileInfoPanel creation
-    destinationPanel = std::make_unique<FileBrowserPanel> (GUIDefines::initialFileBrowserWidth,
-                                                           GUIDefines::fileBrowserHeight,
-                                                           initialDestinationDirectoryPath);
-    
-    destinationPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth + GUIDefines::initialFileInfoWidth,
-                                            GUIDefines::mainWindowTopYCoordinate);
     
     // Debug Button Panel
     buttonPanel = std::make_unique<ButtonPanel> (GUIDefines::initialButtonPanelWidth, GUIDefines::initialButtonPanelHeight);
     
-    buttonPanel -> setTopLeftPosition (GUIDefines::initialFileBrowserWidth, GUIDefines::propertyPanelHeight - GUIDefines::initialButtonPanelHeight);
+    buttonPanel -> setTopLeftPosition (GUIDefines::universalWidth - GUIDefines::initialButtonPanelWidth, GUIDefines::propertyPanelHeight - GUIDefines::initialButtonPanelHeight);
     
     // Waveform Panel
     waveformPanel  = std::make_unique<WaveformPanel>(512, formatManager, GUIDefines::universalWidth, 200);
@@ -78,9 +69,9 @@ MainComponent::MainComponent()
     
     
     // Log settings label in Value Tree
-    settingsWindowPanel -> setLabeltext(startupPathNode.getProperty(startupPath_ID).toString());
+    settingsWindowPanel -> setLabeltext(startupPathNode.getProperty (startupPath_ID).toString());
     
-    startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty(startupPath_ID).toString());
+    startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty (startupPath_ID).toString());
     
     
     // Set initial Directories
@@ -89,7 +80,7 @@ MainComponent::MainComponent()
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
     addAndMakeVisible (*propertyPanel);
-    addAndMakeVisible (*destinationPanel);
+    
     addAndMakeVisible (*buttonPanel);
     addAndMakeVisible (*waveformPanel);
     
@@ -101,9 +92,6 @@ MainComponent::MainComponent()
         // Add the listening functionality for the button.
     sourceFilePanel -> getFileBrowser () -> addListener (this);
     
-    buttonPanel     -> getCopyButton ()  -> addListener (this);
-    buttonPanel     -> getMoveButton ()  -> addListener (this);
-    buttonPanel     -> getWriteAndCopyButton() -> addListener (this);
     buttonPanel     -> getReplaceMetadataButton() -> addListener (this);
     buttonPanel     -> getOpenSettingsButton()    -> addListener (this);
     
@@ -125,9 +113,9 @@ MainComponent::MainComponent()
     
     transportSource.addChangeListener (this);
     
-    // Initial Refresh for the Filebrowsers
+    // Initial Refresh for the FilebrowserPanel
     sourceFilePanel -> getFileBrowser () -> refresh();
-    destinationPanel -> getFileBrowser () -> refresh();
+    
     
     
     // Initialize stringpairArray with keys and initial values;
@@ -228,57 +216,7 @@ void MainComponent::resized()
 // Override methods from ButtonListener
 void MainComponent::buttonClicked(Button* button)
 {
-    
-#pragma mark Copy
-    if (button == buttonPanel -> getCopyButton() ) {
-        copyFromSourceToDestination();
-    }
-    
-#pragma mark Move
-    if (button == buttonPanel -> getMoveButton()) {
-        moveFromSourceToDestination();
-    }
-    
-#pragma mark WriteAndCopy
-    if (button == buttonPanel -> getWriteAndCopyButton()) {
-        Logger::writeToLog("Write and Copy!");
-        
-        for (int i = 0; i < sourceFilePanel -> getFileBrowser() ->getNumSelectedFiles(); i++)
-        {
-            File fileToCopy = sourceFilePanel -> getCurrentFile(i);
-            
-            File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
-            
-            std::unique_ptr<AudioFormatReader> reader (formatManager.createReaderFor (fileToCopy));
-            
-            if (reader != nullptr)
-            {
-                //File file  = sourceFilePanel -> getCurrentFile();
-                std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
-                // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
-                metaDataValues -> set("bwav description", "Did it work ? ");
-                
-                
-                updateFilePropertyPanel();
-                
-                bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
-                if (hasBeenCopied)
-                {
-                    Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
-                }
-                else
-                {
-                    Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
-                }
-                destinationPanel -> refreshFileBrowser();
-                wavAudioFormat -> replaceMetadataInFile(destinationFile, *metaDataValues);
-            }
-            else
-            {
-                Logger::writeToLog("Error");
-            }
-        }
-    }
+
     
 #pragma mark Replace
     if (button == buttonPanel -> getReplaceMetadataButton())
@@ -656,50 +594,6 @@ StringPairArray MainComponent::getMetadataFromFile()
     // Check memory leaks here.
 
 }
-
-const void MainComponent::copyFromSourceToDestination()
-{
-    for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
-        File fileToCopy = sourceFilePanel -> getCurrentFile(i);
-        
-        File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
-        
-        bool hasBeenCopied = fileToCopy.copyFileTo(destinationFile);
-        if (hasBeenCopied)
-        {
-            Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
-        }
-        else
-        {
-            Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
-        }
-        destinationPanel -> refreshFileBrowser();
-    }
-    
-}
-
-const void MainComponent::moveFromSourceToDestination()
-{
-    for (int i = 0; i < sourceFilePanel ->getFileBrowser() ->getNumSelectedFiles(); i++) {
-        File fileToCopy = sourceFilePanel -> getCurrentFile(i);
-        
-        File destinationFile = File (destinationPanel ->getFullPath() + "/" + fileToCopy.getFileName());
-        
-        bool hasBeenCopied = fileToCopy.moveFileTo(destinationFile);
-        if (hasBeenCopied)
-        {
-            Logger::writeToLog("Worked! for " + fileToCopy.getFileName() + "\n");
-        }
-        else
-        {
-            Logger::writeToLog("Didn't work for" + fileToCopy.getFileName() + "\n");
-        }
-        sourceFilePanel -> refreshFileBrowser();
-        destinationPanel -> refreshFileBrowser();
-    }
-    
-}
-
 
 ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
 {

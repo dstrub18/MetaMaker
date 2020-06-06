@@ -20,27 +20,7 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
 
     
     setSize(panelWidth, panelHeight);
-    
-    copyButton = std::make_unique<TextButton> ("Copy File");
-    copyButton -> setSize(GUIDefines::buttonWidth, GUIDefines::buttonHeight);
-    copyButton -> changeWidthToFitText ();
-    copyButton -> setTopLeftPosition(0,0);
-    copyButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::blue);
-    
-    
-    moveButton = std::make_unique<TextButton> ("Move File");
-    moveButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
-    moveButton -> changeWidthToFitText ();
-    moveButton -> setTopLeftPosition(0, GUIDefines::buttonHeight);
-    moveButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::darkmagenta);
-    
-    
-    writeAndCoppyButton = std::make_unique<TextButton> ("WriteAndCopy");
-    writeAndCoppyButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
-    writeAndCoppyButton -> changeWidthToFitText ();
-    writeAndCoppyButton -> setTopLeftPosition (0, GUIDefines::buttonHeight * 2);
-    writeAndCoppyButton -> setColour (TextButton::ColourIds::buttonColourId, Colours::darkorange);
-    
+
     
     replaceMetadataButton = std::make_unique<TextButton> ("Replace");
     replaceMetadataButton -> setSize (GUIDefines::buttonWidth, GUIDefines::buttonHeight);
@@ -87,9 +67,6 @@ ButtonPanel::ButtonPanel(const int& panelWidth, const int& panelHeight)
     exportButton -> setColour(TextButton::ColourIds::buttonColourId, Colours::deeppink);
     
     
-    addAndMakeVisible (*copyButton);
-    addAndMakeVisible (*moveButton);
-    addAndMakeVisible (*writeAndCoppyButton);
     addAndMakeVisible (*replaceMetadataButton);
     
     addAndMakeVisible(*openSettingsButton);

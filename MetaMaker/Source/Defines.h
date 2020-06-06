@@ -39,6 +39,10 @@ namespace GUIDefines
     static const Colour fileBrowserBackgroundColour = Colours::blanchedalmond;
     static const Colour editPanelBackgroundColour = Colours::green;
     static const Colour fileInfoPanelBackgroundColour = Colours::aliceblue;
+
+    static const Colour waveFormPanelBackgroundColour = Colours::lightgrey;
+    static const Colour waveFormPanelWaveFormColour = Colours::violet;
+
     
     static const unsigned int labelWidth = 150;
     static const unsigned int labelHeight = 24;

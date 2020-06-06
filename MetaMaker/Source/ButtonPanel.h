@@ -24,9 +24,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    inline TextButton* getCopyButton ()             const    noexcept    { return this -> copyButton.get();             }
-    inline TextButton* getMoveButton ()             const    noexcept    { return this -> moveButton.get();             }
-    inline TextButton* getWriteAndCopyButton ()     const    noexcept    { return this -> writeAndCoppyButton.get();    }
     inline TextButton* getReplaceMetadataButton ()  const    noexcept    { return this -> replaceMetadataButton.get();  }
     
     inline TextButton* getOpenSettingsButton ()     const    noexcept    { return this -> openSettingsButton.get();     }
@@ -40,10 +37,8 @@ public:
     inline TextButton* getExportButton ()           const    noexcept    {  return this -> exportButton.get();          }
 
 private:
+
     
-    std::unique_ptr<TextButton> copyButton;
-    std::unique_ptr<TextButton> moveButton;
-    std::unique_ptr<TextButton> writeAndCoppyButton;
     std::unique_ptr<TextButton> replaceMetadataButton;
     
     std::unique_ptr<TextButton> openSettingsButton;

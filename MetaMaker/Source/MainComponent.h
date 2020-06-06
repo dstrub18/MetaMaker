@@ -89,8 +89,6 @@ private:
     // This displays the actual fields of the source file
     std::unique_ptr<FileInfoPanel> propertyPanel;
     
-    // Destination folder.
-    std::unique_ptr<FileBrowserPanel> destinationPanel;
     
     // Buttons
     std::unique_ptr<ButtonPanel> buttonPanel;
@@ -164,10 +162,6 @@ private:
         // ChangeListener
     void changeListenerCallback (ChangeBroadcaster* source) override;
     
-    
-    // File Copy / Move Functionality
-    const void copyFromSourceToDestination();
-    const void moveFromSourceToDestination();
     
     // Updates the FileInfoPanel
     void updateFilePropertyPanel();

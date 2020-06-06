@@ -74,6 +74,5 @@ private:
     
     std::unique_ptr<WaveformRangeSelector> rangeSelector;
     
-    std::unique_ptr<Label> label;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

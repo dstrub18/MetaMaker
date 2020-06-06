@@ -40,12 +40,6 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     progressbar -> setVisible(false);
     
     
-    label = std::make_unique<Label>();
-    label -> setSize(100, 20);
-    label -> setTopRightPosition(100, 100);
-    label -> setColour(Label::backgroundColourId, Colours::blue);
-    
-    addAndMakeVisible(*label);
     
     
     amplitudeZoomSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -110,15 +104,12 @@ void WaveformPanel::mouseDown(const MouseEvent &event)
         {
             isRectangleActive = true;
         }
-        else
-        {
-            
-        }
+        
     }
     /// Right Click: Reset selector
     if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
     {
-        label -> setText((String) rangeSelector -> getWidth(), Defines::noNotification);
+        
         rangeSelector -> setSize (0, getHeight());
         rangeSelector -> setTopLeftPosition (0,0);
         isRectangleActive = false;
@@ -135,7 +126,7 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
     {
 
   
-        label -> setText((String) rangeSelector -> getWidth(), Defines::noNotification);
+        
         
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
@@ -156,14 +147,6 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
         
     }
     
-    
-    
-    if (isRectangleActive && rangeSelector -> isMouseOver()) {
-        
-        label -> setText("AWAWAWAWA", Defines::noNotification);
-        var zingy = "AWAWAWAWA";
-        //startDragging(zingy, rangeSelector.get());
-    }
     
 }
 
@@ -196,10 +179,6 @@ void WaveformPanel::paint (Graphics& g)
      drawing code..
      */
 
-    if (isRectangleActive) {
-        label -> setText("active", Defines::noNotification);
-    }
-    else{label -> setText("active", Defines::noNotification);}
     
     if (thumbnail.getNumChannels() != 0) {
         
@@ -210,10 +189,10 @@ void WaveformPanel::paint (Graphics& g)
             progressbar -> setVisible (false);
         
         repaint ();
-        g.setColour (Colours::white);
+        g.setColour (GUIDefines::waveFormPanelBackgroundColour);
         g.fillRect (getLocalBounds());
         repaint ();
-        g.setColour (Colours::red);
+        g.setColour (GUIDefines::waveFormPanelWaveFormColour);
         thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), amplitudeZoomSlider.getValue());
         amplitudeZoomSlider.setVisible(true);
         
