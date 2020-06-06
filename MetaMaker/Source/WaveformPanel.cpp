@@ -189,10 +189,10 @@ void WaveformPanel::paint (Graphics& g)
             progressbar -> setVisible (false);
         
         repaint ();
-        g.setColour (GUIDefines::waveFormPanelBackgroundColour);
+        g.setColour (Colours::white);
         g.fillRect (getLocalBounds());
         repaint ();
-        g.setColour (GUIDefines::waveFormPanelWaveFormColour);
+        g.setColour (Colours::red);
         thumbnail.drawChannels (g, getLocalBounds(), 0.0, thumbnail.getTotalLength(), amplitudeZoomSlider.getValue());
         amplitudeZoomSlider.setVisible(true);
         
