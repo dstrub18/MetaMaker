@@ -24,11 +24,25 @@ FileInfoPanel::FileInfoPanel(int panelWidth, int panelHeight)
     fileNameLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileNameLabel->setJustificationType (Justification::centredLeft);
     fileNameLabel->setEditable (false, true, false);
-    fileNameLabel->setColour (Label::backgroundColourId, Colour (0xffe41713));
+    fileNameLabel->setColour (Label::backgroundColourId, Colours::grey);
     fileNameLabel->setColour (TextEditor::textColourId, Colours::black);
-    fileNameLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
     
     fileNameLabel->setBounds (panelWidth / 2 - 150 / 2, 72, 150, 24);
+    
+    
+    fileNameTitle.reset (new Label ("File Name"));
+    fileNameTitle -> setText("File Name", Defines::noNotification);
+    fileNameTitle -> setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    fileNameTitle->setJustificationType (Justification::centredLeft);
+    fileNameTitle->setEditable (false, false, false);
+    
+    fileNameTitle -> setColour(Label::backgroundColourId, Colours::red);
+    
+    
+    fileNameTitle -> attachToComponent(fileNameLabel.get(), GUIDefines::attachAbove);
+    fileNameTitle -> setSize (fileNameTitle -> getFont().getStringWidth(fileNameTitle -> getText ()), GUIDefines::labelHeight);
+    
+//===================
     
     artistLabel.reset (new Label ("artistLabel",
                                   TRANS("")));
@@ -36,10 +50,25 @@ FileInfoPanel::FileInfoPanel(int panelWidth, int panelHeight)
     artistLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     artistLabel->setJustificationType (Justification::centredLeft);
     artistLabel->setEditable (false, true, false);
+    artistLabel->setColour (Label::backgroundColourId, Colours::grey);
     artistLabel->setColour (TextEditor::textColourId, Colours::black);
-    artistLabel->setColour (Label::backgroundColourId, Colours::violet);
     
-    artistLabel->setBounds (panelWidth / 2 - 150 / 2, 104, 150, 24);
+    artistLabel->setBounds (panelWidth / 2 - 150 / 2, 72 + GUIDefines::propertyLabelDistance, GUIDefines::labelWidth, GUIDefines::labelHeight);
+    
+    
+    artistTitle.reset(new Label ("Artist"));
+    artistTitle -> setText("Artist", Defines::noNotification);
+    addAndMakeVisible(artistTitle.get());
+    artistTitle->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    artistTitle->setJustificationType (Justification::centredLeft);
+    artistTitle->setEditable (false, false, false);
+    artistTitle->setColour (Label::backgroundColourId, Colours::red);
+    
+    artistTitle -> attachToComponent(artistLabel.get(), GUIDefines::attachAbove);
+    artistTitle -> setSize (artistTitle -> getFont().getStringWidth(artistTitle -> getText ()), GUIDefines::labelHeight);
+    
+    
+//===================
     
     fileCreationDateLabel.reset (new Label ("fileCreationDate",
                                             TRANS("")));
@@ -47,11 +76,26 @@ FileInfoPanel::FileInfoPanel(int panelWidth, int panelHeight)
     fileCreationDateLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     fileCreationDateLabel->setJustificationType (Justification::centredLeft);
     fileCreationDateLabel->setEditable (false, true, false);
-    fileCreationDateLabel->setColour (Label::backgroundColourId, Colours::blue);
+    fileCreationDateLabel->setColour (Label::backgroundColourId, Colours::grey);
     fileCreationDateLabel->setColour (TextEditor::textColourId, Colours::black);
     
     
-    fileCreationDateLabel->setBounds (panelWidth / 2 - 150 / 2, 136, 150, 24);
+    fileCreationDateLabel->setBounds (panelWidth / 2 - 150 / 2, 72 + GUIDefines::propertyLabelDistance * 2, GUIDefines::labelWidth, GUIDefines::labelHeight);
+
+    
+    
+    fileCreationDateTitle.reset(new Label ("Creation Date"));
+    fileCreationDateTitle -> setText("Creation Date", Defines::noNotification);
+    addAndMakeVisible(fileCreationDateTitle.get());
+    fileCreationDateTitle->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    fileCreationDateTitle->setJustificationType (Justification::centredLeft);
+    fileCreationDateTitle->setEditable (false, false, false);
+    fileCreationDateTitle->setColour (Label::backgroundColourId, Colours::red);
+    
+    fileCreationDateTitle -> attachToComponent(fileCreationDateLabel.get(), GUIDefines::attachAbove);
+    fileCreationDateTitle -> setSize (artistTitle -> getFont().getStringWidth(fileCreationDateTitle -> getText ()), GUIDefines::labelHeight);
+    
+//===================
     
     descriptionLabel.reset (new Label ("descriptionLabel",
                                        TRANS("")));
@@ -59,17 +103,29 @@ FileInfoPanel::FileInfoPanel(int panelWidth, int panelHeight)
     descriptionLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
     descriptionLabel->setJustificationType (Justification::centredLeft);
     descriptionLabel->setEditable (false, true, false);
-    descriptionLabel->setColour (Label::backgroundColourId, Colours::green);
+    descriptionLabel->setColour (Label::backgroundColourId, Colours::grey);
     descriptionLabel->setColour (TextEditor::textColourId, Colours::black);
     
-    descriptionLabel->setBounds (panelWidth / 2 - 150 / 2, 168, 150, 24);
-    
-    
-    
+    descriptionLabel->setBounds (panelWidth / 2 - 150 / 2, 72 + GUIDefines::propertyLabelDistance * 3, GUIDefines::labelWidth, GUIDefines::labelHeight);
     
     setSize (panelWidth, panelHeight);
+    
+    
+    descriptionTitle.reset(new Label ("Creation Date"));
+    descriptionTitle -> setText("BWAV Description", Defines::noNotification);
+    addAndMakeVisible(fileCreationDateTitle.get());
+    descriptionTitle->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    descriptionTitle->setJustificationType (Justification::centredLeft);
+    descriptionTitle->setEditable (false, false, false);
+    descriptionTitle->setColour (Label::backgroundColourId, Colours::red);
+    
+    descriptionTitle -> attachToComponent(descriptionLabel.get(), GUIDefines::attachAbove);
+    descriptionTitle -> setSize (artistTitle -> getFont().getStringWidth(descriptionTitle -> getText ()), GUIDefines::labelHeight);
+    
 
 }
+
+
 
 FileInfoPanel::~FileInfoPanel()
 {
@@ -84,7 +140,7 @@ const void FileInfoPanel::disableLabelEditing ()
 {
     fileNameLabel           -> setEditable(false, false, false);
     artistLabel             -> setEditable(false, false, false);
-    fileCreationDateLabel        -> setEditable(false, false, false);
+    fileCreationDateLabel   -> setEditable(false, false, false);
     descriptionLabel        -> setEditable(false, false, false);
     
 }
@@ -107,7 +163,7 @@ void FileInfoPanel::paint (Graphics& g)
        You should replace everything in this method with your own
        drawing code..
     */
-    g.fillAll (Colours::coral);
+    g.fillAll (Colours::blue);
 }
 
 void FileInfoPanel::resized()

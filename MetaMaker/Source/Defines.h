@@ -20,7 +20,7 @@ namespace GUIDefines
     static const unsigned int buttonWidth = 50;
     
     static const unsigned int initialFileBrowserWidth = 300; // Isn't that handled automatically when using a flexbox?
-    static const unsigned int initialFileInfoWidth = 200;
+    static const unsigned int initialFileInfoWidth = 250;
     static const unsigned int initialButtonPanelWidth = initialFileInfoWidth;
     static const unsigned int initialButtonPanelHeight = 100;
     
@@ -53,6 +53,14 @@ namespace GUIDefines
     //Settings Window 
     static const unsigned int settingsWindowWidth = 300;
     static const unsigned int settingsWindowHeight = 200;
+    
+    
+    
+    static const unsigned int propertyLabelDistance = 70;
+    
+    
+    static const bool attachLeft = true;
+    static const bool attachAbove = false;
     
 }
 

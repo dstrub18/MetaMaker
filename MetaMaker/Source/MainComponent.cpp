@@ -394,11 +394,15 @@ void MainComponent::selectionChanged ()
     if (sourceFilePanel -> getNumSelectedFiles () == 0 || sourceFilePanel -> isCurrentlySelectedFileDirectory())
     {
         propertyPanel -> disableLabelEditing ();
+        
     }
     else
     {
         propertyPanel -> enableLabelEditing ();
     }
+    
+    
+    
     
     if (file.existsAsFile())
     {
