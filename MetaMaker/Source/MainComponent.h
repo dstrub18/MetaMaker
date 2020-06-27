@@ -25,7 +25,8 @@ class MainComponent   : public AudioAppComponent,
                         public FileBrowserListener,
                         public Label::Listener,
                         public ChangeListener,
-                        public Timer
+                        public Timer,
+                        public DragAndDropContainer
 
 {
 public:

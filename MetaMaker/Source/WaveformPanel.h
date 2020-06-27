@@ -20,8 +20,7 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener,
-                         public DragAndDropContainer
+                         public juce::Component::MouseListener
                          
 {
 public:

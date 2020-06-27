@@ -31,6 +31,7 @@ WaveformRangeSelector::~WaveformRangeSelector()
 {
 }
 
+
 void WaveformRangeSelector::mouseDown  (const MouseEvent &event)
 {
     
@@ -38,7 +39,13 @@ void WaveformRangeSelector::mouseDown  (const MouseEvent &event)
 
 void WaveformRangeSelector::mouseDrag  (const MouseEvent &event)
 {
+    auto dragC = DragAndDropContainer::findParentDragContainerFor(this);
     
+    if (dragC -> isDragAndDropActive() == false)
+    {
+        dragC -> startDragging("descr", this);
+        Logger::writeToLog("Dragging!");
+    }
 }
 
 void WaveformRangeSelector::mouseUp    (const MouseEvent &event)
