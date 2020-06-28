@@ -43,8 +43,7 @@ private:
     
     SettingsWindowPanel contentComponent;
     
-    std::unique_ptr<Label> sourceDirectoryLabel;
-    std::unique_ptr<TextButton> chooseDirectoryButton;
+    
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsWindow)

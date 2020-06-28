@@ -40,14 +40,18 @@ public:
     void buttonClicked (Button* button) override;
     
     // Getters / Setters
-    inline const String getLabelText() const {  return this -> sourcePathLabel -> getText();    }
-    inline void setLabeltext (const String& newText) {   this -> sourcePathLabel -> setText(newText, Defines::noNotification);   }
+    inline const String getSourcePath() const                                   {  return this -> sourcePathLabel -> getText ();    }
+    inline void setSourcePath (const String& newText)                           {  this -> sourcePathLabel -> setText(newText, Defines::noNotification);   }
+    inline void setOutputPath (const String& newText)                           {  this -> outputPathLabel -> setText(newText, Defines::noNotification);   }
     
-    inline const void addLabelListener (FileBrowserPanel* newLabelListener) {    this -> sourcePathLabel -> addListener (newLabelListener); }
+    inline const void addLabelListener (FileBrowserPanel* newLabelListener)     {    this -> sourcePathLabel -> addListener (newLabelListener); }
     
-    inline Label* getSourcePathLabel () const {    return this -> sourcePathLabel.get();   }
+    inline Label* getSourcePathLabel () const                                   {    return this -> sourcePathLabel.get ();   }
+    inline Label* getOutputPathLabel () const                                   {    return this -> outputPathLabel.get ();   }
     
-    inline bool getShowOnStartflag () const {    return this -> showOnStartToggle -> getToggleState();   }
+    inline bool getShowOnStartflag () const                                     {   return this -> showOnStartToggle -> getToggleState ();   }
+    
+    inline String getOutputPath () const                                   {   return this -> outputPathLabel -> getText (); }
     
     // Graphics
     void paint (Graphics&) override;
@@ -56,8 +60,12 @@ public:
 private:
     
     std::unique_ptr<Label> sourcePathLabel;
-    std::unique_ptr<TextButton> chooseFileButton;
+    std::unique_ptr<TextButton> chooseSourcePathButton;
     std::unique_ptr<ToggleButton> showOnStartToggle;
+    
+    std::unique_ptr<Label> outputPathLabel;
+    std::unique_ptr<TextButton> chooseOutputPathButton;
+
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsWindowPanel)
 };

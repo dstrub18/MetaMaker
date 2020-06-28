@@ -135,6 +135,10 @@ private:
     ValueTree showSettingsOnStartNode {showSettingsOnStart_ID};
     XmlElement showSettingsOnStart_XML {showSettingsOnStart_ID};
     
+    Identifier outputPath_ID {"Output_Path"};
+    ValueTree outputPathNode {outputPath_ID};
+    XmlElement outputPath_XML {outputPath_ID};
+    
     File getSaveFile ();
     ValueTree loadOrCreateDefaultEdit();
     
@@ -172,7 +176,7 @@ private:
     
     
     // Value tree functions from Dave Rowland
-    ValueTree loadValueTree (const File& file, bool asXml);
+    ValueTree loadValueTree (const File& file, const bool& asXml);
     bool saveValueTree (const juce::ValueTree& v, const juce::File& file, bool asXml);
     
     // Save Data

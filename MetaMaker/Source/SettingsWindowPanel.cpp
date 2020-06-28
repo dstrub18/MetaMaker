@@ -23,32 +23,51 @@ SettingsWindowPanel::SettingsWindowPanel(int width, int height)
     sourcePathLabel = std::make_unique<Label>();
     sourcePathLabel -> setEditable(false);
     
-    chooseFileButton = std::make_unique<TextButton>("Choose Directory");
+    chooseSourcePathButton = std::make_unique<TextButton>("Choose Source Path");
     showOnStartToggle = std::make_unique<ToggleButton>("Show on Start");
     
     
     sourcePathLabel -> setSize(200, 20 );
     sourcePathLabel -> setTopLeftPosition(100, 20);
     
-    chooseFileButton -> setSize(50, 20);
-    chooseFileButton -> changeWidthToFitText();
-    chooseFileButton -> setTopLeftPosition( 100, 50);
+    chooseSourcePathButton -> setSize(50, 20);
+    chooseSourcePathButton -> changeWidthToFitText();
+    chooseSourcePathButton -> setTopLeftPosition( 100, 50);
     
     showOnStartToggle -> setSize(50, 20);
     showOnStartToggle -> changeWidthToFitText();
     showOnStartToggle -> setTopLeftPosition(100, 75);
     
+    outputPathLabel = std::make_unique<Label>();
+    chooseOutputPathButton = std::make_unique<TextButton>("Choose Output Path");
+
+    outputPathLabel -> setSize(200, 20);
+    outputPathLabel -> setTopLeftPosition(100, 100);
+    
+    chooseOutputPathButton -> setSize(50, 20);
+    chooseOutputPathButton -> changeWidthToFitText();
+    chooseOutputPathButton -> setTopLeftPosition(100, 120);
+    
+    
+    
     sourcePathLabel -> setColour(Label::backgroundColourId, Colours::blue);
     sourcePathLabel -> setText("", Defines::noNotification);
     
+    outputPathLabel -> setColour(Label::backgroundColourId, Colours::red);
+    
     // Listener assignments
     
-    chooseFileButton -> addListener(this);
+    chooseSourcePathButton -> addListener(this);
+    chooseOutputPathButton -> addListener(this);
+    
     
     // and and make visibles
     addAndMakeVisible(*sourcePathLabel);
-    addAndMakeVisible(*chooseFileButton);
+    addAndMakeVisible(*chooseSourcePathButton);
     addAndMakeVisible(*showOnStartToggle);
+    
+    addAndMakeVisible(*outputPathLabel);
+    addAndMakeVisible(*chooseOutputPathButton);
     
 }
 
@@ -62,15 +81,30 @@ SettingsWindowPanel::~SettingsWindowPanel()
 
 void SettingsWindowPanel::buttonClicked (Button* button)
 {
-    if (button == chooseFileButton.get())
+    if (button == chooseSourcePathButton.get())
     {
-        FileChooser chooser ("Choose Start Directory", File(), Defines::allFiletypesAllowed, true, false, nullptr);
+        FileChooser chooser ("Choose Source Directory", File(), Defines::allFiletypesAllowed, true, false, nullptr);
         
         if (chooser.browseForDirectory())
         {
             sourcePathLabel -> setText(chooser.getResult().getFullPathName(), sendNotification);
         }
     }
+    
+    if (button == chooseOutputPathButton.get())
+    {
+        
+        FileChooser chooser ("Choose Output Directory", File(), Defines::allFiletypesAllowed, true, false, nullptr);
+        
+        if (chooser.browseForDirectory())
+        {
+            outputPathLabel -> setText(chooser.getResult().getFullPathName(), sendNotification);
+        }
+        
+        Logger::writeToLog(getOutputPath());
+    }
+    
+    
     
 }
 

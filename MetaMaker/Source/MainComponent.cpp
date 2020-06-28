@@ -59,23 +59,40 @@ MainComponent::MainComponent()
     
     
 #pragma mark Initialize Valuetree and Create Folder Infrastructure
-    createSaveDataIfNecessary();
-    createTempFilesDirectory();
+    
     
     topNode = ValueTree(topNode_ID);
     
-    topNode.addChild(startupPathNode, 0, nullptr);
-    startupPathNode = loadValueTree(getSaveFile(), true);
+    File file = File("~/Documents/MetamakerSaves/saveState.xml");
+    
+    if (file.existsAsFile())
+    {
+        topNode = loadValueTree(getSaveFile(), true);
+    }
+    
+    else
+    {
+        createSaveDataIfNecessary();
+        createTempFilesDirectory();
+    }
+    
+    
+    
+//    startupPathNode.setProperty(startupPath_ID, topNode.getProperty(startupPath_ID), nullptr);
+//    outputPathNode = loadValueTree(getSaveFile(), true);
+    
     
     
     // Log settings label in Value Tree
-    settingsWindowPanel -> setLabeltext(startupPathNode.getProperty (startupPath_ID).toString());
+    settingsWindowPanel -> setSourcePath (topNode.getPropertyAsValue(startupPath_ID, nullptr).toString());
+    settingsWindowPanel -> setOutputPath (topNode.getPropertyAsValue(outputPath_ID, nullptr).toString());
     
-    startupPath_XML.setAttribute(startupPath_ID, startupPathNode.getProperty (startupPath_ID).toString());
     
+    startupPath_XML.setAttribute (startupPath_ID, startupPathNode.getProperty (startupPath_ID).toString());
+    outputPath_XML.setAttribute (outputPath_ID, outputPathNode.getProperty(outputPath_ID).toString());
     
     // Set initial Directories
-    sourceFilePanel -> setRoot (File (settingsWindowPanel -> getLabelText ()));
+    sourceFilePanel -> setRoot (File (settingsWindowPanel -> getSourcePath ()));
     
     // Make sure nothing is selected
     sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
@@ -96,31 +113,31 @@ MainComponent::MainComponent()
     
     // LISTENERS
         // Add the listening functionality for the button.
-    sourceFilePanel -> getFileBrowser () -> addListener (this);
+    sourceFilePanel     -> getFileBrowser () -> addListener (this);
     
-    buttonPanel     -> getReplaceMetadataButton() -> addListener (this);
-    buttonPanel     -> getOpenSettingsButton()    -> addListener (this);
+    buttonPanel         -> getReplaceMetadataButton() -> addListener (this);
+    buttonPanel         -> getOpenSettingsButton()    -> addListener (this);
     
-    buttonPanel     -> getTransportPlayButton()   -> addListener (this);
-    buttonPanel     -> getTransportStopButton()   -> addListener (this);
+    buttonPanel         -> getTransportPlayButton()   -> addListener (this);
+    buttonPanel         -> getTransportStopButton()   -> addListener (this);
     
-    propertyPanel   -> getArtistLabel () -> addListener (this);
-    propertyPanel   -> getFileNameLabel () -> addListener (this);
-    propertyPanel   -> getDescriptionLabel () -> addListener (this);
-    propertyPanel   -> getFileCreationDateLabel () -> addListener (this);
+    propertyPanel       -> getArtistLabel () -> addListener (this);
+    propertyPanel       -> getFileNameLabel () -> addListener (this);
+    propertyPanel       -> getDescriptionLabel () -> addListener (this);
+    propertyPanel       -> getFileCreationDateLabel () -> addListener (this);
     
     settingsWindowPanel -> getSourcePathLabel () -> addListener (this);
     settingsWindowPanel -> getSourcePathLabel () -> addListener (sourceFilePanel.get());
     
-    buttonPanel -> getTimerStartButton() -> addListener (this);
-    buttonPanel -> getTimerStopButton() -> addListener (this);
+    buttonPanel         -> getTimerStartButton() -> addListener (this);
+    buttonPanel         -> getTimerStopButton() -> addListener (this);
     
-    buttonPanel -> getExportButton()    -> addListener (this);
+    buttonPanel         -> getExportButton()    -> addListener (this);
     
     transportSource.addChangeListener (this);
     
     // Initial Refresh for the FilebrowserPanel
-    sourceFilePanel -> getFileBrowser () -> refresh();
+    sourceFilePanel     -> getFileBrowser () -> refresh();
     
     
     
@@ -150,8 +167,14 @@ MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
     
-    startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
-    saveValueTree(startupPathNode, getSaveFile(), true);
+    
+    topNode.setProperty(startupPath_ID, settingsWindowPanel -> getSourcePath(), nullptr);
+    topNode.setProperty(outputPath_ID, settingsWindowPanel -> getOutputPath(), nullptr);
+//    startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getSourcePath(), nullptr);
+//    outputPathNode.setProperty(outputPath_ID, settingsWindowPanel -> getOutputPath(), nullptr);
+//    topNode.addChild(startupPathNode, 0, nullptr);
+//    topNode.addChild(outputPathNode, 1, nullptr);
+    saveValueTree(topNode, getSaveFile(), true);
     tempFileDirectory.deleteRecursively();
     shutdownAudio();
 }
@@ -258,12 +281,12 @@ void MainComponent::buttonClicked(Button* button)
         if (settingsWindow -> getVisibilityState() == false)
         {
             settingsWindow -> setVisible(true);
-            settingsWindow -> setVisibiltyState(true);
+            
         }
         else
         {
             settingsWindow -> setVisible(false);
-            settingsWindow -> setVisibiltyState(false);
+            
         }
         
     }
@@ -359,7 +382,7 @@ void MainComponent::buttonClicked(Button* button)
                 float totalWaveformWidth = waveformPanel -> getWidth();
                 float rectangleWidth = waveformPanel -> getRectangleWidth();
                 
-                File outputFile ("~/Desktop/" + inputFile.getFileName());
+                File outputFile (settingsWindowPanel -> getOutputPath() + "/" + inputFile.getFileName());
                 Logger::writeToLog(inputFile.getFileName());
                 Logger::writeToLog(outputFile.getFileName());
                 Logger::writeToLog(outputFile.getFullPathName());
@@ -523,9 +546,17 @@ void MainComponent::labelTextChanged(Label *labelThatHasChanged)
     if (labelThatHasChanged == settingsWindowPanel -> getSourcePathLabel())
     {
         Logger::writeToLog("SettingsWindow panel source path Changed!");
-        startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getLabelText(), nullptr);
+        startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getSourcePath(), nullptr);
         Logger::writeToLog(startupPathNode.getProperty(startupPath_ID).toString());
     }
+    
+    if (labelThatHasChanged == settingsWindowPanel -> getOutputPathLabel())
+    {
+        Logger::writeToLog("SettingsWindow panel source path Changed!");
+        outputPathNode.setProperty(outputPath_ID, settingsWindowPanel -> getOutputPath(), nullptr);
+        Logger::writeToLog(startupPathNode.getProperty(startupPath_ID).toString());
+    }
+    
 }
 
 void MainComponent::editorShown (Label* , TextEditor &)
@@ -612,7 +643,7 @@ StringPairArray MainComponent::getMetadataFromFile()
 
 }
 
-ValueTree MainComponent::loadValueTree (const File& file, bool asXml)
+ValueTree MainComponent::loadValueTree (const File& file, const bool& asXml)
 {
     File saveFile = File (Defines::saveDataFilename);
     
@@ -692,7 +723,9 @@ void MainComponent::createSaveDataIfNecessary() {
         
         if (rDirectory.wasOk())
         {
-            saveValueTree(startupPathNode, getSaveFile(), true);
+//            saveValueTree(startupPathNode, getSaveFile(), true);
+//            saveValueTree(outputPathNode, getSaveFile(), true);
+            saveValueTree(topNode, getSaveFile(), true);
         }
     }
 }

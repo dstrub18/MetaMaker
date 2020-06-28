@@ -18,9 +18,7 @@ SettingsWindow::SettingsWindow(const int& width, const int& height, String&& nam
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
-    sourceDirectoryLabel = std::make_unique<Label>();
-    chooseDirectoryButton = std::make_unique<TextButton>("Choose Directory");
-    
+
     centreWithSize (width, height);
     setVisible (false);
     
