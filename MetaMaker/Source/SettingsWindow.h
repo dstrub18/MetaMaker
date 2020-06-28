@@ -22,7 +22,7 @@ public:
     SettingsWindow (const int& width, const int& height, String&& name, Component* contentComponent);
     ~SettingsWindow();
     
-    const void setVisibiltyState (bool newState);
+    const void setVisibiltyState (const bool& newState);
     bool getVisibilityState () const;
 
 private:

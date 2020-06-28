@@ -165,17 +165,15 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
-    // This shuts down the audio device and clears the audio source.
+    
     
     
     topNode.setProperty(startupPath_ID, settingsWindowPanel -> getSourcePath(), nullptr);
     topNode.setProperty(outputPath_ID, settingsWindowPanel -> getOutputPath(), nullptr);
-//    startupPathNode.setProperty(startupPath_ID, settingsWindowPanel -> getSourcePath(), nullptr);
-//    outputPathNode.setProperty(outputPath_ID, settingsWindowPanel -> getOutputPath(), nullptr);
-//    topNode.addChild(startupPathNode, 0, nullptr);
-//    topNode.addChild(outputPathNode, 1, nullptr);
     saveValueTree(topNode, getSaveFile(), true);
     tempFileDirectory.deleteRecursively();
+    
+    // This shuts down the audio device and clears the audio source.
     shutdownAudio();
 }
 
@@ -723,8 +721,6 @@ void MainComponent::createSaveDataIfNecessary() {
         
         if (rDirectory.wasOk())
         {
-//            saveValueTree(startupPathNode, getSaveFile(), true);
-//            saveValueTree(outputPathNode, getSaveFile(), true);
             saveValueTree(topNode, getSaveFile(), true);
         }
     }

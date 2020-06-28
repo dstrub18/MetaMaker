@@ -38,7 +38,7 @@ void SettingsWindow::closeButtonPressed()
 }
 
 
-const void SettingsWindow::setVisibiltyState (bool newState)
+const void SettingsWindow::setVisibiltyState (const bool& newState)
 {
     m_isVisible = newState;
 }

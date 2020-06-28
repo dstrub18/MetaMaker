@@ -51,7 +51,7 @@ namespace GUIDefines
     
     
     //Settings Window 
-    static const unsigned int settingsWindowWidth = 300;
+    static const unsigned int settingsWindowWidth = 400;
     static const unsigned int settingsWindowHeight = 200;
     
     
