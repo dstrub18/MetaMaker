@@ -149,7 +149,7 @@ const void FileInfoPanel::enableLabelEditing ()
 {
     fileNameLabel           -> setEditable(false, true, false);
     artistLabel             -> setEditable(false, true, false);
-    fileCreationDateLabel        -> setEditable(false, true, false);
+    fileCreationDateLabel   -> setEditable(false, true, false);
     descriptionLabel        -> setEditable(false, true, false);
 }
 

@@ -77,6 +77,12 @@ MainComponent::MainComponent()
     // Set initial Directories
     sourceFilePanel -> setRoot (File (settingsWindowPanel -> getLabelText ()));
     
+    // Make sure nothing is selected
+    sourceFilePanel -> getFileBrowser() -> deselectAllFiles();
+    
+    // Nothing is selected. Therefore, make labels non-editable
+    propertyPanel -> disableLabelEditing();
+    
     // AddAndMakeVisibles
     addAndMakeVisible (*sourceFilePanel);
     addAndMakeVisible (*propertyPanel);
@@ -403,7 +409,6 @@ void MainComponent::selectionChanged ()
     
     
     
-    
     if (file.existsAsFile())
     {
         reader = formatManager.createReaderFor (file);
@@ -424,7 +429,15 @@ void MainComponent::selectionChanged ()
 
 void MainComponent::fileClicked(const File &file, const MouseEvent &e)
 {
-
+    
+    // Case: User deselects File and thus no files are selected. Therefore, disable label editing
+    if (e.mods.isCommandDown()) {
+        if (sourceFilePanel -> getNumSelectedFiles() == 1) {
+            propertyPanel -> disableLabelEditing();
+        }
+    }
+    
+    
 }
 
 void MainComponent::fileDoubleClicked(const File &file)
