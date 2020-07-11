@@ -64,6 +64,7 @@ private:
         Playing,
         Stopping
     };
+    
     int playbackStartPosition {0};
     int playbackTimeSelectionRange {0};
     
@@ -77,7 +78,7 @@ private:
     std::unique_ptr<WavAudioFormat> wavAudioFormat;
     
     // FileBrowser and accompanying variables;
-    int fileChooserFlag;
+    int fileChooserFlag {0};
     
     
     // Folder for storing temporary exported files

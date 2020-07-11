@@ -52,8 +52,17 @@ public:
     
     inline int getComponentWidth ()            const noexcept  {   return this -> getWidth ();                  }
 
+    void setCurrentlySelectedFile (const File& file) noexcept    {    currentlySelectedFile = file;      }
+    
+    void exportSelectedFile (const String& outputPath);
+    
     AudioThumbnailCache thumbnailCache  {512};
     AudioThumbnail thumbnail;
+    
+    
+    AudioFormatManager formatManager;
+    AudioFormatReader* reader;
+    AudioSubsectionReader* subsectionReader;
     
     
 private:
@@ -72,6 +81,9 @@ private:
     bool isRectangleActive {false};
     
     std::unique_ptr<WaveformRangeSelector> rangeSelector;
+    
+    
+    File currentlySelectedFile;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

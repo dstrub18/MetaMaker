@@ -18,6 +18,9 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
+    formatManager.registerBasicFormats();
+    
+    
     rangeSelector = std::make_unique<WaveformRangeSelector>(100, height);
     
     
@@ -38,8 +41,6 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     
     addChildComponent(*progressbar);
     progressbar -> setVisible(false);
-    
-    
     
     
     amplitudeZoomSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -109,7 +110,6 @@ void WaveformPanel::mouseDown(const MouseEvent &event)
     /// Right Click: Reset selector
     if(event.mods == ModifierKeys::rightButtonModifier && isRectangleActive)
     {
-        
         rangeSelector -> setSize (0, getHeight());
         rangeSelector -> setTopLeftPosition (0,0);
         isRectangleActive = false;
@@ -125,9 +125,6 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
     if (event.mods == ModifierKeys::leftButtonModifier && !isRectangleActive)
     {
 
-  
-        
-        
         if (event.getMouseDownPosition ().getX () > event.getPosition ().getX ())
         {
             // Case: Cursor is left of event down position
@@ -143,11 +140,7 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
             rangeSelector -> setTopLeftPosition (event.getMouseDownPosition().getX (), 0);
             rangeSelector -> setSize (event.getDistanceFromDragStartX (), getHeight ());
         }
-        
-        
     }
-    
-    
 }
 
 void WaveformPanel::mouseUp (const MouseEvent &event)
@@ -164,11 +157,31 @@ void WaveformPanel::mouseUp (const MouseEvent &event)
         if (rangeSelector -> getWidth() != 0) {
             isRectangleActive = true;
         }
-        
-        
+   
     }
 }
 
+
+void WaveformPanel::exportSelectedFile(const String& outputPath)
+{
+    if (currentlySelectedFile.existsAsFile())
+    {
+        reader = formatManager.createReaderFor(currentlySelectedFile);
+        
+        if (reader != nullptr)
+        {
+            File outputFile (outputPath + "/" + currentlySelectedFile.getFileName());
+            
+            float rectangleStartPosition = getRectangleStartPosition();
+            float totalWaveformWidth = getWidth();
+            float rectangleWidth = getRectangleWidth();
+            
+            
+        }
+    }
+    
+    
+}
 
 void WaveformPanel::paint (Graphics& g)
 {

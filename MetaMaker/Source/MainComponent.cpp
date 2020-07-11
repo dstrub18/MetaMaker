@@ -256,7 +256,6 @@ void MainComponent::buttonClicked(Button* button)
             
             if (reader != nullptr)
             {
-                
                 //File file  = sourceFilePanel -> getCurrentFile();
                 std::shared_ptr <StringPairArray> metaDataValues = std::make_shared<StringPairArray> (reader -> metadataValues);
                 // metaDataValues -> set("bwav description", editingPanel -> getTextFromEditingLabel() );
@@ -366,8 +365,6 @@ void MainComponent::buttonClicked(Button* button)
 #pragma mark Export
     if (button == buttonPanel -> getExportButton ())
     {
-        Logger::writeToLog("Export pressed");
-        
         File inputFile = sourceFilePanel -> getCurrentFile();
 
         if (inputFile.existsAsFile()) // is File not directory?
@@ -376,6 +373,8 @@ void MainComponent::buttonClicked(Button* button)
             
             if (reader != nullptr) // Read correctly?
             {
+                waveformPanel -> exportSelectedFile (outputPathNode.getPropertyAsValue(outputPath_ID, nullptr).toString());
+                
                 float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
                 float totalWaveformWidth = waveformPanel -> getWidth();
                 float rectangleWidth = waveformPanel -> getRectangleWidth();
@@ -426,6 +425,8 @@ void MainComponent::selectionChanged ()
     else
     {
         propertyPanel -> enableLabelEditing ();
+        waveformPanel -> setCurrentlySelectedFile(file);
+        
     }
     
     
