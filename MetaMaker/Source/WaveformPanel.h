@@ -20,7 +20,8 @@
 */
 class WaveformPanel    : public Component,
                          public ChangeListener,
-                         public juce::Component::MouseListener
+                         public juce::Component::MouseListener,
+                         public DragAndDropContainer
                          
 {
 public:
@@ -57,12 +58,13 @@ public:
     void exportSelectedFile (const String& outputPath);
     
     
-    std::unique_ptr<WavAudioFormat> wavAudioFormat;
+    
     
     AudioThumbnailCache thumbnailCache  {512};
     AudioThumbnail thumbnail;
     
     
+    std::unique_ptr<WavAudioFormat> wavAudioFormat;
     AudioFormatManager audioFormatManager;
     AudioFormatReader* reader;
     AudioSubsectionReader* subsectionReader;
@@ -70,7 +72,7 @@ public:
     
 private:
     
-    double progress;
+    double progress {0.0};
     std::unique_ptr<ProgressBar> progressbar;
     
     Slider amplitudeZoomSlider;
@@ -78,15 +80,12 @@ private:
     Rectangle<int> waveFormArea;
     
     // Waveform SelectEditor
-    
-    Rectangle<int> selectorRect;
-    Point<int> selectorStartPoint;
     bool isRectangleActive {false};
     
     std::unique_ptr<WaveformRangeSelector> rangeSelector;
     
-    
     File currentlySelectedFile;
+    File outputFile;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformPanel)
 };

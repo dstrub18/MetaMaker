@@ -40,7 +40,7 @@ void WaveformRangeSelector::mouseDown  (const MouseEvent &event)
 void WaveformRangeSelector::mouseDrag  (const MouseEvent &event)
 {
     auto dragC = DragAndDropContainer::findParentDragContainerFor(this);
-    
+
     if (dragC -> isDragAndDropActive() == false)
     {
         dragC -> startDragging("descr", this);
@@ -58,9 +58,6 @@ void WaveformRangeSelector::mouseEnter  (const MouseEvent &event)
 
 
 
-
-
-
 void WaveformRangeSelector::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and
@@ -70,10 +67,12 @@ void WaveformRangeSelector::paint (Graphics& g)
        drawing code..
     */
     g.setColour(Colours::turquoise);
-    if (this -> isMouseOver()) {
+    
+    if (this -> isMouseOver())
+    {
         g.setColour(Colours::red);
-        
     }
+    
     if (this -> isMouseButtonDown())
     {
         g.setColour(Colours::black);

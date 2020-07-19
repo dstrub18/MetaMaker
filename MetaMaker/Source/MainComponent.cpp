@@ -365,39 +365,7 @@ void MainComponent::buttonClicked(Button* button)
 #pragma mark Export
     if (button == buttonPanel -> getExportButton ())
     {
-        
-                waveformPanel -> exportSelectedFile (settingsWindowPanel -> getOutputPath());
-//
-//                float rectangleStartPosition = waveformPanel -> getRectangleStartPosition();
-//                float totalWaveformWidth = waveformPanel -> getWidth();
-//                float rectangleWidth = waveformPanel -> getRectangleWidth();
-//
-//                File outputFile (settingsWindowPanel -> getOutputPath() + "/" + inputFile.getFileName());
-//                Logger::writeToLog(inputFile.getFileName());
-//                Logger::writeToLog(outputFile.getFileName());
-//                Logger::writeToLog(outputFile.getFullPathName());
-//                std::unique_ptr<AudioFormatWriter> writer;
-//                writer.reset(wavAudioFormat -> createWriterFor(new FileOutputStream (outputFile), reader -> sampleRate, reader -> numChannels, reader -> bitsPerSample, reader -> metadataValues, 0));
-//
-//                if (writer != nullptr) // Writer created correctly?
-//                {
-//                    if (rectangleWidth > 0)
-//                    {
-//                        subsectionReader = new AudioSubsectionReader (reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, false);
-//                        writer -> writeFromAudioReader(*subsectionReader, 0, -1);
-//
-//                    }
-//                    else
-//                    {
-//                        writer -> writeFromAudioReader(*reader, 0, -1);
-//                    }
-//                }
-//
-//                /// This can be done better!
-//                delete subsectionReader;
-//                delete reader;
-//
-
+        waveformPanel -> exportSelectedFile (settingsWindowPanel -> getOutputPath());
     }
     
 }

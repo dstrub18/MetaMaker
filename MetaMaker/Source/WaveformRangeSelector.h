@@ -26,21 +26,23 @@ public:
     WaveformRangeSelector(const int& width, const int& height);
     
     ~WaveformRangeSelector();
+    
 
     // MouseListener inherited functions
     void mouseDown  (const MouseEvent &event) override;
     void mouseDrag  (const MouseEvent &event) override;
     void mouseUp    (const MouseEvent &event) override;
-    void mouseEnter  (const MouseEvent &event) override;
+    void mouseEnter (const MouseEvent &event) override;
     
     
     void paint (Graphics&) override;
     void resized() override;
     
-    void startDragging ();
 
+    void setCurrentlySelectedFile (const File& file) noexcept    {    currentlySelectedFile = file;      }
+    
 private:
 
-    
+    File currentlySelectedFile;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformRangeSelector)
 };

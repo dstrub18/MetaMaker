@@ -17,14 +17,13 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
+   
     
     audioFormatManager.registerBasicFormats();
+    wavAudioFormat = std::make_unique<WavAudioFormat> ();
     
     rangeSelector = std::make_unique<WaveformRangeSelector>(100, height);
     
-    wavAudioFormat = std::make_unique<WavAudioFormat> ();
-    
-    setSize(width, height);
     
     
     
@@ -45,7 +44,6 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     amplitudeZoomSlider.setTopLeftPosition(GUIDefines::universalWidth - 30, 0);
     amplitudeZoomSlider.setVisible (false);
     amplitudeZoomSlider.setSize(30, 200);
-    //amplitudeZoomSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 400, 20);
     amplitudeZoomSlider.setRange(0.1, 2.0);
     amplitudeZoomSlider.setValue(1.0);
     
@@ -65,6 +63,8 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     
     thumbnail.addChangeListener(this);
     
+    
+    setSize(width, height);
     }
 
 
@@ -140,6 +140,7 @@ void WaveformPanel::mouseDrag (const MouseEvent &event)
             rangeSelector -> setSize (event.getDistanceFromDragStartX (), getHeight ());
         }
     }
+    
 }
 
 void WaveformPanel::mouseUp (const MouseEvent &event)
@@ -169,7 +170,7 @@ void WaveformPanel::exportSelectedFile(const String& outputPath)
         
         if (reader != nullptr)
         {
-            File outputFile (outputPath + "/" + currentlySelectedFile.getFileName());
+            outputFile = File (outputPath + "/" + currentlySelectedFile.getFileName());
             
             float rectangleStartPosition = getRectangleStartPosition();
             float totalWaveformWidth = getWidth();
@@ -194,10 +195,6 @@ void WaveformPanel::exportSelectedFile(const String& outputPath)
             }
             delete reader;
         /// Sketchy Territory!!!
-            
-            
-            
-            Logger::writeToLog ("Reached end!");
             
         }
         
@@ -239,7 +236,7 @@ void WaveformPanel::paint (Graphics& g)
         {
             g.setColour (Colours::turquoise);
             g.setOpacity(0.4);
-            g.fillRect(selectorRect);
+            g.fillRect(rangeSelector -> getBounds());
         }
         
     }
