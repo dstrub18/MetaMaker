@@ -60,7 +60,7 @@ public:
     AudioThumbnail thumbnail;
     
     
-    AudioFormatManager formatManager;
+    AudioFormatManager audioFormatManager;
     AudioFormatReader* reader;
     AudioSubsectionReader* subsectionReader;
     

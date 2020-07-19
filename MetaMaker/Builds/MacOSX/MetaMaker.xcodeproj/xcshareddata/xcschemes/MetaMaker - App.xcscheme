@@ -27,6 +27,8 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -36,8 +38,8 @@
             ReferencedContainer = "container:MetaMaker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <Testables>
-      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -52,7 +54,7 @@
       <PathRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "com.yourcompany.MetaMaker"
-         FilePath = "/Users/danielstrubig/Documents/JUCE/MetaMaker/MetaMaker/Builds/MacOSX/build/Debug/MetaMaker.app">
+         FilePath = "/Users/strue-audio/Documents/CodingProjects/MetaMaker/MetaMaker/MetaMaker/Builds/MacOSX/build/Debug/MetaMaker.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference

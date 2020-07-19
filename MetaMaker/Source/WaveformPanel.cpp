@@ -18,7 +18,7 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     
-    formatManager.registerBasicFormats();
+    audioFormatManager.registerBasicFormats();
     
     
     rangeSelector = std::make_unique<WaveformRangeSelector>(100, height);
@@ -166,7 +166,7 @@ void WaveformPanel::exportSelectedFile(const String& outputPath)
 {
     if (currentlySelectedFile.existsAsFile())
     {
-        reader = formatManager.createReaderFor(currentlySelectedFile);
+        reader = audioFormatManager.createReaderFor(currentlySelectedFile);
         
         if (reader != nullptr)
         {
