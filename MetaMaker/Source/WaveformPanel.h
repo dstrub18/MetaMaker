@@ -56,6 +56,9 @@ public:
     
     void exportSelectedFile (const String& outputPath);
     
+    
+    std::unique_ptr<WavAudioFormat> wavAudioFormat;
+    
     AudioThumbnailCache thumbnailCache  {512};
     AudioThumbnail thumbnail;
     

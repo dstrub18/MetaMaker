@@ -20,9 +20,9 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     
     audioFormatManager.registerBasicFormats();
     
-    
     rangeSelector = std::make_unique<WaveformRangeSelector>(100, height);
     
+    wavAudioFormat = std::make_unique<WavAudioFormat> ();
     
     setSize(width, height);
     
@@ -32,8 +32,6 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
     progressbar = std::make_unique<ProgressBar>(progress);
     progressbar -> setColour(ProgressBar::backgroundColourId, Colours::aquamarine);
     progressbar -> setColour(ProgressBar::foregroundColourId, Colours::green);
-    
-    
     
     progressbar -> setSize(200, 20);
     progressbar -> setTopLeftPosition(0, 5);
@@ -72,6 +70,7 @@ WaveformPanel::WaveformPanel(int sourceSamplesPerThumbnailSample,
 
 WaveformPanel::~WaveformPanel()
 {
+    
 }
 
 void WaveformPanel::changeListenerCallback (ChangeBroadcaster* source)
@@ -176,8 +175,35 @@ void WaveformPanel::exportSelectedFile(const String& outputPath)
             float totalWaveformWidth = getWidth();
             float rectangleWidth = getRectangleWidth();
             
+            std::unique_ptr<AudioFormatWriter> writer;
+            writer.reset(wavAudioFormat -> createWriterFor(new FileOutputStream (outputFile), reader -> sampleRate, reader -> numChannels, reader -> bitsPerSample, reader -> metadataValues, 0));
+            
+            if (writer != nullptr) // Writer created correctly?
+            {
+                if (rectangleWidth > 0)
+                {
+                    subsectionReader = new AudioSubsectionReader (reader, rectangleStartPosition / totalWaveformWidth * reader ->lengthInSamples, rectangleWidth / totalWaveformWidth * reader ->lengthInSamples, false);
+                    writer -> writeFromAudioReader(*subsectionReader, 0, -1);
+                    delete subsectionReader;
+                }
+                else
+                {
+                    writer -> writeFromAudioReader(*reader, 0, -1);
+                    
+                }
+            }
+            delete reader;
+        /// Sketchy Territory!!!
+            
+            
+            
+            Logger::writeToLog ("Reached end!");
             
         }
+        
+        
+        
+        
     }
     
     
