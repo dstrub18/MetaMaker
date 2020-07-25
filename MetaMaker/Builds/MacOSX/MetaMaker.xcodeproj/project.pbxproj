@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 8DB3967A4F3BB024E6C2FD34;
 		};
+		D930F9C3058A2D23DA1D42F2 = {
+			isa = PBXBuildFile;
+			fileRef = D9A555C9B26BECC49BF9B560;
+		};
 		AA517CC31050B9FA991D4D8D = {
 			isa = PBXBuildFile;
 			fileRef = D6DD67A361A2E4ACF7D79B10;
@@ -506,6 +510,13 @@
 			path = ../../Source/SettingsWindow.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		D9A555C9B26BECC49BF9B560 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioFileExporter.cpp;
+			path = ../../Source/AudioFileExporter.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		E44F7441D867D951851F1BA4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -532,6 +543,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = Main.cpp;
 			path = ../../Source/Main.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		EC8687EEA328A9609E2945A3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioFileExporter.h;
+			path = ../../Source/AudioFileExporter.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		EDC646DF958D669939FEBC25 = {
@@ -579,6 +597,8 @@
 		EEE42443086007FF536B08CD = {
 			isa = PBXGroup;
 			children = (
+				D9A555C9B26BECC49BF9B560,
+				EC8687EEA328A9609E2945A3,
 				D6DD67A361A2E4ACF7D79B10,
 				1DA1C65768787D5908819657,
 				53CCE3E67E44E8BAA0855A29,
@@ -914,6 +934,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D930F9C3058A2D23DA1D42F2,
 				AA517CC31050B9FA991D4D8D,
 				F879350DCECC90F384BAF0D9,
 				24FE964556565D8499D9EEA7,

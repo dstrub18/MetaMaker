@@ -48,12 +48,12 @@ public:
 
     void resized() override;
     
-    inline int getRectangleWidth ()            const noexcept  {   return this -> rangeSelector -> getWidth (); }
-    inline int getRectangleStartPosition ()    const noexcept  {   return this -> rangeSelector -> getX ();     }
+    inline int getRectangleWidth ()            const noexcept   {   return this -> rangeSelector -> getWidth (); }
+    inline int getRectangleStartPosition ()    const noexcept   {   return this -> rangeSelector -> getX ();     }
     
-    inline int getComponentWidth ()            const noexcept  {   return this -> getWidth ();                  }
+    inline int getComponentWidth ()            const noexcept   {   return this -> getWidth ();                  }
 
-    void setCurrentlySelectedFile (const File& file) noexcept    {    currentlySelectedFile = file;      }
+    void setCurrentlySelectedFile (const File& file) noexcept   {    currentlySelectedFile = file;               }
     
     void exportSelectedFile (const String& outputPath);
     

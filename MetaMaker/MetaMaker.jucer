@@ -4,6 +4,10 @@
               jucerFormatVersion="1">
   <MAINGROUP id="wjIBQh" name="MetaMaker">
     <GROUP id="{6D2151D4-0EFF-A9DE-B4A0-F8403FA505FA}" name="Source">
+      <FILE id="Ey6gu3" name="AudioFileExporter.cpp" compile="1" resource="0"
+            file="Source/AudioFileExporter.cpp"/>
+      <FILE id="ePIBoa" name="AudioFileExporter.h" compile="0" resource="0"
+            file="Source/AudioFileExporter.h"/>
       <FILE id="tM7Aq2" name="SettingsWindow.cpp" compile="1" resource="0"
             file="Source/SettingsWindow.cpp"/>
       <FILE id="EOzUDH" name="SettingsWindow.h" compile="0" resource="0"
